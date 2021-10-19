@@ -81,7 +81,10 @@ public class PlayerController : MonoBehaviour
         if (velocity == Vector2.zero) return; //Do not rotate bug if it is stationary
 
         Vector3 targetRotation = currentJoystick;
-        float angle = (Mathf.Atan2(targetRotation.x, targetRotation.z) * Mathf.Rad2Deg);
+
+        targetRotation = new Vector3(0,currentJoystick.x, currentJoystick.y);
+
+        float angle = (Mathf.Atan2(targetRotation.z, targetRotation.x) * Mathf.Rad2Deg);
         Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
         body.rotation = Quaternion.Slerp(body.rotation, oog, rotationLerpSpeed * Time.deltaTime);
         
