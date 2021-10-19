@@ -8,6 +8,8 @@ public class PlayerControl : MonoBehaviour
     public float speed = 0;
     [SerializeField] float killY = -20f;
 
+    float timer = 0;
+
     private Rigidbody rb;
 
     private float movementX;
@@ -27,6 +29,8 @@ public class PlayerControl : MonoBehaviour
     }
     private void Update()
     {
+        timer += Time.deltaTime;
+
         if (rb.position.y <= killY) 
         {
             Debug.Log("WHOA holy fuck bro you despawned, maybe change killY if you keep dying lol");
