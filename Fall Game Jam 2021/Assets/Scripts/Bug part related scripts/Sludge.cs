@@ -24,7 +24,7 @@ public class Sludge : MonoBehaviour
     IEnumerator fadeAway()
     {
         //wait initial time then slowly fade away and then destroy out sludgy puddle owow
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(4.0f);
         int x = 50;
         while (x > 0)
         {
