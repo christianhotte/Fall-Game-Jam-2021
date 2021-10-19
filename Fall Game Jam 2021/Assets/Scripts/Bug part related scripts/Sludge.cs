@@ -25,11 +25,11 @@ public class Sludge : MonoBehaviour
     {
         //wait initial time then slowly fade away and then destroy out sludgy puddle owow
         yield return new WaitForSeconds(4.0f);
-        int x = 50;
+        int x = 500;
         while (x > 0)
         {
-            yield return new WaitForSeconds(.15f);
-            sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a - .05f);
+            yield return new WaitForSeconds(.05f);
+            sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a - .015f);
             print(sp.color.a);
             if (sp.color.a <= 0)
             {
@@ -38,4 +38,7 @@ public class Sludge : MonoBehaviour
             x--;
         }
     }
+
+    
+
 }
