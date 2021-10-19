@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     public float speed = 0;
+    [SerializeField] float killY = -20f;
 
     private Rigidbody rb;
 
@@ -26,7 +27,12 @@ public class PlayerControl : MonoBehaviour
     }
     private void Update()
     {
-        if (rb.position.y <= -20) { rb.position = new Vector3(0, 2, 0); rb.velocity = new Vector3(0, 0, 0); }
+        if (rb.position.y <= killY) 
+        {
+            Debug.Log("WHOA holy fuck bro you despawned, maybe change killY if you keep dying lol");
+            rb.position = new Vector3(0, 2, 0);
+            rb.velocity = new Vector3(0, 0, 0);
+        }
     }
 
     private void FixedUpdate()
