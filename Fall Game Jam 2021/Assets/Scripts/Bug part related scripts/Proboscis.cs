@@ -23,9 +23,9 @@ public class Proboscis : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
        
-        held.transform.parent = null;
-        held = null;
-        StartCoroutine("recharge");
+        //held.transform.parent = null;
+      //  held = null;
+      //  StartCoroutine("recharge");
     }
     IEnumerator recharge()
     {
