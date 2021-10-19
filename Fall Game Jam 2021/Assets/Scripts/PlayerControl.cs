@@ -24,6 +24,10 @@ public class PlayerControl : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
+    private void Update()
+    {
+        if (rb.position.y <= -20) { rb.position = new Vector3(0, 2, 0); rb.velocity = new Vector3(0, 0, 0); }
+    }
 
     private void FixedUpdate()
     {
