@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     public float baseMaxSpeed; //How fast the bug go
     public float baseAccel; //How fast bug accelerates to max speed
     public float baseDrag; //How fast the bug stops when it is not being controlled
+    public float baseMaxRotationSpeed; //How fast bug body lerps to direction of motion (speed is also factored in)
     //Experimental stuff:
     public float baseSize;     //How big the bug be (scale of bug in Unity units)
     public float baseWeight;   //How hard bug is to push around
     [Header("Movement Stuff:")]
     public float bugStopSnap; //How close to Vector2.zero bug velocity must be for bug to stop (should just be a really small number)
-    public float rotationLerpSpeed; //How fast bug body lerps to direction of motion (speed is also factored in)
+    public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
+    public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
 
     //Memory Vars:
     private Vector2 currentJoystick; //Where the joystick was last time it changed
@@ -53,7 +55,7 @@ public class PlayerController : MonoBehaviour
         if (currentJoystick != Vector2.zero) //Bug being moved by player
         {
             targetVelocity = currentJoystick * baseMaxSpeed; //Get target velocity for bug
-            accelFactor = baseAccel;
+            accelFactor = baseAccel * speedAccelCurve.Evaluate(GetNormalizedSpeed()); //Apply acceleration curve to accel speed
         }
         else //No joystick input
         {
@@ -78,25 +80,17 @@ public class PlayerController : MonoBehaviour
     {
         //Function: Rotates bug body to match direction of travel (scales based on speed)
 
-        if (velocity == Vector2.zero) return; //Do not rotate bug if it is stationary
-
-        Vector3 targetRotation = currentJoystick;
-
-        targetRotation = new Vector3(0,currentJoystick.x, currentJoystick.y);
-
-        float angle = (Mathf.Atan2(targetRotation.z, targetRotation.x) * Mathf.Rad2Deg);
-        Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
-        body.rotation = Quaternion.Slerp(body.rotation, oog, rotationLerpSpeed * Time.deltaTime);
+        if (currentJoystick == Vector2.zero) return; //Do not rotate bug if it is stationary
         
-        /*Vector3 currentRotation = body.eulerAngles;
-        Vector3 targetRotation = currentRotation; targetRotation.z = Vector2.Angle(Vector2.up, currentJoystick);
-        Vector3 newRotation = new Vector3(currentRotation.x, currentRotation.y,
-            Mathf.LerpAngle(currentRotation.z, Vector2.Angle(Vector2.up, currentJoystick), rotationLerpSpeed));
-        body.eulerAngles = newRotation;*/
-        //float currentAngle = body.eulerAngles.z;
-        //float targetAngle = Vector2.Angle(Vector2.up, currentJoystick);
-        //float newRotation = Mathf.LerpAngle(currentAngle, targetAngle, rotationLerpSpeed * Time.deltaTime);
+        //Get stuff:
+        Vector3 targetRotation = new Vector3(0,currentJoystick.x, currentJoystick.y);
+        float turnSpeedModifier = speedRotSpeedCurve.Evaluate(GetNormalizedSpeed());
+        float rotationStrength = baseMaxRotationSpeed * turnSpeedModifier * Time.deltaTime;
 
+        //Rotate bug:
+        float angle = (Mathf.Atan2(targetRotation.y, targetRotation.z) * Mathf.Rad2Deg);
+        Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
+        body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength);
     }
 
     //INPUT METH:
@@ -137,5 +131,13 @@ public class PlayerController : MonoBehaviour
     {
         //Called when button is pressed
 
+    }
+
+    //UTILITY FUNCTIONS:
+    private float GetNormalizedSpeed()
+    {
+        //Function: Returns speed as percentage (0-1), with 1 being the player's current maximum possible speed
+
+        return Mathf.InverseLerp(0, baseMaxSpeed, velocity.magnitude);
     }
 }
