@@ -5,12 +5,13 @@ using TMPro;
 
 public class MenuStartup : MonoBehaviour
 {
+    
     public AudioClip letterCrash;
     [SerializeField]
 
     string GameTitle;
     private int titleLength;
-    string currentTitle = "";
+   // string currentTitle = "";
 
     public AudioSource ASource;
     public TextMeshPro tmp;
@@ -39,6 +40,6 @@ public class MenuStartup : MonoBehaviour
 
         }
     }
-
+   
 
 }
