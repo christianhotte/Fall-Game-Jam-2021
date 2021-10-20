@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 {
     //Objects & Components:
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
+    private Collider bodyCollider; //This bug's body collider
+    private Collider headCollider; //This bug's head collider
 
     //Bugstats:
     [Header("Stats:")]
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
     internal float rotationSpeedModifier; //Additional (or subtractive) rotation speed
     internal float sizeModifier; //Additional (or subtractive) bug size
     internal float strengthModifier; //Additional (or subtractive) bugstrength
+    internal float knockbackResistModifier = 1; //[0-1] Amount bug resists being bumped (percentage decrease in incoming bumps)
     [Header("Movement Stuff:")]
     public float bugStopSnap; //How close to Vector2.zero bug velocity must be for bug to stop (should just be a really small number)
     public float bumpBaseForce; //How much force is naturally applied to bug when they bump into things (and other bugs)
@@ -44,6 +47,8 @@ public class PlayerController : MonoBehaviour
     {
         //Get Objects and Components:
         body = transform.Find("Body"); //Get body
+        headCollider = transform.GetChild(0).GetChild(0).GetComponent<Collider>();
+        bodyCollider = transform.GetChild(0).GetChild(1).GetComponent<Collider>();
 
         //Stats:
         transform.localScale = new Vector3(baseSize, baseSize, baseSize); //Set initial scale
@@ -105,22 +110,43 @@ public class PlayerController : MonoBehaviour
     }
 
     //BUG METHODS:
-    public void BugBump(Vector2 bumpDirection, PlayerController hitBug)
+    public void BugBump(Collider other)
     {
-        //Function: Called when this bug's head hits any part of another bug, determines how hard it hits the thing (and the recoil if any)
+        //Function: Called when this bug's head hits any part of another bug, determines how hard it hits the thing
+        //NOTE: Bumps the other bug based on bugstats
+
+        //Get other bug:
+        PlayerController otherBug = other.GetComponentInParent<PlayerController>();
 
         //Determine modifiers:
         float hitStrength = baseStrength + strengthModifier; //Get normal hit strength
         hitStrength *= speedBumpCurve.Evaluate(GetNormalizedSpeed());
+        hitStrength *= otherBug.knockbackResistModifier; //Apply knockback resistance
 
         //Determine force:
-        Vector2 hitForce = Vector2.up * hitStrength; //Get initial vector for hitforce
-        
+        float bugAngle = Vector2.Angle(transform.localPosition, otherBug.transform.localPosition)
+        //Vector2 hitDirection = Vector2.up; //Get initial directional vector (normalized)
+        Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
+
+        Debug.Log(hitForce);
+        otherBug.velocity += hitForce;
+
+        //Cleanup:
+        lastBugTouched = otherBug;
     }
-    public void BugBounce(Vector2 bumpDirection, PlayerController hitBug)
+    public void BugBounce(Collider other)
     {
         //Function: Called when this bug's body hits the body of another bug
+        //NOTE: Gently bounces this bug away from the other bug
 
+        //Get other bug:
+        PlayerController otherBug = other.GetComponentInParent<PlayerController>();
+
+
+        //Debug.Log("BugBounce");
+
+        //Cleanup:
+        lastBugTouched = otherBug;
     }
     private void BugDie()
     {
