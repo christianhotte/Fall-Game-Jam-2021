@@ -20,6 +20,7 @@ public class InputMaster : MonoBehaviour
         //One of these will be created (under a controller) every time a new joystick (or WASD set) gets used
 
         public float timeSinceLastInput; //Time (in seconds) since player last touched joystick, used to despawn characters
+
     }
 
     //Objects & Components:
@@ -43,20 +44,5 @@ public class InputMaster : MonoBehaviour
         
     }
 
-    //CONNECTION METHODS:
-    public void OnPlayerJoined(PlayerInput input)
-    {
-        //Called when a new controller is detected
-
-        /*if (input.)
-        {
-            Debug.Log("oog");
-        }*/
-    }
-    public void OnPlayerLeft(PlayerInput input)
-    {
-        //Called when a controller disconnects
-
-
-    }
+    
 }
