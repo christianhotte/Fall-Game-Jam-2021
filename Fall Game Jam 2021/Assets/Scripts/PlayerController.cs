@@ -65,8 +65,8 @@ public class PlayerController : MonoBehaviour
         float accelFactor;
         if (currentJoystick != Vector2.zero) //Bug being moved by player
         {
-            targetVelocity = currentJoystick * baseMaxSpeed; //Get target velocity for bug
-            accelFactor = baseAccel * speedAccelCurve.Evaluate(GetNormalizedSpeed()); //Apply acceleration curve to accel speed
+            targetVelocity = currentJoystick * (baseMaxSpeed + speedModifier); //Get target velocity for bug
+            accelFactor = (baseAccel + accelModifier) * speedAccelCurve.Evaluate(GetNormalizedSpeed()); //Apply acceleration curve to accel speed
         }
         else //No joystick input
         {
@@ -101,15 +101,26 @@ public class PlayerController : MonoBehaviour
         //Rotate bug:
         float angle = (Mathf.Atan2(targetRotation.y, targetRotation.z) * Mathf.Rad2Deg);
         Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
-        body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength);
+        body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength + rotationSpeedModifier);
     }
 
-    //GAME METHODS:
-    public void BugBump(bool thisBugHit, Vector2 bumpDirection, PlayerController hitBug)
+    //BUG METHODS:
+    public void BugBump(Vector2 bumpDirection, PlayerController hitBug)
     {
-        //Function: Called when the bug hits a thing
+        //Function: Called when this bug's head hits any part of another bug, determines how hard it hits the thing (and the recoil if any)
 
+        //Determine modifiers:
+        float hitStrength = baseStrength + strengthModifier; //Get normal hit strength
+        hitStrength *= speedBumpCurve.Evaluate(GetNormalizedSpeed());
+
+        //Determine force:
+        Vector2 hitForce = Vector2.up * hitStrength; //Get initial vector for hitforce
         
+    }
+    public void BugBounce(Vector2 bumpDirection, PlayerController hitBug)
+    {
+        //Function: Called when this bug's body hits the body of another bug
+
     }
     private void BugDie()
     {
