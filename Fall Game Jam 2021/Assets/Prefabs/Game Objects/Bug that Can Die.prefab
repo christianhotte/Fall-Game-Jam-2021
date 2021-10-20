@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 9160181383772631860}
   - component: {fileID: 9160181383772631865}
   - component: {fileID: 2502786202877449241}
+  - component: {fileID: -1855547072540487551}
   m_Layer: 8
   m_Name: Bug that Can Die
   m_TagString: Untagged
@@ -329,6 +330,19 @@ CapsuleCollider:
   m_Height: 3.6196566
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -0.04320669}
+--- !u!114 &-1855547072540487551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502786202877449240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b7c51b02545fa4bbd4122e793c1e83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDash: 0
 --- !u!1 &2502786203025259404
 GameObject:
   m_ObjectHideFlags: 0
