@@ -76,12 +76,9 @@ public class PlayerController : MonoBehaviour, IControllable
     private void Update()
     {
         //Bug Movement:
-        if (!BugDash.isDash)
-        {
             MoveBug();
             RotateBug();
-        }
-
+        
         //Check Last Bug Touched Expiration:
         if (lastBugTouched != null) // If bug touches this bug, forget it after 5 seconds to determine kill or suicide point
         {
@@ -263,7 +260,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Check Validity:
         if (bugDead) return; //DEATH LOCKOUT: Dead bugs make no moves
-        //@ALICE: If you want bug to not be able to steer while dashing, you can put something here to check for dash
+        if (BugDash.isDash) return; //DASH LOCKOUT: Bug cannot be steered while dashing (Alice)
 
         //Record Joystick Input:
         currentJoystick = input; //Update memory (nothing fancy)
@@ -274,7 +271,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Check Validity:
         if (bugDead) return; //DEATH LOCKOUT: Dead bugs make no moves
-        //@ALICE: Same as with joystick
+        if (BugDash.isDash) return; //DASH LOCKOUT: Bug cannot make action while dashing (Alice)
 
         //Compare Button State:
         if (pressed != currentButton)
@@ -291,6 +288,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private void ButtonDown()
     {
         //Called (by this script) when ACTION/ABILITY button is pressed
+        StartCoroutine(BugDash.Nyoom());
 
     }
     private void ButtonUp()
