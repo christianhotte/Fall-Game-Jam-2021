@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     public float bumpBaseForce; //How much force is naturally applied to bug when they bump into things (and other bugs)
     public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
     public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
-    public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump
+    public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump (power multiplier based on speed number)
     [Header("Debug Stuff:")]
     public bool useDebugInput;
 
@@ -105,12 +105,11 @@ public class PlayerController : MonoBehaviour
     }
 
     //GAME METHODS:
-    public void BugBump(bool thisBugHit, PlayerController hitBug)
+    public void BugBump(bool thisBugHit, Vector2 bumpDirection, PlayerController hitBug)
     {
         //Function: Called when the bug hits a thing
 
-        if (thisBugHit) Debug.Log("bug hit");
-        else Debug.Log("bugstrike");
+        
     }
     private void BugDie()
     {
