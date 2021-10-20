@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //INPUT METH:
-    public void OnMove(InputAction.CallbackContext context)
+    /*public void OnMove(InputAction.CallbackContext context)
     {
         //Temporary joystick functionality
         if (useDebugInput) ReceiveJoystick(context.ReadValue<Vector2>());
@@ -190,12 +190,11 @@ public class PlayerController : MonoBehaviour
         if (!useDebugInput) return;
         if (context.performed) ReceiveButton(true);
         else ReceiveButton(false);
-    }
+    }*/
     public void ReceiveJoystick(Vector2 input)
     {
         //Should be the normalized joystick value
 
-        //Cleanup:
         currentJoystick = input; //Update memory
     }
     public void ReceiveButton(bool pressed)
