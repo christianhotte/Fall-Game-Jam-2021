@@ -288,8 +288,9 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   bugDeathTumbleVector: {x: 4, y: 5, z: 1}
+  lastHitTimeout: 3
   pointCountUI: {fileID: 5093678533653609814}
-  pointCountValue: 0
+  bugDead: 0
 --- !u!54 &9160181383772631860
 Rigidbody:
   m_ObjectHideFlags: 0

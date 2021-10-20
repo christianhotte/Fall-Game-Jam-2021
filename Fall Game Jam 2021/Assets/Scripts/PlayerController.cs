@@ -42,9 +42,10 @@ public class PlayerController : MonoBehaviour, IControllable
     public Vector3 bugDeathTumbleVector; //Vector determining force applied to bug when dying (and ragdolling)
 
     [Header("Score Stuff:")]
+    public float lastHitTimeout; //Amount of time that must pass before lastBugTouched is reset
     public TMP_Text pointCountUI;
-    public int pointCountValue = 0; // J - Score counter
-    float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
+    internal int pointCountValue = 0; // J - Score counter
+    private float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
 
     //Memory Vars:
     internal PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private bool currentButton;      //State the button was last time it changed
 
     //BugDie Stuff:
-    internal bool bugDead = false;   // J - triggers respawn timer
+    internal bool bugDead = false; //Indicates that bug is currently inactive
     private RaycastHit hit; //Container to store death raycasts
     private static int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
 
@@ -82,8 +83,13 @@ public class PlayerController : MonoBehaviour, IControllable
         //Check Last Bug Touched Expiration:
         if (lastBugTouched != null) // If bug touches this bug, forget it after 5 seconds to determine kill or suicide point
         {
-            killVsSuicideTimer += Time.deltaTime;
-            if (killVsSuicideTimer >= 3) lastBugTouched = null;
+            killVsSuicideTimer += Time.deltaTime; //Increment timer
+            if (killVsSuicideTimer >= lastHitTimeout) //Check if last hit has timed out
+            {
+                lastBugTouched = null; //Reset last bug touched
+                killVsSuicideTimer = 0; //Reset timer
+            }
+                
         }
     }
     private void FixedUpdate()
@@ -168,7 +174,8 @@ public class PlayerController : MonoBehaviour, IControllable
         velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
 
         //Cleanup:
-        lastBugTouched = otherBug;
+        lastBugTouched = otherBug; //Log other bug as bug last hit
+        killVsSuicideTimer = 0; //Reset timer
     }
     public void BugBounce(Collider other)
     {
@@ -189,7 +196,8 @@ public class PlayerController : MonoBehaviour, IControllable
         velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
 
         //Cleanup:
-        lastBugTouched = otherBug;
+        lastBugTouched = otherBug; //Log other bug as bug last hit
+        killVsSuicideTimer = 0; //Reset timer
     }
     public void BugDie()
     {
@@ -197,13 +205,23 @@ public class PlayerController : MonoBehaviour, IControllable
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
 
         //Mark Dead:
-        bugDead = true;
+        bugDead = true;                 //Indicate that bug is dead
         currentJoystick = Vector2.zero; //Cancel potential phantom inputs
         currentButton = false;          //Cancel potential phantom inputs
+        killVsSuicideTimer = 0;         //Reset timer
 
         //Determine Cause of Die:
-        if (lastBugTouched == null) { pointCountValue -= 1; pointCountUI.text = pointCountValue.ToString(); }// Suicide ADD UI CHANGE PLEASE
-        else { lastBugTouched.pointCountValue += 5; lastBugTouched.pointCountUI.text = pointCountValue.ToString(); } // Give other player a point
+        if (lastBugTouched == null) //Bug died on its own
+        {
+            //NOTE: NEED TO ADD UI CHANGE
+            pointCountValue -= 1; //Subtract a point from score
+            pointCountUI.text = pointCountValue.ToString();
+        }
+        else //Bug was killed by another bug
+        {
+            lastBugTouched.pointCountValue += 1; // Give other player a point
+            lastBugTouched.pointCountUI.text = pointCountValue.ToString();
+        }
 
         //Make Bug Look Dead:
         headBox.gameObject.SetActive(false); //Deactivate inter-bug collision
