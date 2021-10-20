@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour, IControllable
     float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
 
     //UI stuff:
-    public GameObject pointCountUI;
+    public TMP_Text pointCountUI;
 
     //Alice Dash Code Shit
     internal BugDash BugDash;
@@ -183,7 +183,7 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
-        if (lastBugTouched == null) { pointCountValue -= 1; }// Suicide ADD UI CHANGE PLEASE
+        if (lastBugTouched == null) { pointCountValue -= 1; pointCountUI.text = pointCountValue.ToString(); }// Suicide ADD UI CHANGE PLEASE
         else lastBugTouched.pointCountValue += 1; // Give other player a point
     }
     public void ChangeBugSize(float newSize)
