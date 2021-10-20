@@ -24,7 +24,8 @@ public class ActiveBugAbility : MonoBehaviour
         //test cases for abilities
         PC = gameObject.GetComponent<PlayerController>();
 
-        addAbillity(3);
+        addAbillity(0);
+        addAbillity(2);
     }
     public void addAbillity(int abilityID)
     {
@@ -57,7 +58,7 @@ public class ActiveBugAbility : MonoBehaviour
     }
 
     
-    private void UseBugAbility()
+    public void UseBugAbility()
     {
         if (AbilityReady)
         {
@@ -67,7 +68,7 @@ public class ActiveBugAbility : MonoBehaviour
         }
     }
     
-    //Note: Sludge effects are part of the sludgeobject
+    //Note: Sludge effects are part of the sludge object
     public void sludge()
     {
         Vector3 spawnposition = transform.position - (2*transform.forward);
