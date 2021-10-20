@@ -6,7 +6,9 @@ public class PassiveBugAdaptations : MonoBehaviour
 {
     // adaptations that change that stats or as persistent passive effects
     private PlayerController PC;
-    public bool gooTrail = false;
+    public bool gooTrail,anger,invisiblity = false;
+
+    private int angerHitsCounter = 0;
 
     private void Start()
     {

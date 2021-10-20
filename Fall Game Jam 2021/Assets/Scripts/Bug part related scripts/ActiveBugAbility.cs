@@ -11,6 +11,7 @@ public class ActiveBugAbility : MonoBehaviour
     /// 
     /// </summary>
     /// 
+    public GameObject webProjectile;
     public GameObject SludgePrefab;
 
     private bool AbilityReady = true;
@@ -23,8 +24,8 @@ public class ActiveBugAbility : MonoBehaviour
     {
         //test cases for abilities
 
-        addAbillity(0);
-        addAbillity(2);
+        
+        addAbillity(3);
     }
     public void addAbillity(int abilityID)
     {
@@ -38,6 +39,9 @@ public class ActiveBugAbility : MonoBehaviour
                 break;
             case 2:
                 ActiveBugAbility.OnAbilityUsed += grow;
+                break;
+            case 3:
+                ActiveBugAbility.OnAbilityUsed += webShot;
                 break;
             default:
                 print("no bug ability of that ID");
@@ -85,7 +89,13 @@ public class ActiveBugAbility : MonoBehaviour
         //boost into the air with flea legs
         GetComponent<Rigidbody>().AddForce(Vector3.up* launchPower);
     }
-        
+    public void webShot()
+    {
+        GameObject webBullet = Instantiate(webProjectile, transform.position += 2*Vector3.forward, Quaternion.identity);
+       //this line is weird
+        Vector3 launchDir = (transform.position - (transform.position += Vector3.forward)).normalized;
+        webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 2);
+    }
 
     public void leafSheild()
     {
