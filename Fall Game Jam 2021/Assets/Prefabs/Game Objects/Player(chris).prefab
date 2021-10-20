@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1668441459}
   - component: {fileID: 1668441462}
   - component: {fileID: 1668441461}
-  - component: {fileID: 1668441460}
   m_Layer: 0
   m_Name: Head
   m_TagString: Untagged
@@ -82,20 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &1668441460
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1668441458}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &789716482867003423
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,8 +163,9 @@ MonoBehaviour:
   baseDrag: 6
   baseMaxRotationSpeed: 7
   baseSize: 1
-  baseWeight: 1
+  baseStrength: 0
   bugStopSnap: 0.0001
+  bumpBaseForce: 0
   speedAccelCurve:
     serializedVersion: 2
     m_Curve:
@@ -237,6 +223,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  speedBumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useDebugInput: 1
 --- !u!114 &1144735152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,7 +347,6 @@ GameObject:
   - component: {fileID: 6747569428201196118}
   - component: {fileID: 6747569428201196119}
   - component: {fileID: 6747569428201196116}
-  - component: {fileID: 6747569428201196117}
   m_Layer: 0
   m_Name: Shell
   m_TagString: Untagged
@@ -425,17 +417,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6747569428201196117
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6747569428201196114}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

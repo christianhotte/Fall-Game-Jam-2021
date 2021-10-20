@@ -9,26 +9,37 @@ public class PlayerController : MonoBehaviour
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
 
     //Bugstats:
-    [Header("BugStats:")]
+    [Header("Stats:")]
     public float baseMaxSpeed; //How fast the bug go
-    public float baseAccel; //How fast bug accelerates to max speed
-    public float baseDrag; //How fast the bug stops when it is not being controlled
+    public float baseAccel;    //How fast bug accelerates to max speed
+    public float baseDrag;     //How fast the bug stops when it is not being controlled
     public float baseMaxRotationSpeed; //How fast bug body lerps to direction of motion (speed is also factored in)
-    //Experimental stuff:
     public float baseSize;     //How big the bug be (scale of bug in Unity units)
-    public float baseWeight;   //How hard bug is to push around
+    public float baseStrength; //How hard bug pushes other bugs around
+    [Header("BugStats:")]
+    internal float speedModifier; //Additional (or subtractive) speed
+    internal float accelModifier; //Additional (or subtractive) acceleration
+    internal float rotationSpeedModifier; //Additional (or subtractive) rotation speed
+    internal float sizeModifier; //Additional (or subtractive) bug size
+    internal float strengthModifier; //Additional (or subtractive) bugstrength
     [Header("Movement Stuff:")]
     public float bugStopSnap; //How close to Vector2.zero bug velocity must be for bug to stop (should just be a really small number)
+    public float bumpBaseForce; //How much force is naturally applied to bug when they bump into things (and other bugs)
     public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
     public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
+    public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump
+    [Header("Debug Stuff:")]
+    public bool useDebugInput;
 
     //Memory Vars:
     private Vector2 currentJoystick; //Where the joystick was last time it changed
     private bool currentButton;      //State the button was last time it changed
+    internal Vector2 velocity;       //How fast da bug is going
 
-    internal Vector2 velocity; //How fast da bug is going
+    //Game Vars:
+    internal PlayerController lastBugTouched; //Stores the last bug this bug bugged
 
-    //GAME METHODS:
+    //LOOP METHODS:
     private void Awake()
     {
         //Get Objects and Components:
@@ -93,15 +104,31 @@ public class PlayerController : MonoBehaviour
         body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength);
     }
 
+    //GAME METHODS:
+    public void BugBump(bool thisBugHit, PlayerController hitBug)
+    {
+        //Function: Called when the bug hits a thing
+
+        if (thisBugHit) Debug.Log("bug hit");
+        else Debug.Log("bugstrike");
+    }
+    private void BugDie()
+    {
+        //Function: Called when the bug die
+
+
+    }
+
     //INPUT METH:
     public void OnMove(InputAction.CallbackContext context)
     {
         //Temporary joystick functionality
-        ReceiveJoystick(context.ReadValue<Vector2>());
+        if (useDebugInput) ReceiveJoystick(context.ReadValue<Vector2>());
     }
     public void OnFire(InputAction.CallbackContext context)
     {
         //Temporary button functionality
+        if (!useDebugInput) return;
         if (context.performed) ReceiveButton(true);
         else ReceiveButton(false);
     }
