@@ -8,8 +8,6 @@ public class PlayerController : MonoBehaviour
 {
     //Objects & Components:
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
-    private Collider bodyCollider; //This bug's body collider
-    private Collider headCollider; //This bug's head collider
 
     //Bugstats:
     [Header("Stats:")]
@@ -28,7 +26,8 @@ public class PlayerController : MonoBehaviour
     internal float knockbackResistModifier = 1; //[0-1] Amount bug resists being bumped (percentage decrease in incoming bumps)
     [Header("Movement Stuff:")]
     public float bugStopSnap; //How close to Vector2.zero bug velocity must be for bug to stop (should just be a really small number)
-    public float bumpBaseForce; //How much force is naturally applied to bug when they bump into things (and other bugs)
+    [Range(0, 1)] public float bumpRecoilMultiplier; //Determines how much of a bump impacts the bug who initiates it
+    public float bounceBaseForce; //How much force is naturally applied to bug when they bump into things (and other bugs)
     public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
     public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
     public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump (power multiplier based on speed number)
@@ -48,8 +47,6 @@ public class PlayerController : MonoBehaviour
     {
         //Get Objects and Components:
         body = transform.Find("Body"); //Get body
-        headCollider = transform.GetChild(0).GetChild(0).GetComponent<Collider>();
-        bodyCollider = transform.GetChild(0).GetChild(1).GetComponent<Collider>();
 
         //Stats:
         transform.localScale = new Vector3(baseSize, baseSize, baseSize); //Set initial scale
@@ -122,19 +119,15 @@ public class PlayerController : MonoBehaviour
         //Determine modifiers:
         float hitStrength = baseStrength + strengthModifier; //Get normal hit strength
         hitStrength *= speedBumpCurve.Evaluate(GetNormalizedSpeed());
-        hitStrength *= otherBug.knockbackResistModifier; //Apply knockback resistance
 
         //Determine force:
-        Vector2 hitDirection = -(transform.position - otherBug.transform.position);
-     
-        Debug.DrawRay(transform.position, hitDirection);
-        print(transform.position +"and"+ otherBug.transform.position);
-        print(hitDirection);
-        //Vector2 hitDirection = Vector2.up.Rotate(bugAngle); //Get initial directional vector (normalized)
+        Vector2 hitDirection = Vector2.up.Rotate(body.eulerAngles.y);
+        hitDirection = Vector2.Reflect(hitDirection, Vector2.left);
         Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
         
-        //Debug.Log(hitForce);
-        otherBug.velocity += hitForce;
+        //Add force to bugs:
+        otherBug.velocity += hitForce * otherBug.knockbackResistModifier; //Bump other bug
+        velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
 
         //Cleanup:
         lastBugTouched = otherBug;
@@ -147,8 +140,15 @@ public class PlayerController : MonoBehaviour
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
 
+        //Determine force:
+        float hitStrength = bounceBaseForce; //Get hit strength
+        Vector2 hitDirection = Vector2.up.Rotate(body.eulerAngles.y);
+        hitDirection = Vector2.Reflect(hitDirection, Vector2.left);
+        Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
 
-        //Debug.Log("BugBounce");
+        //Add force to bugs:
+        otherBug.velocity += hitForce * otherBug.knockbackResistModifier; //Bump other bug
+        velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
 
         //Cleanup:
         lastBugTouched = otherBug;

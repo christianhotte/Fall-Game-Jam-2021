@@ -20,10 +20,32 @@ public class CollisionBroadcaster : MonoBehaviour
         }
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        SendMessageUpwards("OnCollisionEnterBug", collision);
-    }*/
+        //Check what other is:
+        /*if (collision.rigidbody.CompareTag("Body")) //Dabug hit a bug body
+        {
+            if (type == ColliderType.BugBody)
+            {
+                SendMessageUpwards("BugBounce", collision);
+            }
+            else if (type == ColliderType.BugHead)
+            {
+                SendMessageUpwards("BugBump", collision);
+            }
+        }
+        else if (collision.rigidbody.CompareTag("Head")) //Dabug hit a bug head
+        {
+            if (type == ColliderType.BugHead)
+            {
+                SendMessageUpwards("BugBump", collision);
+            }
+            else if (type == ColliderType.BugBody)
+            {
+
+            }
+        }*/
+    }
     private void OnTriggerEnter(Collider other)
     {
         //Check what other is:
