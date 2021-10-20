@@ -8,6 +8,9 @@ public class InputMaster : MonoBehaviour
 {
     //Function: Tracks player instances, spawns new players when new inputs are detected, removes players when inputs are disconnected
 
+    //Subscriptions:
+    
+
     //Classes, Structs & Enums:
     public class Joystick : IInputMethod
     {
@@ -221,12 +224,13 @@ public class InputMaster : MonoBehaviour
     }
 
     //JOYSTICK FUCKERY:
+    
     private void CheckForNewStickPlayers()
     {
         //Check for New Devices:
         foreach (InputDevice device in InputSystem.devices) //Iterate through list of connected devices
         {
-            //Debug.Log(device.layout);
+            //Debug.Log(device.);
         }
     }
     private void CheckForControllerDisconnection()
