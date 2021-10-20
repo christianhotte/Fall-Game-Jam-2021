@@ -25,6 +25,13 @@ public class BugDie : MonoBehaviour
     
     public void freeFall()
     {
+        foreach (Transform child in transform)
+        {
+            print(child.name);
+           if(child.gameObject.name.Equals("HeadCollider")||child.gameObject.name.Equals("BodyCollider"))
+            child.gameObject.SetActive(false);
+        }
+            
         callBugDie();
 
         GetComponent<Rigidbody>().isKinematic = false;
