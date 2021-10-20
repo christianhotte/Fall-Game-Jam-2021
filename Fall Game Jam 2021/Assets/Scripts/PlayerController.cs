@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using HotteStuff;
 
 public class PlayerController : MonoBehaviour
 {
@@ -124,12 +125,12 @@ public class PlayerController : MonoBehaviour
         hitStrength *= otherBug.knockbackResistModifier; //Apply knockback resistance
 
         //Determine force:
-        float bugAngle = Vector2.Angle(transform.localPosition, otherBug.transform.localPosition);
-        //Vector2 hitDirection = Vector2.up; //Get initial directional vector (normalized)
-        //Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
+        Vector2 hitDirection = -(transform.position - otherBug.transform.position).normalized;
+        //Vector2 hitDirection = Vector2.up.Rotate(bugAngle); //Get initial directional vector (normalized)
+        Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
 
         //Debug.Log(hitForce);
-        //otherBug.velocity += hitForce;
+        otherBug.velocity += hitForce;
 
         //Cleanup:
         lastBugTouched = otherBug;
