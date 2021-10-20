@@ -5,26 +5,25 @@ using UnityEngine.InputSystem;
 
 public class ActiveBugAbility : MonoBehaviour
 {
-    /// <summary>
-    /// bug where the first sludge spawns as a child of the spawner
-    /// 
-    /// 
-    /// </summary>
-    /// 
+
+    private PlayerController PC;
+
     public GameObject webProjectile;
     public GameObject SludgePrefab;
 
+    public float AbilityRechargeTime;//amount of time before you can use active ability again
+
+
     private bool AbilityReady = true;
-
+    //EventSystem
     public delegate void abilityUsed();
-
     public static event abilityUsed OnAbilityUsed;
 
     private void Start()
     {
         //test cases for abilities
+        PC = gameObject.GetComponent<PlayerController>();
 
-        
         addAbillity(3);
     }
     public void addAbillity(int abilityID)
@@ -113,7 +112,7 @@ public class ActiveBugAbility : MonoBehaviour
     // sets a time to recharge the ability
     IEnumerator recharge()
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(AbilityRechargeTime);
         AbilityReady = true;
     }
 
@@ -121,6 +120,7 @@ public class ActiveBugAbility : MonoBehaviour
     {
         for(int i=0; i<40; i++)
         {
+            
             //increase mass here
             yield return new WaitForSeconds(.05f);
             transform.localScale = new Vector3(transform.localScale.x + .01f, transform.localScale.y + .01f, transform.localScale.z + .01f);

@@ -36,7 +36,10 @@ public class CameraRotate : MonoBehaviour
         switch (menuState) { 
 
         case cameraState.staticPlay:
-            // its fricken go time bb
+              transform.position =  Vector3.Slerp(transform.position, CameraStartPos, 1.5f*Time.deltaTime);
+              transform.rotation = Quaternion.Slerp(transform.rotation, CameraStartRot, 1.5f*Time.deltaTime);
+                // if its back to start position then start countdown and send play message
+                
         break;
         case cameraState.Settings:
             
@@ -55,9 +58,10 @@ public class CameraRotate : MonoBehaviour
     public void PlayButtonPressed()
     {
         //reset camera back to starting position 
-        transform.position = CameraStartPos;
-        transform.rotation = CameraStartRot;
-
+       
+        //transform.position = CameraStartPos;
+        // transform.rotation = CameraStartRot;
+ 
         menuState = cameraState.staticPlay;
 
         DisableUi();
