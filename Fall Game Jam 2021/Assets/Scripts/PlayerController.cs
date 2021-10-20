@@ -126,10 +126,10 @@ public class PlayerController : MonoBehaviour
         //Determine force:
         float bugAngle = Vector2.Angle(transform.localPosition, otherBug.transform.localPosition)
         //Vector2 hitDirection = Vector2.up; //Get initial directional vector (normalized)
-        Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
+        //Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
 
-        Debug.Log(hitForce);
-        otherBug.velocity += hitForce;
+        //Debug.Log(hitForce);
+        //otherBug.velocity += hitForce;
 
         //Cleanup:
         lastBugTouched = otherBug;
