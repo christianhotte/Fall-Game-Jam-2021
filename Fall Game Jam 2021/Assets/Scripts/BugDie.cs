@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class BugDie : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -28,8 +27,12 @@ public class BugDie : MonoBehaviour
     {
 
         GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<CapsuleCollider>().enabled = true;
         GetComponent<Rigidbody>().AddForce(new Vector3(4, 5, 1));
+        GetComponent<PlayerInput>().enabled = false;
     }
+
+    // add a respawn in so the player can get control back over a bug
 
     public void callBugDie()
     {
