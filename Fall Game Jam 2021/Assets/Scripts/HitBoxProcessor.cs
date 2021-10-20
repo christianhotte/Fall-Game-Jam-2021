@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HitBoxProcessor : MonoBehaviour
 {
-    private PlayerController pc;
+    /*private PlayerController pc;
     public bool hurtbox;
 
     private void Awake()
@@ -29,5 +29,5 @@ public class HitBoxProcessor : MonoBehaviour
             }
                 
         }
-    }
+    }*/
 }
