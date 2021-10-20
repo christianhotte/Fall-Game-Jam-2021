@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour, IControllable
     internal PlayerController lastBugTouched; //Stores the last bug this bug bugged
     bool bugDead = false; // J - triggers respawn timer
     float respawnTimer = 0f; // J - the respawn timer
-    public Vector3[] spawnPoints;
+    public GameObject[] spawnPoints;
 
     //Alice Dash Code Shit
     internal BugDash BugDash;
@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private void BugRespawn()
     {
         int SpawnChoice = Random.Range(0, 8);
-        transform.position = spawnPoints[SpawnChoice];
+        transform.position = spawnPoints[SpawnChoice].transform.position;
         transform.rotation = new Quaternion(0, 0, 0, 0);
         bugDead = false;
         respawnTimer = 0f;
