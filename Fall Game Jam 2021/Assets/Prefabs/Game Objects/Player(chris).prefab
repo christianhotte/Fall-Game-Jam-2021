@@ -251,7 +251,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  useDebugInput: 1
+  bugDeathTumbleVector: {x: 0, y: 0, z: 0}
+  pointCountUI: {fileID: 0}
+  pointCountValue: 0
 --- !u!114 &5168213805873971976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDash: 0
+  dashTime: 3
+  dashSpeed: 15
 --- !u!1 &6747569428201196114
 GameObject:
   m_ObjectHideFlags: 0
