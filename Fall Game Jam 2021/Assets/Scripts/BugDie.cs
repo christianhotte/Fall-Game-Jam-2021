@@ -25,11 +25,14 @@ public class BugDie : MonoBehaviour
     
     public void freeFall()
     {
+        callBugDie();
 
         GetComponent<Rigidbody>().isKinematic = false;
+       
         GetComponent<CapsuleCollider>().enabled = true;
+        
         GetComponent<Rigidbody>().AddForce(new Vector3(4, 5, 1));
-        GetComponent<PlayerInput>().enabled = false;
+
     }
 
     // add a respawn in so the player can get control back over a bug
