@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour, IControllable
     //BugDie Stuff:
     internal bool bugDead = false; //Indicates that bug is currently inactive
     private RaycastHit hit; //Container to store death raycasts
-    private static int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
+    private int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
 
     //Alice Dash Code Shit
     internal BugDash BugDash;
@@ -222,6 +222,7 @@ public class PlayerController : MonoBehaviour, IControllable
             lastBugTouched.pointCountValue += 1; // Give other player a point
             lastBugTouched.pointCountUI.text = pointCountValue.ToString();
         }
+        lastBugTouched = null; //Clear data on last bug touched
 
         //Make Bug Look Dead:
         headBox.gameObject.SetActive(false); //Deactivate inter-bug collision
@@ -326,10 +327,11 @@ public class PlayerController : MonoBehaviour, IControllable
     private void CheckForBugDie()
     {
         //Function: Called during FixedUpdate to check if bug is die
-
+        
         deathZoneLayerMask = ~deathZoneLayerMask; //Weird layermask shit I dunno
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 5, deathZoneLayerMask))
         {
+            Debug.Log("detecting hit");
             if (hit.collider.CompareTag("Death")) BugDie(); //Kill bug if death zone is found
         }
     }
