@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public float bugStopSnap; //How close to Vector2.zero bug velocity must be for bug to stop (should just be a really small number)
     [Range(0, 1)] public float bumpRecoilMultiplier; //Determines how much of a bump impacts the bug who initiates it
     public float bounceBaseForce; //How much force is naturally applied to bug when they bump into things (and other bugs)
+    public float maxSpeed; //Maximum acceleration a player can have
     public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
     public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
     public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump (power multiplier based on speed number)
@@ -84,6 +85,9 @@ public class PlayerController : MonoBehaviour
             velocity = Vector2.zero;
         }
         if (velocity == Vector2.zero) return; //We're done here
+
+        //Check for max velocity:
+        if (velocity.magnitude > maxSpeed) velocity = velocity.normalized * maxSpeed;
 
         //Apply velocity to bug position:
         Vector3 realVelocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
@@ -158,6 +162,20 @@ public class PlayerController : MonoBehaviour
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
 
+    }
+    public void ChangeBugSize(float newSize)
+    {
+        //Changes size of bug
+
+        sizeModifier = newSize;
+        transform.localScale = new Vector3(newSize, newSize, newSize); //Set initial scale
+        //NOTE: Add thing to affect bug Y position
+    }
+    public void ResetBugSize()
+    {
+        //Reverts size of bug to base size
+        sizeModifier = 0;
+        transform.localScale = new Vector3(baseSize, baseSize, baseSize);
     }
 
     //INPUT METH:
