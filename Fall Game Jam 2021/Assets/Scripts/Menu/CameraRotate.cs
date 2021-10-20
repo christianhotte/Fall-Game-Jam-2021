@@ -5,11 +5,12 @@ using UnityEngine;
 public class CameraRotate : MonoBehaviour
 {
     // Ui instantly goes away and the rotation stops the second play button is pressed would love to transition into it
- 
 
+    private Vector3 CameraStartPos;
+        private Quaternion CameraStartRot;
     public GameObject stump;
     public GameObject Ui;
-    [SerializeField]
+   
     private float rotationSpeed = 20;
    
     enum cameraState
@@ -24,6 +25,9 @@ public class CameraRotate : MonoBehaviour
     private void Awake()
     {
         MainMenuButton.OnPlayPressed += PlayButtonPressed;
+        CameraStartPos = transform.position;
+        CameraStartRot = transform.rotation;
+            
     }
 
     // Update is called once per frame
@@ -32,7 +36,7 @@ public class CameraRotate : MonoBehaviour
         switch (menuState) { 
 
         case cameraState.staticPlay:
-            // do nothing its fricken go time bb
+            // its fricken go time bb
         break;
         case cameraState.Settings:
             
@@ -50,10 +54,17 @@ public class CameraRotate : MonoBehaviour
 
     public void PlayButtonPressed()
     {
+        //reset camera back to starting position 
+        transform.position = CameraStartPos;
+        transform.rotation = CameraStartRot;
 
         menuState = cameraState.staticPlay;
 
         DisableUi();
+
+        //Needs to rotate back around to it but teleporting is fine for now
+
+        
     }
 
 
