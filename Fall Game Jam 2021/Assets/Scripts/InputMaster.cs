@@ -205,22 +205,19 @@ public class InputMaster : MonoBehaviour
     }
 
     //GAME STUFF:
-    public void RespawnCharacter(Player player)
+    public Player GetPlayerFromPawn(IControllable pawn)
     {
-        //Gives player new character
-        player.playerPawn = Instantiate(playerPrefab).GetComponent<IControllable>();
-    }
-    public void RespawnCharacter(PlayerController bug)
-    {
+        //Function: Returns the player who owns this pawn (bug or UI)
+
+        //Find Player who Owns Pawn:
         foreach (Player player in players) //Iterate through player list
         {
-            if (player.playerPawn == bug)
-            {
-                RespawnCharacter(player); //Respawn bug
-                return;
-            }
+            if (player.playerPawn == pawn) return player; //Return found player
         }
-        Debug.LogError("Couldn't find bug's player ):");
+
+        //Player Could Not Be Found (something's wrong):
+        Debug.LogError("Could not find player for " + pawn);
+        return null;
     }
 
     //KEYBOARD FUCKERY:
@@ -246,7 +243,6 @@ public class InputMaster : MonoBehaviour
     }
 
     //JOYSTICK FUCKERY:
-    
     private void CheckForNewStickPlayers()
     {
         //Check for New Devices:

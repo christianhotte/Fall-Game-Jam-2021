@@ -18,6 +18,12 @@ public class DeathHandler : MonoBehaviour
     }
 
     //DEATHODS:
+    public void BugDiedProcedure(PlayerController deadBug)
+    {
+        //Function: Do everything that needs to be done right when a bug dies
+
+        Debug.Log("Bug death handled");
+    }
     public void RespawnAtRandomLocation(InputMaster.Player player, PlayerController deadBug)
     {
         //Function: Respawns a dead bug at a random location (in spawnpoints), with properties of deadBug and controlled by given player

@@ -91,8 +91,9 @@ public class PlayerController : MonoBehaviour, IControllable
     }
     private void FixedUpdate()
     {
-        CheckForBugDie();
+        if (!bugDead) CheckForBugDie(); //Check for bug death if bug is alive
     }
+
 
     //MOVEMENT METHODS:
     private void MoveBug()
@@ -145,6 +146,7 @@ public class PlayerController : MonoBehaviour, IControllable
         Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
         body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength + rotationSpeedModifier);
     }
+
 
     //BUG METHODS:
     public void BugBump(Collider other)
@@ -212,6 +214,9 @@ public class PlayerController : MonoBehaviour, IControllable
         GetComponent<Rigidbody>().isKinematic = false;  //Activate ragbug rigidBody
         GetComponent<CapsuleCollider>().enabled = true; //Activate ragbug collider
         GetComponent<Rigidbody>().AddForce(bugDeathTumbleVector); //Make bug tumble
+
+        //Begin Adaptation and Respawn Process:
+        DeathHandler.deathHandler.BugDiedProcedure(this); //Indicate that this bug has died
     }
     public void BugResurrect()
     {
@@ -232,14 +237,6 @@ public class PlayerController : MonoBehaviour, IControllable
         currentJoystick = Vector2.zero;
         currentButton = false;
     }
-    /*private void BugRespawn()
-    {
-        int SpawnChoice = Random.Range(0, 8);
-        transform.position = spawnPoints[SpawnChoice].transform.position;
-        transform.rotation = new Quaternion(0, 0, 0, 0);
-        bugDead = false;
-        respawnTimer = 0f;
-    }*/
     public void ChangeBugSize(float newSize)
     {
         //Function: Changes size of bug
@@ -257,6 +254,7 @@ public class PlayerController : MonoBehaviour, IControllable
         sizeModifier = 0;
         transform.localScale = new Vector3(baseSize, baseSize, baseSize);
     }
+
 
     //INPUT METH:
     public void ReceiveJoystick(Vector2 input)
@@ -300,6 +298,7 @@ public class PlayerController : MonoBehaviour, IControllable
         //Called (by this script) when ACTION/ABILITY button is released
 
     }
+
 
     //UTILITY FUNCTIONS:
     private float GetNormalizedSpeed()
