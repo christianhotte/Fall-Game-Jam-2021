@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pickup
+  - Head
+  - Body
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -12,9 +15,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Stump
+  - Ground
+  - Player
   - 
   - 
   - 

@@ -125,10 +125,14 @@ public class PlayerController : MonoBehaviour
         hitStrength *= otherBug.knockbackResistModifier; //Apply knockback resistance
 
         //Determine force:
-        Vector2 hitDirection = -(transform.position - otherBug.transform.position).normalized;
+        Vector2 hitDirection = -(transform.position - otherBug.transform.position);
+     
+        Debug.DrawRay(transform.position, hitDirection);
+        print(transform.position +"and"+ otherBug.transform.position);
+        print(hitDirection);
         //Vector2 hitDirection = Vector2.up.Rotate(bugAngle); //Get initial directional vector (normalized)
         Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
-
+        
         //Debug.Log(hitForce);
         otherBug.velocity += hitForce;
 
