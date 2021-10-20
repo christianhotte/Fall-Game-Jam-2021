@@ -153,10 +153,10 @@ public class PlayerController : MonoBehaviour
         //Cleanup:
         lastBugTouched = otherBug;
     }
-    private void BugDie()
+    public void BugDie()
     {
         //Function: Called when the bug die
-
+        //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
 
     }
 
