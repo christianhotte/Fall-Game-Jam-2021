@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float baseMaxRotationSpeed; //How fast bug body lerps to direction of motion (speed is also factored in)
     public float baseSize;     //How big the bug be (scale of bug in Unity units)
     public float baseStrength; //How hard bug pushes other bugs around
+    
     [Header("BugStats:")]
     internal float speedModifier; //Additional (or subtractive) speed
     internal float accelModifier; //Additional (or subtractive) acceleration
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour
     internal float sizeModifier; //Additional (or subtractive) bug size
     internal float strengthModifier; //Additional (or subtractive) bugstrength
     internal float knockbackResistModifier = 1; //[0-1] Amount bug resists being bumped (percentage decrease in incoming bumps)
+    
     [Header("Movement Stuff:")]
     public float bugStopSnap; //How close to Vector2.zero bug velocity must be for bug to stop (should just be a really small number)
     [Range(0, 1)] public float bumpRecoilMultiplier; //Determines how much of a bump impacts the bug who initiates it
@@ -43,11 +45,15 @@ public class PlayerController : MonoBehaviour
     //Game Vars:
     internal PlayerController lastBugTouched; //Stores the last bug this bug bugged
 
+    //Alice Dash Code Shit
+    internal BugDash BugDash;
+
     //LOOP METHODS:
     private void Awake()
     {
         //Get Objects and Components:
         body = transform.Find("Body"); //Get body
+        BugDash = GetComponent<BugDash>();
 
         //Stats:
         transform.localScale = new Vector3(baseSize, baseSize, baseSize); //Set initial scale
@@ -55,8 +61,11 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //Bug Movement:
-        MoveBug();
-        RotateBug();
+        if (!BugDash.isDash)
+        {
+            MoveBug();
+            RotateBug();
+        }
     }
 
     //MOVEMENT METHODS:
