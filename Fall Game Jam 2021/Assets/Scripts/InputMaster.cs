@@ -18,8 +18,8 @@ public class InputMaster : MonoBehaviour
         //Stats:
         public bool isActive = false;
 
-        //CONNECTION & DISCONNECTION:
-        public void GivePlayer(InputMaster.Player player)
+        //CORE METHODS:
+        public void GivePlayer(Player player)
         {
             //Called to initialize an instance of this scheme with a player
 
@@ -59,8 +59,8 @@ public class InputMaster : MonoBehaviour
         //Stats & Mem Vars:
         public bool isActive = false;
 
-        //CONNECTION & DISCONNECTION:
-        public void GivePlayer(InputMaster.Player player)
+        //CORE METHODS:
+        public void GivePlayer(Player player)
         {
             //Called to initialize an instance of this scheme with a player
             
@@ -119,15 +119,8 @@ public class InputMaster : MonoBehaviour
     //LOOP METHODS:
     private void Awake()
     {
-        if (inputMaster == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            inputMaster = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (inputMaster == null) { DontDestroyOnLoad(gameObject); inputMaster = this; }
+        else Destroy(gameObject);
         
     }
 
@@ -146,6 +139,7 @@ public class InputMaster : MonoBehaviour
     {
         //Function: Runs through list of active players and checks all their inputs
 
+        //Find and Send Player Inputs:
         foreach (Player player in players) //Iterate through list of active players
         {
             //Get Input Values:
@@ -164,7 +158,13 @@ public class InputMaster : MonoBehaviour
                 if (player.timeSinceLastInput >= idleKickTime) player.markedForDisposal = true; //Indicate that player has left if afk for long enough
             }
             else player.timeSinceLastInput = 0; //Reset idle time tracker if player did anything
+        }
 
+        //Delete Inactive Players:
+        for (int i = 0; i <= players.Count - 1;) //Iterate cautiously through list of players
+        {
+            if (players[i].markedForDisposal) DestroyPlayer(players[i]); //Destroy players marked for disposal
+            else i++; //Pass over unmarked players
         }
     }
 
@@ -182,7 +182,7 @@ public class InputMaster : MonoBehaviour
         //NOTE: Add something that places character in spawn location
 
     }
-    private void PlayerLeft(Player player)
+    private void DestroyPlayer(Player player)
     {
         //Break Object Dependencies:
         player.inputMethod.RemovePlayer(); //Disconnect player from input source (so that it can be used again)
