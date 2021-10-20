@@ -56,8 +56,8 @@ public class ActiveBugAbility : MonoBehaviour
         }
     }
 
-    /*
-    private void OnFire()
+    
+    private void UseBugAbility()
     {
         if (AbilityReady)
         {
@@ -66,8 +66,8 @@ public class ActiveBugAbility : MonoBehaviour
             StartCoroutine("recharge");
         }
     }
-    */
-
+    
+    //Note: Sludge effects are part of the sludgeobject
     public void sludge()
     {
         Vector3 spawnposition = transform.position - (2*transform.forward);
@@ -82,14 +82,14 @@ public class ActiveBugAbility : MonoBehaviour
         StartCoroutine(ScaleUp());
 
     }
+
+    //Notice: jump needs to be reworked since no rigidbody physics is currently happening
     public void jump()
     { 
-        //add grounded check
-
-        float launchPower = 300;
-        //boost into the air with flea legs
-        GetComponent<Rigidbody>().AddForce(Vector3.up* launchPower);
+        
     }
+
+    // webshot web effect needs to be built
     public void webShot()
     {
         GameObject webBullet = Instantiate(webProjectile, transform.position + Vector3.forward, Quaternion.Euler(transform.rotation.x,transform.rotation.y,transform.rotation.z));
@@ -97,6 +97,7 @@ public class ActiveBugAbility : MonoBehaviour
         webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6);
     }
 
+    //Note: what does a leafsheild do?
     public void leafSheild()
     {
        
@@ -135,13 +136,13 @@ public class ActiveBugAbility : MonoBehaviour
         //reduce mass here
         for (int i = 0; i < 40; i++)
         {
-            
+           
             yield return new WaitForSeconds(.05f);
             transform.localScale = new Vector3(transform.localScale.x - .01f, transform.localScale.y - .01f, transform.localScale.z - .01f);
         }
     }
 
-
+    
 }
 
 
