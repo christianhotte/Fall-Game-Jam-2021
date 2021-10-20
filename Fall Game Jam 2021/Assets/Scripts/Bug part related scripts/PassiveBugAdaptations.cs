@@ -16,17 +16,35 @@ public class PassiveBugAdaptations : MonoBehaviour
     }
 
    // public void harden() { PC.baseWeight += .4f;PC.baseMaxSpeed -= .4f; }
-    public void shrink() { 
-        transform.localScale = new Vector3(transform.localScale.x - .20f, transform.localScale.y - .20f, transform.localScale.z - .20f);
-        //PC.baseWeight -= .3f;
-        PC.baseAccel += .2f;
-        PC.baseMaxSpeed += .2f;
-        PC.baseMaxRotationSpeed += .2f;
+
+    //speeds you up in every way at the cost of some strength 
+    public void shrink() {
+        PC.sizeModifier = .8f*PC.baseSize;
+        PC.ChangeBugSize(PC.sizeModifier);
+        PC.strengthModifier -= PC.baseStrength * .05f;
+        PC.accelModifier += .1f*PC.baseAccel;
+        PC.speedModifier += .1f*PC.baseMaxSpeed;
+        PC.rotationSpeedModifier += .1f*PC.baseMaxRotationSpeed;
     }
-    //str up,turnspeed down,size up++ 
-    public void Biggify() {}
-    public void Speed() { }
-    public void heftyify() { }
+    //str up, turnspeed down, size up++ 
+    public void Biggify() {
+        PC.sizeModifier = 1.4f * PC.baseSize;
+        PC.ChangeBugSize(PC.sizeModifier);
+        PC.strengthModifier += .02f * PC.baseStrength;
+        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
+    }
+    //faster bug no down side
+    public void Speed() {
+        PC.speedModifier += .2f * PC.baseMaxSpeed;
+    }
+    // strength and knockback resist, slower turn and way slower max speed
+    public void heftyify() {
+        PC.strengthModifier += .3f * PC.baseStrength;
+        PC.knockbackResistModifier -= .1f;
+        PC.baseMaxRotationSpeed -= .2f * PC.baseMaxRotationSpeed;
+        PC.baseMaxSpeed -= .4f * PC.baseMaxSpeed;
+    
+    }
     public void gootrail() { gooTrail = true; }
     public void Shrink() { }
     public void NoTouchy() { }
