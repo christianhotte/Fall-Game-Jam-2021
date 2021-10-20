@@ -159,7 +159,6 @@ GameObject:
   - component: {fileID: 2502786202877449222}
   - component: {fileID: 2502786202877449223}
   - component: {fileID: 9160181383772631860}
-  - component: {fileID: 9160181383772631865}
   - component: {fileID: 2502786202877449241}
   - component: {fileID: -1855547072540487551}
   m_Layer: 8
@@ -288,18 +287,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  bugDeathTumbleVector: {x: 4, y: 5, z: 1}
   pointCountUI: {fileID: 5093678533653609814}
   pointCountValue: 0
-  useDebugInput: 1
-  spawnPoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
 --- !u!54 &9160181383772631860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -316,20 +306,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9160181383772631865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2502786202877449240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 953f349d35a1c4a49938ea4f1926c818, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HeadBox: {fileID: 1402535969638117522}
-  BodyBox: {fileID: 988059309640900285}
 --- !u!136 &2502786202877449241
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -351,7 +327,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2502786202877449240}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9b7c51b02545fa4bbd4122e793c1e83, type: 3}
   m_Name: 

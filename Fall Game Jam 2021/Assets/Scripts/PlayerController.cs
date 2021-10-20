@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour, IControllable
 {
     //Objects & Components:
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
+    internal Collider headBox; //This bug's head collider
+    internal Collider bodyBox; //This bug's body collider
 
     //Bugstats:
     [Header("Stats:")]
@@ -36,25 +38,24 @@ public class PlayerController : MonoBehaviour, IControllable
     public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
     public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
     public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump (power multiplier based on speed number)
+    [Space()]
+    public Vector3 bugDeathTumbleVector; //Vector determining force applied to bug when dying (and ragdolling)
 
     [Header("Score Stuff:")]
     public TMP_Text pointCountUI;
     public int pointCountValue = 0; // J - Score counter
     float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
 
-    [Header("Debug Stuff:")]
-    public bool useDebugInput;
-
     //Memory Vars:
+    internal PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
+    internal Vector2 velocity;       //How fast da bug is going
     private Vector2 currentJoystick; //Where the joystick was last time it changed
     private bool currentButton;      //State the button was last time it changed
-    internal Vector2 velocity;       //How fast da bug is going
 
-    //Game Vars:
-    internal PlayerController lastBugTouched; //Stores the last bug this bug bugged
-    bool bugDead = false; // J - triggers respawn timer
-    float respawnTimer = 0f; // J - the respawn timer
-    public GameObject[] spawnPoints;
+    //BugDie Stuff:
+    internal bool bugDead = false;   // J - triggers respawn timer
+    private RaycastHit hit; //Container to store death raycasts
+    private static int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
 
     //Alice Dash Code Shit
     internal BugDash BugDash;
@@ -64,7 +65,10 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Get Objects and Components:
         body = transform.Find("Body"); //Get body
+        headBox = body.GetChild(0).GetComponent<Collider>();
+        bodyBox = body.GetChild(1).GetComponent<Collider>();
         BugDash = GetComponent<BugDash>();
+
 
         //Stats:
         transform.localScale = new Vector3(baseSize, baseSize, baseSize); //Set initial scale
@@ -78,14 +82,16 @@ public class PlayerController : MonoBehaviour, IControllable
             RotateBug();
         }
 
-        if (bugDead) respawnTimer += Time.deltaTime;
-        if (respawnTimer >= 5f) BugRespawn();
-
+        //Check Last Bug Touched Expiration:
         if (lastBugTouched != null) // If bug touches this bug, forget it after 5 seconds to determine kill or suicide point
         {
             killVsSuicideTimer += Time.deltaTime;
             if (killVsSuicideTimer >= 3) lastBugTouched = null;
         }
+    }
+    private void FixedUpdate()
+    {
+        CheckForBugDie();
     }
 
     //MOVEMENT METHODS:
@@ -190,55 +196,89 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
+
+        //Mark Dead:
         bugDead = true;
+        currentJoystick = Vector2.zero; //Cancel potential phantom inputs
+        currentButton = false;          //Cancel potential phantom inputs
+
+        //Determine Cause of Die:
         if (lastBugTouched == null) { pointCountValue -= 1; pointCountUI.text = pointCountValue.ToString(); }// Suicide ADD UI CHANGE PLEASE
         else { lastBugTouched.pointCountValue += 5; lastBugTouched.pointCountUI.text = pointCountValue.ToString(); } // Give other player a point
+
+        //Make Bug Look Dead:
+        headBox.gameObject.SetActive(false); //Deactivate inter-bug collision
+        bodyBox.gameObject.SetActive(false); //Deactivate inter-bug collision
+        GetComponent<Rigidbody>().isKinematic = false;  //Activate ragbug rigidBody
+        GetComponent<CapsuleCollider>().enabled = true; //Activate ragbug collider
+        GetComponent<Rigidbody>().AddForce(bugDeathTumbleVector); //Make bug tumble
     }
-    private void BugRespawn()
+    public void BugResurrect()
+    {
+        //Function: Used on a copy of a dead bug to undie it
+
+        //Undo deadness on playerController:
+        bugDead = false;
+        lastBugTouched = null;
+
+        //Undo deadness caused by Keegan:
+        headBox.gameObject.SetActive(true);
+        bodyBox.gameObject.SetActive(true);
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<CapsuleCollider>().enabled = false;
+
+        //Reset memory/tracker variables:
+        velocity = Vector2.zero;
+        currentJoystick = Vector2.zero;
+        currentButton = false;
+    }
+    /*private void BugRespawn()
     {
         int SpawnChoice = Random.Range(0, 8);
         transform.position = spawnPoints[SpawnChoice].transform.position;
         transform.rotation = new Quaternion(0, 0, 0, 0);
         bugDead = false;
         respawnTimer = 0f;
-    }
+    }*/
     public void ChangeBugSize(float newSize)
     {
-        //Changes size of bug
+        //Function: Changes size of bug
 
+        //@KEEGAN: I just looked at this and realized how legendarily smooth brain it is so I changed it and if it breaks something and I forget why that's why this note is here
         sizeModifier = newSize;
-        transform.localScale = new Vector3(newSize, newSize, newSize); //Set initial scale
+        float setSize = baseSize + sizeModifier;
+        transform.localScale = new Vector3(setSize, setSize, setSize); //Set initial scale
         //NOTE: Add thing to affect bug Y position
     }
     public void ResetBugSize()
     {
-        //Reverts size of bug to base size
+        //Function: Reverts size of bug to base size
+
         sizeModifier = 0;
         transform.localScale = new Vector3(baseSize, baseSize, baseSize);
     }
 
     //INPUT METH:
-    /*public void OnMove(InputAction.CallbackContext context)
-    {
-        //Temporary joystick functionality
-        if (useDebugInput) ReceiveJoystick(context.ReadValue<Vector2>());
-    }
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        //Temporary button functionality
-        if (!useDebugInput) return;
-        if (context.performed) ReceiveButton(true);
-        else ReceiveButton(false);
-    }*/
     public void ReceiveJoystick(Vector2 input)
     {
-        //Should be the normalized joystick value
+        //Function: Called by input manager when sending commands from Player to IControllable pawn (this)
 
-        currentJoystick = input; //Update memory
+        //Check Validity:
+        if (bugDead) return; //DEATH LOCKOUT: Dead bugs make no moves
+        //@ALICE: If you want bug to not be able to steer while dashing, you can put something here to check for dash
+
+        //Record Joystick Input:
+        currentJoystick = input; //Update memory (nothing fancy)
     }
     public void ReceiveButton(bool pressed)
     {
-        //Send button-based signal
+        //Function: Called by input manager when sending commands from Player to IControllable pawn (this)
+
+        //Check Validity:
+        if (bugDead) return; //DEATH LOCKOUT: Dead bugs make no moves
+        //@ALICE: Same as with joystick
+
+        //Compare Button State:
         if (pressed != currentButton)
         {
             if (pressed) ButtonDown();
@@ -246,19 +286,19 @@ public class PlayerController : MonoBehaviour, IControllable
             currentButton = pressed; //Update memory
         }
     }
-    private void ButtonUp()
+    public void DestroyPawn()
     {
-        //Called when button is released
-
+        Destroy(gameObject); //Destroy this pawn (NOTE: Maybe add stuff if this causes problems)
     }
     private void ButtonDown()
     {
-        //Called when button is pressed
+        //Called (by this script) when ACTION/ABILITY button is pressed
 
     }
-    public void DestroyPawn()
+    private void ButtonUp()
     {
-        Destroy(gameObject);
+        //Called (by this script) when ACTION/ABILITY button is released
+
     }
 
     //UTILITY FUNCTIONS:
@@ -267,5 +307,15 @@ public class PlayerController : MonoBehaviour, IControllable
         //Function: Returns speed as percentage (0-1), with 1 being the player's current maximum possible speed
 
         return Mathf.InverseLerp(0, baseMaxSpeed, velocity.magnitude);
+    }
+    private void CheckForBugDie()
+    {
+        //Function: Called during FixedUpdate to check if bug is die
+
+        deathZoneLayerMask = ~deathZoneLayerMask; //Weird layermask shit I dunno
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 5, deathZoneLayerMask))
+        {
+            if (hit.collider.CompareTag("Death")) BugDie(); //Kill bug if death zone is found
+        }
     }
 }
