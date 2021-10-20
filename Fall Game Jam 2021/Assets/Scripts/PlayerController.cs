@@ -36,6 +36,12 @@ public class PlayerController : MonoBehaviour, IControllable
     public AnimationCurve speedAccelCurve; //Determines bug acceleration (depending on how fast bug is going out of max speed)
     public AnimationCurve speedRotSpeedCurve; //Determines how fast bug can turn (depending on how fast bug is going)
     public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump (power multiplier based on speed number)
+
+    [Header("Score Stuff:")]
+    public TMP_Text pointCountUI;
+    public int pointCountValue = 0; // J - Score counter
+    float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
+
     [Header("Debug Stuff:")]
     public bool useDebugInput;
 
@@ -46,11 +52,9 @@ public class PlayerController : MonoBehaviour, IControllable
 
     //Game Vars:
     internal PlayerController lastBugTouched; //Stores the last bug this bug bugged
-    internal int pointCountValue = 0; // J - Score counter
-    float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
-
-    //UI stuff:
-    public TMP_Text pointCountUI;
+    bool bugDead = false; // J - triggers respawn timer
+    float respawnTimer = 0f; // J - the respawn timer
+    public Vector3[] spawnPoints;
 
     //Alice Dash Code Shit
     internal BugDash BugDash;
@@ -73,6 +77,9 @@ public class PlayerController : MonoBehaviour, IControllable
             MoveBug();
             RotateBug();
         }
+
+        if (bugDead) respawnTimer += Time.deltaTime;
+        if (respawnTimer >= 5f) BugRespawn();
 
         if (lastBugTouched != null) // If bug touches this bug, forget it after 5 seconds to determine kill or suicide point
         {
@@ -183,8 +190,17 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
+        bugDead = true;
         if (lastBugTouched == null) { pointCountValue -= 1; pointCountUI.text = pointCountValue.ToString(); }// Suicide ADD UI CHANGE PLEASE
-        else lastBugTouched.pointCountValue += 1; // Give other player a point
+        else { lastBugTouched.pointCountValue += 5; lastBugTouched.pointCountUI.text = pointCountValue.ToString(); } // Give other player a point
+    }
+    private void BugRespawn()
+    {
+        int SpawnChoice = Random.Range(0, 8);
+        transform.position = spawnPoints[SpawnChoice];
+        transform.rotation = new Quaternion(0, 0, 0, 0);
+        bugDead = false;
+        respawnTimer = 0f;
     }
     public void ChangeBugSize(float newSize)
     {
