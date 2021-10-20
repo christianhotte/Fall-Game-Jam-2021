@@ -485,7 +485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &163588869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2189,7 +2189,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stump: {fileID: 2138157885131458028}
   Ui: {fileID: 163588868}
-  rotationSpeed: 20
 --- !u!1 &1069063901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3570,7 +3569,6 @@ GameObject:
   - component: {fileID: 1784394106}
   - component: {fileID: 1784394105}
   - component: {fileID: 1784394108}
-  - component: {fileID: 1784394107}
   m_Layer: 5
   m_Name: Menu Title
   m_TagString: Untagged
@@ -3694,22 +3692,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1784394103}
   m_CullTransparentMesh: 1
---- !u!114 &1784394107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1784394103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc3857f5acb94424981cdb28459b81fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  letterCrash: {fileID: 8300000, guid: 7e08ff9dd7139bd428b2128038ce5d42, type: 3}
-  GameTitle: Stump Wreckers
-  ASource: {fileID: 1784394108}
-  tmp: {fileID: 0}
 --- !u!82 &1784394108
 AudioSource:
   m_ObjectHideFlags: 0
