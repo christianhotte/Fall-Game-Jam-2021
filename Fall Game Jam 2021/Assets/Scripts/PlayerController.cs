@@ -126,7 +126,11 @@ public class PlayerController : MonoBehaviour, IControllable
         if (velocity == Vector2.zero) return; //We're done here
 
         //Check for max velocity:
-        if (velocity.magnitude > maxSpeed) velocity = velocity.normalized * maxSpeed;
+        if (BugDash.isDash) //Special velocity cap when dashing
+        {
+
+        }
+        else if (velocity.magnitude > maxSpeed) velocity = velocity.normalized * maxSpeed;
 
         //Apply velocity to bug position:
         Vector3 realVelocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
@@ -159,6 +163,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
+        if (otherBug == this) return; //Make sure bug isn't touching itself
 
         //Determine modifiers:
         float hitStrength = baseStrength + strengthModifier; //Get normal hit strength
@@ -184,6 +189,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
+        if (otherBug == this) return; //Make sure bug isn't touching itself
 
         //Determine force:
         float hitStrength = bounceBaseForce; //Get hit strength
@@ -307,7 +313,8 @@ public class PlayerController : MonoBehaviour, IControllable
     private void ButtonDown()
     {
         //Called (by this script) when ACTION/ABILITY button is pressed
-        StartCoroutine(BugDash.Nyoom());
+
+        StartCoroutine(BugDash.Nyoom()); //Activate bug dash
 
     }
     private void ButtonUp()
@@ -331,7 +338,6 @@ public class PlayerController : MonoBehaviour, IControllable
         deathZoneLayerMask = ~deathZoneLayerMask; //Weird layermask shit I dunno
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 5, deathZoneLayerMask))
         {
-            Debug.Log("detecting hit");
             if (hit.collider.CompareTag("Death")) BugDie(); //Kill bug if death zone is found
         }
     }
