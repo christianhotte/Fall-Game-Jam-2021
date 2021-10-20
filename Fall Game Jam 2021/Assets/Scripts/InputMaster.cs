@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
 
 public class InputMaster : MonoBehaviour
 {
@@ -126,6 +127,10 @@ public class InputMaster : MonoBehaviour
 
     private void Update()
     {
+        //Check for disconnected devices:
+        CheckForKeyboardDisconnection();
+        CheckForControllerDisconnection();
+
         //Check for new players:
         CheckForNewKeyboardPlayers();
         CheckForNewStickPlayers();
@@ -210,8 +215,21 @@ public class InputMaster : MonoBehaviour
             }
         }
     }
+    private void CheckForKeyboardDisconnection()
+    {
+        //NOTE: Do this when I'm really bored and have nothing better to do than to make a contingency for something that's never gonna happen
+    }
+
     //JOYSTICK FUCKERY:
     private void CheckForNewStickPlayers()
+    {
+        //Check for New Devices:
+        foreach (InputDevice device in InputSystem.devices) //Iterate through list of connected devices
+        {
+            //Debug.Log(device.);
+        }
+    }
+    private void CheckForControllerDisconnection()
     {
 
     }

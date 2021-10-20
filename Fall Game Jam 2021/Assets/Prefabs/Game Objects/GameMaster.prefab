@@ -74,4 +74,4 @@ MonoBehaviour:
     - right
     - 0
     isActive: 0
-  idleKickTime: 10
+  idleKickTime: 120
