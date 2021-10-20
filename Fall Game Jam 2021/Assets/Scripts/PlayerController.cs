@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
         hitStrength *= otherBug.knockbackResistModifier; //Apply knockback resistance
 
         //Determine force:
-        float bugAngle = Vector2.Angle(transform.localPosition, otherBug.transform.localPosition)
+        float bugAngle = Vector2.Angle(transform.localPosition, otherBug.transform.localPosition);
         //Vector2 hitDirection = Vector2.up; //Get initial directional vector (normalized)
         //Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
 
