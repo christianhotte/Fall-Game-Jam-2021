@@ -36,8 +36,8 @@ public class CameraRotate : MonoBehaviour
         switch (menuState) { 
 
         case cameraState.staticPlay:
-              transform.position =  Vector3.Slerp(transform.position, CameraStartPos, .01f);
-              transform.rotation = Quaternion.Slerp(transform.rotation, CameraStartRot, .01f);
+              transform.position =  Vector3.Slerp(transform.position, CameraStartPos, 1.5f*Time.deltaTime);
+              transform.rotation = Quaternion.Slerp(transform.rotation, CameraStartRot, 1.5f*Time.deltaTime);
                 // if its back to start position then start countdown and send play message
                 
         break;

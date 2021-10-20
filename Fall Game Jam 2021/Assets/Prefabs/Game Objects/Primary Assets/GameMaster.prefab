@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de450d33d5df48144a84c26fecb64486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6747569428153771462, guid: 27e9f015b69125542aac2a2dc0620d69, type: 3}
+  playerPrefab: {fileID: 2502786202877449240, guid: 7932de185c823354d984ad30cd70f023, type: 3}
   players: []
   keyboardSetups:
   - buttons:
@@ -88,3 +88,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d43c19459352b343b116a8af3f7dc59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deadBugUIPrefab: {fileID: 1753932008744313426, guid: 0163efd7e61a5d443913beb1993c5369, type: 3}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  deathUILifetime: 5
+  bugBodyCap: 100
