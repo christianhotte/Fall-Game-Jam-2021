@@ -267,8 +267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDash: 0
-  dashTime: 3
-  dashSpeed: 15
+  dashTime: 0.25
+  dashSpeed: 70
 --- !u!1 &6747569428201196114
 GameObject:
   m_ObjectHideFlags: 0
