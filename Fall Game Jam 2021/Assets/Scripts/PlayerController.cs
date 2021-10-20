@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using HotteStuff;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour, IControllable
 {
@@ -44,6 +46,11 @@ public class PlayerController : MonoBehaviour, IControllable
 
     //Game Vars:
     internal PlayerController lastBugTouched; //Stores the last bug this bug bugged
+    internal int pointCountValue = 0; // J - Score counter
+    float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
+
+    //UI stuff:
+    public GameObject pointCountUI;
 
     //Alice Dash Code Shit
     internal BugDash BugDash;
@@ -65,6 +72,12 @@ public class PlayerController : MonoBehaviour, IControllable
         {
             MoveBug();
             RotateBug();
+        }
+
+        if (lastBugTouched != null) // If bug touches this bug, forget it after 5 seconds to determine kill or suicide point
+        {
+            killVsSuicideTimer += Time.deltaTime;
+            if (killVsSuicideTimer >= 3) lastBugTouched = null;
         }
     }
 
@@ -170,7 +183,8 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
-
+        if (lastBugTouched == null) { pointCountValue -= 1; }// Suicide ADD UI CHANGE PLEASE
+        else lastBugTouched.pointCountValue += 1; // Give other player a point
     }
     public void ChangeBugSize(float newSize)
     {
