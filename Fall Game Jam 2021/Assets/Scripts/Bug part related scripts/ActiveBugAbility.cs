@@ -57,6 +57,7 @@ public class ActiveBugAbility : MonoBehaviour
         }
     }
 
+    /*
     private void OnFire()
     {
         if (AbilityReady)
@@ -66,6 +67,7 @@ public class ActiveBugAbility : MonoBehaviour
             StartCoroutine("recharge");
         }
     }
+    */
 
     public void sludge()
     {
