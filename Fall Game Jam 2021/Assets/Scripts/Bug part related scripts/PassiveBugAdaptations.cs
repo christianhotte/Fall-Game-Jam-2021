@@ -15,10 +15,10 @@ public class PassiveBugAdaptations : MonoBehaviour
         PC = gameObject.GetComponent<PlayerController>();
     }
 
-    public void harden() { PC.baseWeight += .4f;PC.baseMaxSpeed -= .4f; }
+   // public void harden() { PC.baseWeight += .4f;PC.baseMaxSpeed -= .4f; }
     public void shrink() { 
         transform.localScale = new Vector3(transform.localScale.x - .20f, transform.localScale.y - .20f, transform.localScale.z - .20f);
-        PC.baseWeight -= .3f;
+        //PC.baseWeight -= .3f;
         PC.baseAccel += .2f;
         PC.baseMaxSpeed += .2f;
         PC.baseMaxRotationSpeed += .2f;

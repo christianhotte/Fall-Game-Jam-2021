@@ -91,9 +91,9 @@ public class ActiveBugAbility : MonoBehaviour
     }
     public void webShot()
     {
-        GameObject webBullet = Instantiate(webProjectile, transform.position += 2*Vector3.forward, Quaternion.identity);
+        GameObject webBullet = Instantiate(webProjectile, transform.position + 2*Vector3.forward, Quaternion.identity);
        //this line is weird
-        Vector3 launchDir = (transform.position - (transform.position += Vector3.forward)).normalized;
+        Vector3 launchDir = (transform.position - (transform.position + Vector3.forward)).normalized;
         webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 2);
     }
 
