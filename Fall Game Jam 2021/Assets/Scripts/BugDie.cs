@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class BugDie : MonoBehaviour
 {
+    public GameObject HeadBox, BodyBox;
     void Start()
     {
         
@@ -25,12 +26,10 @@ public class BugDie : MonoBehaviour
     
     public void freeFall()
     {
-        foreach (Transform child in transform)
-        {
-            print(child.name);
-           if(child.gameObject.name.Equals("HeadCollider")||child.gameObject.name.Equals("BodyCollider"))
-            child.gameObject.SetActive(false);
-        }
+
+        HeadBox.SetActive(false);
+        BodyBox.SetActive(false);
+        
             
         callBugDie();
 
