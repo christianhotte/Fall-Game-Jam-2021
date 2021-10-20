@@ -9,3 +9,9 @@ public interface IInputMethod
     public Vector2 CheckMoveInput();
     public bool CheckAbilityInput();
 }
+public interface IControllable
+{
+    public void ReceiveJoystick(Vector2 input);
+    public void ReceiveButton(bool pressed);
+    public void DestroyPawn();
+}

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using HotteStuff;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IControllable
 {
     //Objects & Components:
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
@@ -225,6 +225,10 @@ public class PlayerController : MonoBehaviour
     {
         //Called when button is pressed
 
+    }
+    public void DestroyPawn()
+    {
+        Destroy(gameObject);
     }
 
     //UTILITY FUNCTIONS:

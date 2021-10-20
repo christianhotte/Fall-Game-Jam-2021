@@ -102,7 +102,7 @@ public class InputMaster : MonoBehaviour
 
         //Objects & Components:
         internal IInputMethod inputMethod;
-        internal PlayerController playerCharacter;
+        internal IControllable playerPawn;
 
         //Stats & Mem Vars:
         internal float timeSinceLastInput;
@@ -155,9 +155,12 @@ public class InputMaster : MonoBehaviour
             Vector2 moveInput = player.inputMethod.CheckMoveInput(); if (moveInput != Vector2.zero) idle = false; //Get input value and check if idle
             bool buttonInput = player.inputMethod.CheckAbilityInput(); if (buttonInput) idle = false; //Get input value and check if idle
 
+            //Safety Check:
+            if (player.playerPawn == null) continue;
+
             //Send Input Values to PlayerController:
-            player.playerCharacter.ReceiveJoystick(moveInput); //Send directional input
-            player.playerCharacter.ReceiveButton(buttonInput); //Send button input
+            player.playerPawn.ReceiveJoystick(moveInput); //Send directional input
+            player.playerPawn.ReceiveButton(buttonInput); //Send button input
 
             //Check for Idle Kick:
             if (idle) //If player has been idle, increase idle time and check for idle kick condition
@@ -186,7 +189,7 @@ public class InputMaster : MonoBehaviour
         players.Add(newPlayer);              //Add new player to list of existing players
 
         //Create and Place Player Character:
-        newPlayer.playerCharacter = Instantiate(playerPrefab).GetComponent<PlayerController>();
+        newPlayer.playerPawn = Instantiate(playerPrefab).GetComponent<IControllable>();
         //NOTE: Add something that places character in spawn location
 
     }
@@ -197,8 +200,27 @@ public class InputMaster : MonoBehaviour
 
         //Despawn Player Objects:
         //NOTE: Maybe add some fun destruction/despawn effects
-        Destroy(player.playerCharacter.gameObject); //Destroy player character gameObject
+        player.playerPawn.DestroyPawn(); //Destroy player character gameObject
         players.Remove(player); //Remove player from list of active players, officially destroying it for good
+    }
+
+    //GAME STUFF:
+    public void RespawnCharacter(Player player)
+    {
+        //Gives player new character
+        player.playerPawn = Instantiate(playerPrefab).GetComponent<IControllable>();
+    }
+    public void RespawnCharacter(PlayerController bug)
+    {
+        foreach (Player player in players) //Iterate through player list
+        {
+            if (player.playerPawn == bug)
+            {
+                RespawnCharacter(player); //Respawn bug
+                return;
+            }
+        }
+        Debug.LogError("Couldn't find bug's player ):");
     }
 
     //KEYBOARD FUCKERY:
