@@ -226,7 +226,7 @@ public class InputMaster : MonoBehaviour
         //Check for New Devices:
         foreach (InputDevice device in InputSystem.devices) //Iterate through list of connected devices
         {
-            //Debug.Log(device.);
+            //Debug.Log(device.layout);
         }
     }
     private void CheckForControllerDisconnection()
