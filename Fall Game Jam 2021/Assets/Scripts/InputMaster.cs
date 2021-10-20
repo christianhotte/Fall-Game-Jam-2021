@@ -48,7 +48,10 @@ public class InputMaster : MonoBehaviour
     {
         //Called when a new controller is detected
 
-        //if (input.currentControlScheme)
+        /*if (input.)
+        {
+            Debug.Log("oog");
+        }*/
     }
     public void OnPlayerLeft(PlayerInput input)
     {
