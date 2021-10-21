@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
     //BugDie Stuff:
     internal bool bugDead = false; //Indicates that bug is currently inactive
+    internal bool bugSuicide = false; //Indicates whether or not bug died due to suicide
     private RaycastHit hit; //Container to store death raycasts
     private int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
 
@@ -264,14 +265,15 @@ public class PlayerController : MonoBehaviour, IControllable
         //Determine Cause of Die:
         if (lastBugTouched == null) //Bug died on its own
         {
-            //NOTE: NEED TO ADD UI CHANGE
             pointCountValue -= 1; //Subtract a point from score
             pointCountUI.text = pointCountValue.ToString();
+            bugSuicide = true;
         }
         else //Bug was killed by another bug
         {
             lastBugTouched.pointCountValue += 1; // Give other player a point
             lastBugTouched.pointCountUI.text = lastBugTouched.pointCountValue.ToString();
+            bugSuicide = false;
         }
         lastBugTouched = null; //Clear data on last bug touched
 
