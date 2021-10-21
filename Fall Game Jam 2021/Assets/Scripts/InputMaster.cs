@@ -193,9 +193,12 @@ public class InputMaster : MonoBehaviour
         players.Add(newPlayer);              //Add new player to list of existing players
 
         //Create and Place Player Character:
-        newPlayer.playerPawn = Instantiate(playerPrefab).GetComponent<IControllable>();
+        PlayerController newBug = Instantiate(playerPrefab.GetComponent<PlayerController>());
+        newPlayer.playerPawn = newBug.GetComponent<IControllable>();
         newPlayer.playerPawn.GivePlayer(newPlayer); //Give player to pawn
-        //NOTE: Add something that places character in spawn location
+        Transform spawnPoint = DeathHandler.deathHandler.spawnPoints[Random.Range(0, DeathHandler.deathHandler.spawnPoints.Length - 1)]; //Get random location within spawnpoints
+        newBug.transform.position = spawnPoint.position;
+        //newBug.transform.GetChild(0).rotation = spawnPoint.rotation;
 
     }
     private void DestroyPlayer(Player player)
