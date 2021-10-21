@@ -158,6 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2502786202877449222}
   - component: {fileID: 2502786202877449223}
+  - component: {fileID: 6041188724882316297}
   - component: {fileID: 9160181383772631860}
   - component: {fileID: 2502786202877449241}
   - component: {fileID: -1855547072540487551}
@@ -290,6 +291,21 @@ MonoBehaviour:
   bugDeathTumbleVector: {x: 4, y: 5, z: 1}
   lastHitTimeout: 3
   pointCountUI: {fileID: 5093678533653609814}
+--- !u!114 &6041188724882316297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502786202877449240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e940741dc6c1ac4f9567eae0e5a9a7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  webProjectile: {fileID: 2785541299541183387, guid: 808543f7d8bb6db4fb807e6831832b63, type: 3}
+  SludgePrefab: {fileID: 1056021162420976800, guid: 183eb9f0ca6c92d41b2edc761fedbdf1, type: 3}
+  AbilityRechargeTime: 0
 --- !u!54 &9160181383772631860
 Rigidbody:
   m_ObjectHideFlags: 0

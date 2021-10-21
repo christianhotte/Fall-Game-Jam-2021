@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour, IControllable
     internal Vector2 velocity;       //How fast da bug is going
     private Vector2 currentJoystick; //Where the joystick was last time it changed
     private bool currentButton;      //State the button was last time it changed
+    private float timeSinceLastContact; //Time (in seconds) since bug last touched another bug
 
     //BugDie Stuff:
     internal bool bugDead = false; //Indicates that bug is currently inactive
@@ -80,7 +81,7 @@ public class PlayerController : MonoBehaviour, IControllable
             MoveBug();
             RotateBug();
         
-        //Check Last Bug Touched Expiration:
+        //Update Timers:
         if (lastBugTouched != null) // If bug touches this bug, forget it after 5 seconds to determine kill or suicide point
         {
             killVsSuicideTimer += Time.deltaTime; //Increment timer
@@ -91,6 +92,7 @@ public class PlayerController : MonoBehaviour, IControllable
             }
                 
         }
+        if (!bugDead) timeSinceLastContact += Time.deltaTime;
     }
     private void FixedUpdate()
     {
@@ -185,6 +187,7 @@ public class PlayerController : MonoBehaviour, IControllable
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
         killVsSuicideTimer = 0; //Reset timer
+        timeSinceLastContact = 0; //Reset timer
     }
     public void BugBounce(Collider other)
     {
@@ -208,6 +211,7 @@ public class PlayerController : MonoBehaviour, IControllable
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
         killVsSuicideTimer = 0; //Reset timer
+        timeSinceLastContact = 0; //Reset timer
     }
     public void BugDie()
     {

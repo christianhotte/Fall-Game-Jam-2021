@@ -63,6 +63,7 @@ public class DeathHandler : MonoBehaviour
         //Leave empty (simplified) bug husk:
         GameObject bugHusk = Instantiate(bug.gameObject); //Generate new dead bug object
         PlayerController huskController = bugHusk.GetComponent<PlayerController>(); //Get reference for husk's controller
+        Destroy(bugHusk.GetComponent<BugAdaptations>()); //Destroy adaptation component
         Destroy(huskController.headBox); //Destroy unnecessary head collider object
         Destroy(huskController.bodyBox); //Destroy unnecessary body collider object
         Destroy(huskController); //Destroy core playerController on bugHusk
@@ -88,9 +89,8 @@ public class DeathHandler : MonoBehaviour
             deathInstance.timeSinceDeath += Time.deltaTime; //Increment lifetime tracker
             if (deathInstance.timeSinceDeath >= deathUILifetime) //UI timed out, automatically pick adaptation
             {
-                //@KEEGAN/JADEN: Auto-picking an adaptation should happen here
-                RespawnAtRandomLocation(deathInstance); //Respawn bug
-                deathInstance.markedForDisposal = true;
+                //NOTE: SelectAbility marks deathInstance for deletion
+                deathInstance.SelectAbility(deathInstance.abilitySelection[0]); //Default-pick first ability in list
             }
         }
 
