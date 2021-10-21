@@ -66,6 +66,7 @@ public class BugAdaptations : MonoBehaviour
                 densify();
                 break;
             case 11:
+                print("Iwork");
                 ActiveBugAbility.OnAbilityUsed += sludge;
                 break;
             case 12:
@@ -194,7 +195,9 @@ public class BugAdaptations : MonoBehaviour
     public void sludge()
     {
         print("added");
+
         Vector3 spawnposition = transform.position - (2 * transform.forward);
+
         GameObject.Instantiate(SludgePrefab, new Vector3(spawnposition.x, 1.2f, spawnposition.z), Quaternion.Euler(90, 0, 0));
         //instantiae sludge behind player
 

@@ -148,12 +148,12 @@ public class PlayerController : MonoBehaviour, IControllable
         //Get stuff:
         Vector3 targetRotation = new Vector3(0,currentJoystick.x, currentJoystick.y);
         float turnSpeedModifier = speedRotSpeedCurve.Evaluate(GetNormalizedSpeed());
-        float rotationStrength = baseMaxRotationSpeed * turnSpeedModifier * Time.deltaTime;
+        float rotationStrength = (baseMaxRotationSpeed + rotationSpeedModifier) * turnSpeedModifier * Time.deltaTime;
 
         //Rotate bug:
         float angle = (Mathf.Atan2(targetRotation.y, targetRotation.z) * Mathf.Rad2Deg);
         Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
-        body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength + rotationSpeedModifier);
+        body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength);
     }
 
 
