@@ -91,7 +91,7 @@ public class DeathHandler : MonoBehaviour
         //Reposition and Respawn Player Character:
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length - 1)]; //Get random location within spawnpoints
         bug.transform.position = spawnPoint.position; //Move player to spawn position
-        bug.transform.rotation = spawnPoint.rotation; //Rotate player to align with spawn (make sure spawns are rotated sensibly)
+        //bug.transform.GetChild(0).rotation = Quaternion.Euler(0, 0, spawnPoint.rotation.y); //Rotate player to align with spawn (make sure spawns are rotated sensibly)
 
         //Finish & Cleanup:
         bug.BugResurrect(); //Resurrect bug and get back in the fight (make controllable again and reset temporary stats/vars (also implement adaptational changes maybe)
