@@ -22,8 +22,9 @@ public class BugAdaptations : MonoBehaviour
 
     private void Start()
     {
+        addAbility(11);
         PC = gameObject.GetComponent<PlayerController>();
-        //addAbility(11);
+        
     }
 
     public void addAbility(int abilityID)
@@ -94,7 +95,8 @@ public class BugAdaptations : MonoBehaviour
     {
         if (AbilityReady)
         {
-            OnAbilityUsed();
+
+            OnAbilityUsed?.Invoke();
             AbilityReady = false;
             StartCoroutine("recharge");
         }
@@ -149,7 +151,7 @@ public class BugAdaptations : MonoBehaviour
     // Faster turning and acceleration those are some wet joints
     public void OilUpThoseLegJoints()
     {
-        PC.rotationSpeedModifier += .2f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier += .05f * PC.baseMaxRotationSpeed;
         PC.accelModifier += .2f * PC.baseAccel;
     }
 

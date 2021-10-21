@@ -326,7 +326,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //checking to see if your bug has an active ability componenet
         BugAdaptations ABA = gameObject.GetComponent<BugAdaptations>();
-        if(ABA!=null)
+        if (ABA != null)
             gameObject.GetComponent<BugAdaptations>().UseBugAbility();// Use any bug abilites, abilites are tracked in the Active big ability class
 
     }
