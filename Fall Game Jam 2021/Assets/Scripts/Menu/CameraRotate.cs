@@ -61,7 +61,6 @@ public class CameraRotate : MonoBehaviour
                 transform.RotateAround(stump.transform.position, Vector3.up, rotationSpeed * Time.deltaTime);
                 break;
         case cameraState.backButtonTransition:
-                print("in rotat");
                 transform.position = Vector3.Slerp(transform.position, CameraStartPos, 1.5f * Time.deltaTime);
                 transform.rotation = Quaternion.Slerp(transform.rotation, CameraStartRot, 1.5f * Time.deltaTime);
                 if (transform.position == CameraStartPos) menuState = cameraState.rotate;
