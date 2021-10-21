@@ -15,6 +15,8 @@ public class Sludge : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //getsludge effect applied to player if they are a player
+        print(other.name);
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -24,7 +26,7 @@ public class Sludge : MonoBehaviour
     IEnumerator fadeAway()
     {
         //wait initial time then slowly fade away and then destroy out sludgy puddle owow
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(500.0f);
         int x = 500;
         while (x > 0)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BugAdaptations : MonoBehaviour
 {
 
-    private int numBugAbilites = 11;
+    private int numBugAbilites = 14;
     private PlayerController PC;
 
     public GameObject webProjectile;
@@ -15,18 +15,18 @@ public class BugAdaptations : MonoBehaviour
 
 
     private bool AbilityReady = true;
+
     //EventSystem
     public delegate void abilityUsed();
     public static event abilityUsed OnAbilityUsed;
 
     private void Start()
     {
-        //test cases for abilities
         PC = gameObject.GetComponent<PlayerController>();
-
+        //addAbility(11);
     }
 
-    public void addPassive(int abilityID)
+    public void addAbility(int abilityID)
     {
         switch (abilityID)
         {
@@ -64,10 +64,13 @@ public class BugAdaptations : MonoBehaviour
                 densify();
                 break;
             case 11:
+                ActiveBugAbility.OnAbilityUsed += sludge;
                 break;
             case 12:
+                ActiveBugAbility.OnAbilityUsed += grow;
                 break;
             case 13:
+                ActiveBugAbility.OnAbilityUsed += webShot;
                 break;
             case 14:
                 break;
@@ -77,28 +80,7 @@ public class BugAdaptations : MonoBehaviour
                 break;
         }
     }
-    public void addAbillity(int abilityID)
-    {
-        switch (abilityID)
-        {
-            case 0:
-                ActiveBugAbility.OnAbilityUsed += sludge;
-                break;
-            case 1:
-                ActiveBugAbility.OnAbilityUsed += jump;
-                break;
-            case 2:
-                ActiveBugAbility.OnAbilityUsed += grow;
-                break;
-            case 3:
-                ActiveBugAbility.OnAbilityUsed += webShot;
-                break;
-            default:
-                print("no bug ability of that ID");
-                break;
-        }
-
-    }
+   
     public void removeAbillity(int abilityID)
     {
         if (abilityID == 0)
@@ -119,8 +101,96 @@ public class BugAdaptations : MonoBehaviour
     }
 
     //Note: Sludge effects are part of the sludge object
+
+
+
+    //speeds you up in every way at the cost of some strength 
+    public void Shrink()
+    {
+        PC.sizeModifier = .8f * PC.baseSize;
+        PC.ChangeBugSize(PC.sizeModifier);
+        PC.strengthModifier -= PC.baseStrength * .05f;
+        PC.accelModifier += .1f * PC.baseAccel;
+        PC.speedModifier += .1f * PC.baseMaxSpeed;
+        PC.rotationSpeedModifier += .1f * PC.baseMaxRotationSpeed;
+    }
+
+    //str up, turnspeed down, size up++ 
+    public void Biggify()
+    {
+        PC.sizeModifier += .4f * PC.baseSize;
+        PC.ChangeBugSize(PC.sizeModifier);
+        PC.strengthModifier += .02f * PC.baseStrength;
+        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
+    }
+
+    //faster bug no down side
+    public void Speed()
+    {
+        PC.speedModifier += .2f * PC.baseMaxSpeed;
+    }
+
+    // strength and knockback resist, slower turn and way slower max speed
+    public void Heftyify()
+    {
+        PC.strengthModifier += .3f * PC.baseStrength;
+        PC.knockbackResistModifier -= .1f;
+        PC.baseMaxRotationSpeed -= .2f * PC.baseMaxRotationSpeed;
+        PC.baseMaxSpeed -= .4f * PC.baseMaxSpeed;
+
+    }
+
+    // gain more knockback strength 
+    public void BulkUp()
+    {
+        PC.strengthModifier += .2f * PC.baseStrength;
+    }
+
+    // Faster turning and acceleration those are some wet joints
+    public void OilUpThoseLegJoints()
+    {
+        PC.rotationSpeedModifier += .2f * PC.baseMaxRotationSpeed;
+        PC.accelModifier += .2f * PC.baseAccel;
+    }
+
+    // increase your knock back resist but at the cost of turnspeed and speed
+    public void Harden()
+    {
+        PC.knockbackResistModifier -= .25f;
+        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
+        PC.speedModifier -= .3f * PC.baseMaxSpeed;
+    }
+
+    // big size increase little strength increase;
+    public void inflate()
+    {
+        PC.sizeModifier += .4f * PC.baseSize;
+        PC.strengthModifier += .1f * PC.baseStrength;
+    }
+
+    // faster acceleration
+    public void turboBuggo()
+    {
+        PC.accelModifier += .25f * PC.baseAccel;
+    }
+
+    //gain strength lose turn speed
+    public void bigHeadNoNeck()
+    {
+        PC.rotationSpeedModifier -= .2f * PC.baseMaxRotationSpeed;
+        PC.strengthModifier += .2f * PC.baseStrength;
+    }
+
+    // more strength less size bit slower
+    public void densify()
+    {
+        PC.strengthModifier += .2f * PC.baseStrength;
+        PC.sizeModifier = .8f * PC.baseSize;
+        PC.speedModifier -= .2f * PC.baseMaxSpeed;
+    }
     public void sludge()
     {
+        print("added");
         Vector3 spawnposition = transform.position - (2 * transform.forward);
         GameObject.Instantiate(SludgePrefab, new Vector3(spawnposition.x, 1.2f, spawnposition.z), Quaternion.Euler(90, 0, 0));
         //instantiae sludge behind player
@@ -133,12 +203,6 @@ public class BugAdaptations : MonoBehaviour
 
     }
 
-    //Notice: jump needs to be reworked since no rigidbody physics is currently happening
-    public void jump()
-    {
-
-    }
-
     // webshot web effect needs to be built
     public void webShot()
     {
@@ -147,81 +211,12 @@ public class BugAdaptations : MonoBehaviour
         webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6);
     }
 
-    //Note: what does a leafsheild do?
-    //speeds you up in every way at the cost of some strength 
-    public void Shrink()
-    {
-        PC.sizeModifier = .8f * PC.baseSize;
-        PC.ChangeBugSize(PC.sizeModifier);
-        PC.strengthModifier -= PC.baseStrength * .05f;
-        PC.accelModifier += .1f * PC.baseAccel;
-        PC.speedModifier += .1f * PC.baseMaxSpeed;
-        PC.rotationSpeedModifier += .1f * PC.baseMaxRotationSpeed;
-    }
-    //str up, turnspeed down, size up++ 
-    public void Biggify()
-    {
-        PC.sizeModifier += .4f * PC.baseSize;
-        PC.ChangeBugSize(PC.sizeModifier);
-        PC.strengthModifier += .02f * PC.baseStrength;
-        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
-    }
-    //faster bug no down side
-    public void Speed()
-    {
-        PC.speedModifier += .2f * PC.baseMaxSpeed;
-    }
-    // strength and knockback resist, slower turn and way slower max speed
-    public void Heftyify()
-    {
-        PC.strengthModifier += .3f * PC.baseStrength;
-        PC.knockbackResistModifier -= .1f;
-        PC.baseMaxRotationSpeed -= .2f * PC.baseMaxRotationSpeed;
-        PC.baseMaxSpeed -= .4f * PC.baseMaxSpeed;
 
-    }
-    // gain more knockback strength 
-    public void BulkUp()
-    {
-        PC.strengthModifier += .2f * PC.baseStrength;
-    }
-    // Faster turning and acceleration those are some wet joints
-    public void OilUpThoseLegJoints()
-    {
-        PC.rotationSpeedModifier += .2f * PC.baseMaxRotationSpeed;
-        PC.accelModifier += .2f * PC.baseAccel;
-    }
-    // increase your knock back resist but at the cost of turnspeed and speed
-    public void Harden()
-    {
-        PC.knockbackResistModifier -= .25f;
-        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
-        PC.speedModifier -= .3f * PC.baseMaxSpeed;
-    }
-    // big size increase little strength increase;
-    public void inflate()
-    {
-        PC.sizeModifier += .4f * PC.baseSize;
-        PC.strengthModifier += .1f * PC.baseStrength;
-    }
-    // faster acceleration
-    public void turboBuggo()
-    {
-        PC.accelModifier += .25f * PC.baseAccel;
-    }
-    //gain strength lose turn speed
-    public void bigHeadNoNeck()
-    {
-        PC.rotationSpeedModifier -= .2f * PC.baseMaxRotationSpeed;
-        PC.strengthModifier += .2f * PC.baseStrength;
-    }
-    // more strength less size bit slower
-    public void densify()
-    {
-        PC.strengthModifier += .2f * PC.baseStrength;
-        PC.sizeModifier = .8f * PC.baseSize;
-        PC.speedModifier -= .2f * PC.baseMaxSpeed;
-    }
+    /// <summary>
+    /// how many random bug abilites do you want it will return that many
+    /// </summary>
+    /// <param name="NumChoices"></param>
+    /// <returns></returns>
     public List<int> getAbilityChoices(int NumChoices)
     {
 
@@ -244,6 +239,7 @@ public class BugAdaptations : MonoBehaviour
 
         return choices;
     }
+
 
     // sets a time to recharge the ability
     IEnumerator recharge()

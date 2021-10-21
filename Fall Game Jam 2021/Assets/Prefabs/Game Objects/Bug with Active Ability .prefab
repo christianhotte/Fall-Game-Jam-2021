@@ -242,8 +242,7 @@ GameObject:
   - component: {fileID: 8546753207206266197}
   - component: {fileID: 3114243984782680696}
   - component: {fileID: 8051432731510925024}
-  - component: {fileID: 685579231722791280}
-  - component: {fileID: -4517312118981859170}
+  - component: {fileID: 6533153949458632067}
   m_Layer: 8
   m_Name: 'Bug with Active Ability '
   m_TagString: Untagged
@@ -418,7 +417,8 @@ MonoBehaviour:
   isDash: 0
   dashTime: 0.25
   dashSpeed: 50
---- !u!114 &685579231722791280
+  bumpMulti: 0
+--- !u!114 &6533153949458632067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -427,27 +427,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3114243984782680697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929eab127a5a78a4e8f3c5ceb6ac7953, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e940741dc6c1ac4f9567eae0e5a9a7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   webProjectile: {fileID: 2785541299541183387, guid: 808543f7d8bb6db4fb807e6831832b63, type: 3}
   SludgePrefab: {fileID: 1056021162420976800, guid: 183eb9f0ca6c92d41b2edc761fedbdf1, type: 3}
-  AbilityRechargeTime: 0
---- !u!114 &-4517312118981859170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3114243984782680697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1226de161bb60354e83d6430a3537340, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gooTrail: 0
-  anger: 0
-  invisiblity: 0
+  AbilityRechargeTime: 2
 --- !u!1 &5258822165009705235
 GameObject:
   m_ObjectHideFlags: 0
