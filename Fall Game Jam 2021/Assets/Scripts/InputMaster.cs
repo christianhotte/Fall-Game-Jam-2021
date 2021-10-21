@@ -8,9 +8,6 @@ public class InputMaster : MonoBehaviour
 {
     //Function: Tracks player instances, spawns new players when new inputs are detected, removes players when inputs are disconnected
 
-    //Subscriptions:
-    
-
     //Classes, Structs & Enums:
     public class Joystick : IInputMethod
     {
@@ -115,6 +112,7 @@ public class InputMaster : MonoBehaviour
     public List<Player> players = new List<Player>(); //All active players in scene
     public List<Joystick> connectedJoysticks = new List<Joystick>(); //All active joysticks in scene
     public KeyboardInstance[] keyboardSetups;
+    private PlayerInputManager inputManager; //The input manager component on the GameMaster gameObject
 
     //Settings:
     [Header("Settings:")]
@@ -123,9 +121,12 @@ public class InputMaster : MonoBehaviour
     //LOOP METHODS:
     private void Awake()
     {
+        //Singleify:
         if (inputMaster == null) { DontDestroyOnLoad(gameObject); inputMaster = this; }
         else Destroy(gameObject);
-        
+
+        //Get Components:
+        inputManager = GetComponent<PlayerInputManager>(); //Get player input manager
     }
 
     private void Update()
@@ -205,22 +206,6 @@ public class InputMaster : MonoBehaviour
         players.Remove(player); //Remove player from list of active players, officially destroying it for good
     }
 
-    //GAME STUFF:
-    public Player GetPlayerFromPawn(IControllable pawn)
-    {
-        //Function: Returns the player who owns this pawn (bug or UI)
-
-        //Find Player who Owns Pawn:
-        foreach (Player player in players) //Iterate through player list
-        {
-            if (player.playerPawn == pawn) return player; //Return found player
-        }
-
-        //Player Could Not Be Found (something's wrong):
-        Debug.LogError("Could not find player for " + pawn);
-        return null;
-    }
-
     //KEYBOARD FUCKERY:
     private void CheckForNewKeyboardPlayers()
     {
@@ -246,11 +231,7 @@ public class InputMaster : MonoBehaviour
     //JOYSTICK FUCKERY:
     private void CheckForNewStickPlayers()
     {
-        //Check for New Devices:
-        foreach (InputDevice device in InputSystem.devices) //Iterate through list of connected devices
-        {
-            //Debug.Log(device.);
-        }
+        
     }
     private void CheckForControllerDisconnection()
     {
