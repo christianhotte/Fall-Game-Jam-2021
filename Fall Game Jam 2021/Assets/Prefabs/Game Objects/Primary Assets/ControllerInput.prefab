@@ -82,19 +82,67 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2237865613584164021}
+        m_TargetAssemblyTypeName: ControllerInstance, Assembly-CSharp
+        m_MethodName: OnJoystick1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9761a817-49f9-4708-b2fc-d714cd29f386
     m_ActionName: Player/Joystick1[/SwitchProControllerHID/leftStick,/SwitchProControllerHID/leftStick]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2237865613584164021}
+        m_TargetAssemblyTypeName: ControllerInstance, Assembly-CSharp
+        m_MethodName: OnJoystick2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 06719b5c-43aa-42f1-b4b2-9c7e7487659b
     m_ActionName: Player/Joystick2[/SwitchProControllerHID/rightStick,/SwitchProControllerHID/rightStick]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2237865613584164021}
+        m_TargetAssemblyTypeName: ControllerInstance, Assembly-CSharp
+        m_MethodName: OnAbility1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6d4129be-1d19-4064-8a15-8f0437aaf41e
     m_ActionName: Player/Ability1[/SwitchProControllerHID/leftTrigger,/SwitchProControllerHID/leftStick/down,/SwitchProControllerHID/leftStick/down]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2237865613584164021}
+        m_TargetAssemblyTypeName: ControllerInstance, Assembly-CSharp
+        m_MethodName: OnAbility2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c9fe4691-1b15-4426-a5b1-2c0c4a4b6e9c
     m_ActionName: Player/Ability2[/SwitchProControllerHID/rightTrigger,/SwitchProControllerHID/rightStick/down,/SwitchProControllerHID/rightStick/down]
   - m_PersistentCalls:

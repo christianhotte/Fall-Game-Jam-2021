@@ -9,7 +9,7 @@ public class InputMaster : MonoBehaviour
     //Function: Tracks player instances, spawns new players when new inputs are detected, removes players when inputs are disconnected
 
     //Classes, Structs & Enums:
-    public class Joystick : IInputMethod
+    [System.Serializable] public class Joystick : IInputMethod
     {
         //Joysticks (usually 2 per controller)
 
@@ -19,6 +19,7 @@ public class InputMaster : MonoBehaviour
 
         //Stats:
         public bool isActive = false;
+        public bool isLeftJoystick = false; //Determines which inputs this joystick references.  If false, this is the Right joystick
 
         //CORE METHODS:
         public void GivePlayer(Player player)
@@ -39,13 +40,13 @@ public class InputMaster : MonoBehaviour
         //INPUT METHODS:
         public Vector2 CheckMoveInput()
         {
-            //NOTE: put stuff in here
-            return Vector2.zero;
+            if (isLeftJoystick) return controller.currentJoystick1; //Return controller's current left joystick value
+            else return controller.currentJoystick2; //Return controller's current right joystick value
         }
         public bool CheckAbilityInput()
         {
-            //NOTE: put stuff in here
-            return true;
+            if (isLeftJoystick) return controller.currentButton1; //Return controller's current left ability button value
+            else return controller.currentButton2; //Return controller's current right ability button value
         }
     }
     [System.Serializable] public class KeyboardInstance : IInputMethod
@@ -111,8 +112,9 @@ public class InputMaster : MonoBehaviour
     public static InputMaster inputMaster;
     public GameObject playerPrefab;
     public List<Player> players = new List<Player>(); //All active players in scene
+    public List<ControllerInstance> controllerSetups = new List<ControllerInstance>(); //All connected controllers in game
     public List<Joystick> connectedJoysticks = new List<Joystick>(); //All active joysticks in scene
-    public KeyboardInstance[] keyboardSetups;
+    public KeyboardInstance[] keyboardSetups; //Array of special objects for connecting and disconnecting keyboard players
     private PlayerInputManager inputManager; //The input manager component on the GameMaster gameObject
 
     //Settings:
@@ -134,9 +136,11 @@ public class InputMaster : MonoBehaviour
     {
         //Check for disconnected devices:
         CheckForKeyboardDisconnection();
+        //Controller disconnection is handled by ControllerInstance objects
 
         //Check for new players:
         CheckForNewKeyboardPlayers();
+        CheckForNewJoystickPlayers();
 
         //Call input functions (and maybe delete players):
         CheckPlayerInputs();
@@ -229,29 +233,40 @@ public class InputMaster : MonoBehaviour
 
 
     //JOYSTICK FUCKERY:
-    public void AddNewJoystick()
+    private void CheckForNewJoystickPlayers()
     {
-        //Function: Adds a new joystick instance to list, and assigns a player to that joystick (spawning in a character object)
+        //Function: Checks all joysticks on all controllers in scene and spawns a player object if joystick becomes active
 
-
+        foreach (Joystick joystick in connectedJoysticks) //Parse through every connected joystick in game
+        {
+            if (joystick.isActive) continue; //Ignore joysticks that are already active
+            if (joystick.CheckMoveInput() != Vector2.zero || joystick.CheckAbilityInput()) //Input is detected on an inactive joystick
+            {
+                NewPlayerJoin(joystick); //Join new player under joystick
+            }
+        }
     }
-    public void RemoveJoystick()
-    {
-        //Function: Removes an existing joystick instance from game, deleting player and attached pawn
-
-
-    }
-    public void AddNewController()
+    public void AddNewController(ControllerInstance newController)
     {
         //Function: Adds a new controller instance to list, allowing InputMaster to pull inputs for up to 2 players (joysticks) from it
 
-
+        //Add References:
+        controllerSetups.Add(newController); //Add new controller to controller list
+        connectedJoysticks.Add(newController.joystick1); //Add left joystick to inputmethods
+        connectedJoysticks.Add(newController.joystick2); //Add right joystick to inputmethods
     }
-    public void RemoveController()
+    public void RemoveController(ControllerInstance controller)
     {
         //Function: Removes a controller instance from game, deleting both associated joysticks, along with any active player objects and attached pawns
 
+        //Remove Existing Player Pawns:
+        if (controller.joystick1.isActive) DestroyPlayer(controller.joystick1.attachedPlayer); //Remove left joystick's player from game
+        if (controller.joystick2.isActive) DestroyPlayer(controller.joystick2.attachedPlayer); //Remove right joystick's player from game
 
+        //Remove Object References from Game Lists:
+        connectedJoysticks.Remove(controller.joystick1); //Remove left joystick from list
+        connectedJoysticks.Remove(controller.joystick2); //Remove right joystick from list
+        controllerSetups.Remove(controller); //Remove this controller from list
     }
 
 }
