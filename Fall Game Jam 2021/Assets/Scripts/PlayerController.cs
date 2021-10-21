@@ -367,11 +367,11 @@ public class PlayerController : MonoBehaviour, IControllable
         }
     }
 
-    public void TouchSludge()
+    public void TouchedSludge()
     {
         maxSpeed = maxSpeed / 2;
     }
-    public void UntouchSludge()
+    public void UnTouchSludge()
     {
         maxSpeed = maxSpeed * 2;
     }
