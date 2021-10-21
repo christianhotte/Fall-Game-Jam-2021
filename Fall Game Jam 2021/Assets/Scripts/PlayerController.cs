@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
     internal Collider headBox; //This bug's head collider
     internal Collider bodyBox; //This bug's body collider
+    internal BugDash BugDash; //Bug dash controller
 
     //Bugstats:
     [Header("Stats:")]
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour, IControllable
     [Space()]
     public Vector3 bugDeathTumbleVector; //Vector determining force applied to bug when dying (and ragdolling)
     public float minTimeBetweenBumps; //Prevents multiple bumps from happening too close to each other
+    public float isSlammedTimeOut; //Amount of time (in seconds) a bug stays bumped for
+    public float snapBackToBaseVelSpeed; //How fast bug returns to base velocity (when returning from high velocity)
 
     [Header("Score Stuff:")]
     public float lastHitTimeout; //Amount of time that must pass before lastBugTouched is reset
@@ -55,14 +58,13 @@ public class PlayerController : MonoBehaviour, IControllable
     private Vector2 currentJoystick; //Where the joystick was last time it changed
     private bool currentButton;      //State the button was last time it changed
     private float timeSinceLastContact; //Time (in seconds) since bug last touched another bug
+    internal bool isSlammed; //Indicates that bug has recently been bumped
+    private float timeSinceSlammed; //Time since bug has been slammed
 
     //BugDie Stuff:
     internal bool bugDead = false; //Indicates that bug is currently inactive
     private RaycastHit hit; //Container to store death raycasts
     private int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
-
-    //Alice Dash Code Shit
-    internal BugDash BugDash;
 
     //LOOP METHODS:
     private void Awake()
@@ -95,6 +97,15 @@ public class PlayerController : MonoBehaviour, IControllable
                 
         }
         if (!bugDead) timeSinceLastContact += Time.deltaTime;
+        if (isSlammed)
+        {
+            timeSinceSlammed += Time.deltaTime;
+            if (timeSinceSlammed >= isSlammedTimeOut)
+            {
+                isSlammed = false;
+                timeSinceSlammed = 0;
+            }
+        }
     }
     private void FixedUpdate()
     {
@@ -121,7 +132,7 @@ public class PlayerController : MonoBehaviour, IControllable
             accelFactor = baseDrag;
         }
         velocity = Vector2.Lerp(velocity, targetVelocity, accelFactor * Time.deltaTime);
-        
+
         //Check for stop:
         if (currentJoystick == Vector2.zero && velocity.sqrMagnitude <= bugStopSnap) //Bug is decelerating
         {
@@ -132,9 +143,18 @@ public class PlayerController : MonoBehaviour, IControllable
         //Check for max velocity:
         if (BugDash.isDash) //Special velocity cap when dashing
         {
-
+            //No velocity cap
         }
-        else if (velocity.magnitude > maxSpeed) velocity = velocity.normalized * maxSpeed;
+        else if (isSlammed) //Special velocity cap when being slammed
+        {
+            //No velocity cap
+        }
+        else if (velocity.magnitude > maxSpeed) //Player is moving to fast for current state
+        {
+            //Move velocity back toward target
+            targetVelocity = velocity.normalized * maxSpeed;
+            velocity = Vector2.Lerp(velocity, targetVelocity, snapBackToBaseVelSpeed * Time.deltaTime);
+        }
 
         //Apply velocity to bug position:
         Vector3 realVelocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
@@ -179,18 +199,22 @@ public class PlayerController : MonoBehaviour, IControllable
         //Determine force:
         Vector2 hitDirection = Vector2.up.Rotate(body.eulerAngles.y);
         hitDirection = Vector2.Reflect(hitDirection, Vector2.left);
-        Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
-        
-        float dashMulti;
-        if (BugDash.isDash) dashMulti = BugDash.bumpMulti;
-        else dashMulti = 1.0f;
+        float hitMultiplier = hitStrength; //Get hit strength multiplier
+        if (BugDash.isDash) hitMultiplier *= BugDash.bumpMulti; //Apply dash multiplier if applicable
+        Vector2 hitForce = hitDirection * hitMultiplier; //Apply hitforce to direction
 
         //Add force to bugs:
-        otherBug.velocity += hitForce * dashMulti * otherBug.knockbackResistModifier; //Bump other bug
+        otherBug.velocity += hitForce * otherBug.knockbackResistModifier; //Bump other bug
         velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
+
 
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
+        if (otherBug.BugDash.isDash) //Mark that bug was dashed into
+        { 
+            isSlammed = true;
+            timeSinceSlammed = 0;
+        }
         killVsSuicideTimer = 0; //Reset timer
         timeSinceLastContact = 0; //Reset timer
     }
@@ -218,6 +242,11 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
+        if (otherBug.BugDash.isDash) //Mark that bug was dashed into
+        { 
+            isSlammed = true;
+            timeSinceSlammed = 0;
+        }
         killVsSuicideTimer = 0; //Reset timer
         timeSinceLastContact = 0; //Reset timer
     }

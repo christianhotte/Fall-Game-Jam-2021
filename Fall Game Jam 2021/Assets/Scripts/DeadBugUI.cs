@@ -77,7 +77,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
 
         if (pressed) //If button has been pressed while joystick is pointed in a direction
         {
-            if (currentJoystick != Vector2.zero)
+            if (currentJoystick != Vector2.zero) //Select ability player is pointing to
             {
                 //Determine which ability to select:
                 float sliceDegrees = 360 / numberOfChoices; //Get degrees per slice on the input wheel
@@ -93,9 +93,9 @@ public class DeadBugUI : MonoBehaviour, IControllable
                     }
                 }
             }
-            else
+            else //Select random ability
             {
-                //SelectAbility()
+                SelectAbility(abilitySelection[Random.Range(0, abilitySelection.Count - 1)]);
             }
         }
     }

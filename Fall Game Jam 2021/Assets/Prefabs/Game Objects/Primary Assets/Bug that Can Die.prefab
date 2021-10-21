@@ -198,15 +198,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseMaxSpeed: 13
-  baseAccel: 3
+  baseAccel: 6
   baseDrag: 6
   baseMaxRotationSpeed: 7
   baseSize: 1
   baseStrength: 8
   bugStopSnap: 0.0001
-  bumpRecoilMultiplier: 0.3
+  bumpRecoilMultiplier: 0.543
   bounceBaseForce: 4
-  maxSpeed: 50
+  maxSpeed: 15
   speedAccelCurve:
     serializedVersion: 2
     m_Curve:
@@ -270,17 +270,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0.5
-      outSlope: 0.5
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
-      value: 1.5
-      inSlope: 0.5
-      outSlope: 0.5
+      value: 2
+      inSlope: 1
+      outSlope: 1
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
@@ -290,6 +290,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   bugDeathTumbleVector: {x: 4, y: 5, z: 1}
   minTimeBetweenBumps: 0.05
+  isSlammedTimeOut: 1
+  snapBackToBaseVelSpeed: 20
   lastHitTimeout: 3
   pointCountUI: {fileID: 5093678533653609814}
 --- !u!114 &6041188724882316297
@@ -306,7 +308,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webProjectile: {fileID: 2785541299541183387, guid: 808543f7d8bb6db4fb807e6831832b63, type: 3}
   SludgePrefab: {fileID: 1056021162420976800, guid: 183eb9f0ca6c92d41b2edc761fedbdf1, type: 3}
-  AbilityRechargeTime: 0
+  AbilityRechargeTime: 3
 --- !u!54 &9160181383772631860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -350,9 +352,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDash: 0
-  dashTime: 0.25
-  dashSpeed: 50
-  bumpMulti: 50
+  dashTime: 0.05
+  dashSpeed: 100
+  bumpMulti: 4
 --- !u!1 &2502786203025259404
 GameObject:
   m_ObjectHideFlags: 0
