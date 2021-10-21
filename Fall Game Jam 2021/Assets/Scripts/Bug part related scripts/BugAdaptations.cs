@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BugAdaptations : MonoBehaviour
 {
-
+    
     private int numBugAbilites = 14;
     private PlayerController PC;
 
@@ -67,13 +67,13 @@ public class BugAdaptations : MonoBehaviour
                 break;
             case 11:
                 print("Iwork");
-                ActiveBugAbility.OnAbilityUsed += sludge;
+                BugAdaptations.OnAbilityUsed += sludge;
                 break;
             case 12:
-                ActiveBugAbility.OnAbilityUsed += grow;
+                BugAdaptations.OnAbilityUsed += grow;
                 break;
             case 13:
-                ActiveBugAbility.OnAbilityUsed += webShot;
+                BugAdaptations.OnAbilityUsed += webShot;
                 break;
             case 14:
                 break;
@@ -160,7 +160,7 @@ public class BugAdaptations : MonoBehaviour
     // increase your knock back resist but at the cost of turnspeed and speed
     public void Harden()
     {
-        PC.knockbackResistModifier -= .25f;
+        PC.knockbackResistModifier -= .05f;
         PC.rotationSpeedModifier -= .06f * PC.baseMaxRotationSpeed;
         PC.speedModifier -= .3f * PC.baseMaxSpeed;
     }
