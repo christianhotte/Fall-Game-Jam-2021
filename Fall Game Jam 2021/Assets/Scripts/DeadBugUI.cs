@@ -43,7 +43,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
         //Function: Chooses given ability and activates player respawn procedure
 
         //Add Ability to Player:
-        adaptationManager.addAbillity(abilityIndex); //Add ability to player
+        adaptationManager.addAbility(abilityIndex); //Add ability to player
         Debug.Log("Ability added " + abilityIndex);
 
         //Continue Respawn Process:
@@ -67,12 +67,12 @@ public class DeadBugUI : MonoBehaviour, IControllable
         {
             //Determine which ability to select:
             float sliceDegrees = 360 / numberOfChoices; //Get degrees per slice on the input wheel
-            //float joystickAngle = 
+            float joystickAngle = Vector2.Angle(Vector2.up, currentJoystick); //Get current angle of joystick
             for (int i = 0; i < numberOfChoices; i++) //Iterate through all potential choices
             {
                 float sliceStart = i * sliceDegrees;     //Get start of slice in degrees
                 float sliceEnd = (i + 1) * sliceDegrees; //Get end of slice in degrees
-
+                //if (HotteMath.)
             }
         }
     }
