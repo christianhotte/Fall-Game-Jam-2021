@@ -11,6 +11,7 @@ public interface IInputMethod
 }
 public interface IControllable
 {
+    public void GivePlayer(InputMaster.Player player);
     public void ReceiveJoystick(Vector2 input);
     public void ReceiveButton(bool pressed);
     public void DestroyPawn();

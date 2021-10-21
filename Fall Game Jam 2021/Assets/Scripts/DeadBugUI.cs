@@ -8,7 +8,9 @@ public class DeadBugUI : MonoBehaviour, IControllable
     //Function: Player object which shows up when (and where) a bug dies
 
     //Objects & Components:
+    internal InputMaster.Player currentPlayer; //The player controlling this UI
     private BugAdaptations adaptationManager; //The adaptation script on this UI's associated bug
+    private readonly System.Random rnd = new System.Random(); //Get random seed
 
     //Settings:
     [Header("Settings:")]
@@ -47,11 +49,21 @@ public class DeadBugUI : MonoBehaviour, IControllable
         Debug.Log("Ability added " + abilityIndex);
 
         //Continue Respawn Process:
+        EndUI(); //End this UI
+    }
+    public void EndUI()
+    {
+        //Function: Removes this UI from game and spawns player back in
+
         DeathHandler.deathHandler.RespawnAtRandomLocation(this); //Respawn bug
         markedForDisposal = true; //Indicate that UI is ready to be destroyed
     }
 
     //ICONTROLLABLE METHODS:
+    public void GivePlayer(InputMaster.Player player)
+    {
+        currentPlayer = player;
+    }
     public void ReceiveJoystick(Vector2 input)
     {
         //Function: Called by input manager when sending commands from Player to IControllable pawn (this)
@@ -63,16 +75,27 @@ public class DeadBugUI : MonoBehaviour, IControllable
     {
         //Function: Called by input manager when sending commands from Player to IControllable pawn (this)
 
-        if (pressed && currentJoystick != Vector2.zero) //If button has been pressed while joystick is pointed in a direction
+        if (pressed) //If button has been pressed while joystick is pointed in a direction
         {
-            //Determine which ability to select:
-            float sliceDegrees = 360 / numberOfChoices; //Get degrees per slice on the input wheel
-            float joystickAngle = Vector2.Angle(Vector2.up, currentJoystick); //Get current angle of joystick
-            for (int i = 0; i < numberOfChoices; i++) //Iterate through all potential choices
+            if (currentJoystick != Vector2.zero)
             {
-                float sliceStart = i * sliceDegrees;     //Get start of slice in degrees
-                float sliceEnd = (i + 1) * sliceDegrees; //Get end of slice in degrees
-                //if (HotteMath.)
+                //Determine which ability to select:
+                float sliceDegrees = 360 / numberOfChoices; //Get degrees per slice on the input wheel
+                float joystickAngle = Vector2.Angle(Vector2.up, currentJoystick); //Get current angle of joystick
+                for (int i = 0; i < numberOfChoices; i++) //Iterate through all potential choices
+                {
+                    float sliceStart = i * sliceDegrees;     //Get start of slice in degrees
+                    float sliceEnd = (i + 1) * sliceDegrees; //Get end of slice in degrees
+                    if (HotteMath.AngleIsBetween(joystickAngle, sliceStart, sliceEnd)) //Joystick has selected this choice
+                    {
+                        SelectAbility(abilitySelection[i]); //Deploy selected ability
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                //SelectAbility()
             }
         }
     }

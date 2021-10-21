@@ -289,6 +289,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   bugDeathTumbleVector: {x: 4, y: 5, z: 1}
+  minTimeBetweenBumps: 0.05
   lastHitTimeout: 3
   pointCountUI: {fileID: 5093678533653609814}
 --- !u!114 &6041188724882316297
