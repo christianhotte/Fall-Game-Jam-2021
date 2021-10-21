@@ -114,8 +114,8 @@ public class BugAdaptations : MonoBehaviour
     //speeds you up in every way at the cost of some strength 
     public void Shrink()
     {
-        PC.sizeModifier = .8f * PC.baseSize;
-        PC.ChangeBugSize(PC.sizeModifier);
+        
+        PC.ChangeBugSize(-.2f);
         PC.strengthModifier -= PC.baseStrength * .05f;
         PC.accelModifier += .1f * PC.baseAccel;
         PC.speedModifier += .1f * PC.baseMaxSpeed;
@@ -125,8 +125,8 @@ public class BugAdaptations : MonoBehaviour
     //str up, turnspeed down, size up++ 
     public void Biggify()
     {
-        PC.sizeModifier += .4f * PC.baseSize;
-        PC.ChangeBugSize(PC.sizeModifier);
+        
+        PC.ChangeBugSize(.4f);
         PC.strengthModifier += .02f * PC.baseStrength;
         PC.rotationSpeedModifier -= .0f * PC.baseMaxRotationSpeed;
     }
@@ -171,7 +171,7 @@ public class BugAdaptations : MonoBehaviour
     // big size increase little strength increase;
     public void inflate()
     {
-        PC.sizeModifier += .4f * PC.baseSize;
+        PC.ChangeBugSize(.2f);
         PC.strengthModifier += .1f * PC.baseStrength;
     }
 
@@ -192,7 +192,7 @@ public class BugAdaptations : MonoBehaviour
     public void densify()
     {
         PC.strengthModifier += .2f * PC.baseStrength;
-        PC.sizeModifier = .8f * PC.baseSize;
+        PC.ChangeBugSize(-.3f);
         PC.speedModifier -= .2f * PC.baseMaxSpeed;
     }
     public void sludge()
@@ -215,8 +215,9 @@ public class BugAdaptations : MonoBehaviour
     // webshot web effect needs to be built
     public void webShot()
     {
-        GameObject webBullet = Instantiate(webProjectile, transform.position + Vector3.forward, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z));
-        Vector3 launchDir = -1*Vector3.forward;
+        Vector3 localForward = transform.GetChild(0).transform.forward * -1;
+        GameObject webBullet = Instantiate(webProjectile, transform.position , Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z));
+        Vector3 launchDir = localForward;
         
         webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6);
     }
@@ -264,6 +265,7 @@ public class BugAdaptations : MonoBehaviour
         {
 
             //increase mass here
+            PC.strengthModifier += .2f * PC.baseStrength;
             yield return new WaitForSeconds(.05f);
             transform.localScale = new Vector3(transform.localScale.x + .01f, transform.localScale.y + .01f, transform.localScale.z + .01f);
         }
@@ -272,9 +274,10 @@ public class BugAdaptations : MonoBehaviour
     IEnumerator returnToSize()
     {
         //time you stay large
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(1.5f);
 
         //reduce mass here
+        PC.strengthModifier -= .2f * PC.baseStrength;
         for (int i = 0; i < 40; i++)
         {
 
