@@ -6,6 +6,8 @@ public class PassiveBugAdaptations : MonoBehaviour
 {
 
     //NOTE: size changing is still slightly weird and needs to be the fullinpit of size 
+    private int numBugAbilites = 11;
+
 
 
     // adaptations that change that stats or as persistent passive effects
@@ -21,6 +23,58 @@ public class PassiveBugAdaptations : MonoBehaviour
         Biggify();
         BulkUp();
         inflate();
+    }
+
+    public void addPassive(int abilityID)
+    {
+        switch (abilityID)
+        {
+            case 0:
+                Shrink();
+                break;
+            case 1:
+                Biggify();
+                break;
+            case 2:
+                Speed();
+                break;
+            case 3:
+                Heftyify();
+                break;
+            case 4:
+                BulkUp();
+                break;
+            case 5:
+                OilUpThoseLegJoints();
+                break;
+            case 6:
+                Harden();
+                break;
+            case 7:
+                inflate();
+                break;
+            case 8:
+                turboBuggo();
+                break;
+            case 9:
+                bigHeadNoNeck();
+                break;
+            case 10:
+                densify();
+                break;
+            case 11:
+                break;
+            case 12:
+                break;
+            case 13:
+                break;
+            case 14:
+                break;
+                
+            default:
+                print("no bug ability of that ID");
+                break;
+        }
     }
 
 
@@ -95,8 +149,6 @@ public class PassiveBugAdaptations : MonoBehaviour
         PC.speedModifier -= .2f * PC.baseMaxSpeed;
     }
 
-
-
     public void gootrail() { gooTrail = true; }
    // public void Shrink() { }
     public void NoTouchy() { }
@@ -107,14 +159,27 @@ public class PassiveBugAdaptations : MonoBehaviour
 
 
 
-
-
-
-    //process persistent passive bug effects
-    private void Update()
+    public int[] getAbilityChoices(int NumChoices)
     {
-        
+        List<int> ints = new List<int>();
+        //creare list thats num of bug abilites long 
+        for (int i = 0; i < numBugAbilites ; i++)
+        {
+            ints.Add(i);
+        }
+
+        List<int> choices = new List<int>();
+        for(int i=0; i < 3; i++)
+        {
+            int RandChoice = Random.Range(0, ints.Count);
+            choices.
+        }
+
+            return choices;
     }
+
+
+    
 
 
 }

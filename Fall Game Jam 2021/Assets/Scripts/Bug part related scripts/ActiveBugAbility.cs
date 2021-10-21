@@ -24,8 +24,9 @@ public class ActiveBugAbility : MonoBehaviour
         //test cases for abilities
         PC = gameObject.GetComponent<PlayerController>();
 
-        addAbillity(0);
-        addAbillity(2);
+        
+
+
     }
     public void addAbillity(int abilityID)
     {
