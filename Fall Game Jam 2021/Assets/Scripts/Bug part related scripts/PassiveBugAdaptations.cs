@@ -6,8 +6,8 @@ public class PassiveBugAdaptations : MonoBehaviour
 {
 
     //NOTE: size changing is still slightly weird and needs to be the fullinpit of size 
-    private int numBugAbilites = 11;
 
+   public  int numBugAbilites;
 
 
     // adaptations that change that stats or as persistent passive effects
@@ -19,10 +19,9 @@ public class PassiveBugAdaptations : MonoBehaviour
 
     private void Start()
     {
-        PC = gameObject.GetComponent<PlayerController>();
-        Biggify();
-        BulkUp();
-        inflate();
+       
+       
+        
     }
 
     public void addPassive(int abilityID)
@@ -159,22 +158,28 @@ public class PassiveBugAdaptations : MonoBehaviour
 
 
 
-    public int[] getAbilityChoices(int NumChoices)
+
+    //get Num choices choices back in a list they will not repeat
+    public List<int> getAbilityChoices(int NumChoices)
     {
+        
         List<int> ints = new List<int>();
-        //creare list thats num of bug abilites long 
+        
+        // creat list of all possible abilites
         for (int i = 0; i < numBugAbilites ; i++)
         {
             ints.Add(i);
         }
 
         List<int> choices = new List<int>();
-        for(int i=0; i < 3; i++)
+        //parse through numCHoies of times and send them back
+        for(int i=0; i < NumChoices; i++)
         {
             int RandChoice = Random.Range(0, ints.Count);
-            choices.
+            choices.Add(RandChoice);
+            ints.Remove( RandChoice);
         }
-
+       
             return choices;
     }
 
