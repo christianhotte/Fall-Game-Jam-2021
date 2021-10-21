@@ -5,7 +5,7 @@ using UnityEngine;
 public class BugAdaptations : MonoBehaviour
 {
     
-    private int numBugAbilites = 14;
+    private int numBugAbilites = 15;
     private PlayerController PC;
 
     public GameObject webProjectile;
@@ -45,6 +45,9 @@ public class BugAdaptations : MonoBehaviour
         //sets booleans for each adaptation to false
         for(int i = 0; i < adaptOn.Length; i++)
             adaptOn[i] = false;
+
+        addAbility(11);
+
     }
 
     public void addAbility(int abilityID)
@@ -96,6 +99,7 @@ public class BugAdaptations : MonoBehaviour
                 useAbility += webShot;
                 break;
             case 14:
+                antify();
                 break;
 
             default:
@@ -124,7 +128,6 @@ public class BugAdaptations : MonoBehaviour
         }
     }
 
-    //Note: Sludge effects are part of the sludge object
 
 
 
@@ -133,10 +136,10 @@ public class BugAdaptations : MonoBehaviour
     {
         
         PC.ChangeBugSize(-.2f);
-        PC.strengthModifier -= PC.baseStrength * .05f;
-        PC.accelModifier += .1f * PC.baseAccel;
-        PC.speedModifier += .1f * PC.baseMaxSpeed;
-        PC.rotationSpeedModifier += .025f * PC.baseMaxRotationSpeed;
+        PC.strengthModifier -= PC.baseStrength * .10f;
+        PC.accelModifier += .2f * PC.baseAccel;
+        PC.speedModifier += .2f * PC.baseMaxSpeed;
+        PC.rotationSpeedModifier += .15f * PC.baseMaxRotationSpeed;
     }
 
     //str up, turnspeed down, size up++ 
@@ -144,8 +147,8 @@ public class BugAdaptations : MonoBehaviour
     {
         
         PC.ChangeBugSize(.4f);
-        PC.strengthModifier += .02f * PC.baseStrength;
-        PC.rotationSpeedModifier -= .0f * PC.baseMaxRotationSpeed;
+        PC.strengthModifier += .2f * PC.baseStrength;
+        PC.rotationSpeedModifier -= .2f * PC.baseMaxRotationSpeed;
     }
 
     //faster bug no down side
@@ -158,8 +161,8 @@ public class BugAdaptations : MonoBehaviour
     public void Heftyify()
     {
         PC.strengthModifier += .3f * PC.baseStrength;
-        PC.knockbackResistModifier -= .1f;
-        PC.baseMaxRotationSpeed -= .05f * PC.baseMaxRotationSpeed;
+        PC.knockbackResistModifier -= .05f;
+        PC.baseMaxRotationSpeed -= .15f * PC.baseMaxRotationSpeed;
         PC.baseMaxSpeed -= .4f * PC.baseMaxSpeed;
 
     }
@@ -173,22 +176,22 @@ public class BugAdaptations : MonoBehaviour
     // Faster turning and acceleration those are some wet joints
     public void OilUpThoseLegJoints()
     {
-        PC.rotationSpeedModifier += .05f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier += .2f * PC.baseMaxRotationSpeed;
         PC.accelModifier += .2f * PC.baseAccel;
     }
 
     // increase your knock back resist but at the cost of turnspeed and speed
     public void Harden()
     {
-        PC.knockbackResistModifier -= .05f;
-        PC.rotationSpeedModifier -= .06f * PC.baseMaxRotationSpeed;
+        PC.knockbackResistModifier -= .15f;
+        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
         PC.speedModifier -= .3f * PC.baseMaxSpeed;
     }
 
     // big size increase little strength increase;
     public void inflate()
     {
-        PC.ChangeBugSize(.2f);
+        PC.ChangeBugSize(.6f);
         PC.strengthModifier += .1f * PC.baseStrength;
     }
 
@@ -196,12 +199,13 @@ public class BugAdaptations : MonoBehaviour
     public void turboBuggo()
     {
         PC.accelModifier += .25f * PC.baseAccel;
+        PC.speedModifier += .1f * PC.baseMaxSpeed;
     }
 
     //gain strength lose turn speed
     public void bigHeadNoNeck()
     {
-        PC.rotationSpeedModifier -= .05f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier -= .15f * PC.baseMaxRotationSpeed;
         PC.strengthModifier += .2f * PC.baseStrength;
     }
 
@@ -212,11 +216,21 @@ public class BugAdaptations : MonoBehaviour
         PC.ChangeBugSize(-.3f);
         PC.speedModifier -= .2f * PC.baseMaxSpeed;
     }
+
+    // grow a lot smaller at the cost of nothing
+    public void antify()
+    {
+        PC.ChangeBugSize(-.5f);
+    }
+
+
+
+
     public void sludge()
     {
        
 
-        Vector3 spawnposition = transform.position - (2*transform.GetChild(0).position);
+        Vector3 spawnposition = transform.position - transform.forward;
 
         GameObject.Instantiate(SludgePrefab, new Vector3(spawnposition.x, 1.2f, spawnposition.z), Quaternion.Euler(90, 0, 0));
         //instantiae sludge behind player
