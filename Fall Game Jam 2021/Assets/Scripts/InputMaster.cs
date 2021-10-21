@@ -14,7 +14,8 @@ public class InputMaster : MonoBehaviour
         //Joysticks (usually 2 per controller)
 
         //Objects:
-        public Player attachedPlayer;
+        public Player attachedPlayer;         //Player instance object this joystick is currently controlling
+        public ControllerInstance controller; //Object representing the controller this joystick is attached to
 
         //Stats:
         public bool isActive = false;
@@ -133,11 +134,9 @@ public class InputMaster : MonoBehaviour
     {
         //Check for disconnected devices:
         CheckForKeyboardDisconnection();
-        CheckForControllerDisconnection();
 
         //Check for new players:
         CheckForNewKeyboardPlayers();
-        CheckForNewStickPlayers();
 
         //Call input functions (and maybe delete players):
         CheckPlayerInputs();
@@ -229,12 +228,28 @@ public class InputMaster : MonoBehaviour
     }
 
     //JOYSTICK FUCKERY:
-    private void CheckForNewStickPlayers()
+    public void AddNewJoystick()
     {
-        
+        //Function: Adds a new joystick instance to list, and assigns a player to that joystick (spawning in a character object)
+
+
     }
-    private void CheckForControllerDisconnection()
+    public void RemoveJoystick()
     {
+        //Function: Removes an existing joystick instance from game, deleting player and attached pawn
+
+
+    }
+    public void AddNewController()
+    {
+        //Function: Adds a new controller instance to list, allowing InputMaster to pull inputs for up to 2 players (joysticks) from it
+
+
+    }
+    public void RemoveController()
+    {
+        //Function: Removes a controller instance from game, deleting both associated joysticks, along with any active player objects and attached pawns
+
 
     }
 
