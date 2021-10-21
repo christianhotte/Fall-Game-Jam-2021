@@ -220,7 +220,7 @@ public class BugAdaptations : MonoBehaviour
     // grow a lot smaller at the cost of nothing
     public void antify()
     {
-        PC.ChangeBugSize(-.5f);
+        PC.ChangeBugSize(-.4f);
     }
 
 
