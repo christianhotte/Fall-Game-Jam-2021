@@ -46,7 +46,7 @@ public class BugAdaptations : MonoBehaviour
         for(int i = 0; i < adaptOn.Length; i++)
             adaptOn[i] = false;
 
-        addAbility(11);
+     
 
     }
 
