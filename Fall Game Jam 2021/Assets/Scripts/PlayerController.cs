@@ -50,10 +50,8 @@ public class PlayerController : MonoBehaviour, IControllable
     [Header("Score Stuff:")]
     public float lastHitTimeout; //Amount of time that must pass before lastBugTouched is reset
     public TMP_Text pointCountUI;
-    public TMP_Text genCountUI;
     internal int pointCountValue = 0; // J - Score counter
     private float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
-    internal int genValue = 1;
 
     //Memory Vars:
     internal PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
@@ -84,7 +82,7 @@ public class PlayerController : MonoBehaviour, IControllable
         headBox = body.GetChild(0).GetComponent<Collider>();
         bodyBox = body.GetChild(1).GetComponent<Collider>();
         BugDash = GetComponent<BugDash>();
-        genCountUI.text = genValue.ToString();
+
 
         //Stats:
         transform.localScale = new Vector3(baseSize, baseSize, baseSize); //Set initial scale
@@ -187,6 +185,7 @@ public class PlayerController : MonoBehaviour, IControllable
         Quaternion oog = Quaternion.AngleAxis(angle, Vector3.up);
         body.rotation = Quaternion.Slerp(body.rotation, oog, rotationStrength);
     }
+
 
     //BUG METHODS:
     public void BugBump(Collider other)
@@ -323,10 +322,6 @@ public class PlayerController : MonoBehaviour, IControllable
         velocity = Vector2.zero;
         currentJoystick = Vector2.zero;
         currentButton = false;
-
-        // J - Update the generation (life) counter
-        genValue++;
-        genCountUI.text = genValue.ToString();
     }
     public void ChangeBugSize(float newSize)
     {
