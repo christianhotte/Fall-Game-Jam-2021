@@ -18,10 +18,13 @@ public class BugAdaptations : MonoBehaviour
 
     //EventSystem
     public delegate void abilityUsed();
-    public static event abilityUsed OnAbilityUsed;
+    //public static event abilityUsed OnAbilityUsed;
+    abilityUsed useAbility;
+
 
     private void Start()
     {
+        
         print("goo Add");
         addAbility(11);
         PC = gameObject.GetComponent<PlayerController>();
@@ -67,13 +70,13 @@ public class BugAdaptations : MonoBehaviour
                 break;
             case 11:
                 print("Iwork");
-                BugAdaptations.OnAbilityUsed += sludge;
+                useAbility += sludge;
                 break;
             case 12:
-                BugAdaptations.OnAbilityUsed += grow;
+                useAbility += grow;
                 break;
             case 13:
-                BugAdaptations.OnAbilityUsed += webShot;
+                useAbility += webShot;
                 break;
             case 14:
                 break;
@@ -98,7 +101,7 @@ public class BugAdaptations : MonoBehaviour
         if (AbilityReady)
         {
 
-            OnAbilityUsed?.Invoke();
+            useAbility?.Invoke();
             AbilityReady = false;
             StartCoroutine("recharge");
         }
