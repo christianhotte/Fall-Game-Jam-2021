@@ -71,6 +71,9 @@ public class PlayerController : MonoBehaviour, IControllable
     //BugStausEffects
     internal int webiffied = 1;// 1 means speed is fine webbed of 0 cancels all speed out
 
+    //BugBumpSound
+    public GameObject bumpSound;
+
     //LOOP METHODS:
     private void Awake()
     {
@@ -189,6 +192,8 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when this bug's head hits any part of another bug, determines how hard it hits the thing
         //NOTE: Bumps the other bug based on bugstats
+
+        Object.Instantiate(bumpSound);
 
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
