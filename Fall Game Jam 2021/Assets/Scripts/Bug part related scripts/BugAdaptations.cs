@@ -22,6 +22,7 @@ public class BugAdaptations : MonoBehaviour
 
     private void Start()
     {
+        print("goo Add");
         addAbility(11);
         PC = gameObject.GetComponent<PlayerController>();
         
@@ -114,7 +115,7 @@ public class BugAdaptations : MonoBehaviour
         PC.strengthModifier -= PC.baseStrength * .05f;
         PC.accelModifier += .1f * PC.baseAccel;
         PC.speedModifier += .1f * PC.baseMaxSpeed;
-        PC.rotationSpeedModifier += .1f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier += .025f * PC.baseMaxRotationSpeed;
     }
 
     //str up, turnspeed down, size up++ 
@@ -123,7 +124,7 @@ public class BugAdaptations : MonoBehaviour
         PC.sizeModifier += .4f * PC.baseSize;
         PC.ChangeBugSize(PC.sizeModifier);
         PC.strengthModifier += .02f * PC.baseStrength;
-        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier -= .0f * PC.baseMaxRotationSpeed;
     }
 
     //faster bug no down side
@@ -137,7 +138,7 @@ public class BugAdaptations : MonoBehaviour
     {
         PC.strengthModifier += .3f * PC.baseStrength;
         PC.knockbackResistModifier -= .1f;
-        PC.baseMaxRotationSpeed -= .2f * PC.baseMaxRotationSpeed;
+        PC.baseMaxRotationSpeed -= .05f * PC.baseMaxRotationSpeed;
         PC.baseMaxSpeed -= .4f * PC.baseMaxSpeed;
 
     }
@@ -159,7 +160,7 @@ public class BugAdaptations : MonoBehaviour
     public void Harden()
     {
         PC.knockbackResistModifier -= .25f;
-        PC.rotationSpeedModifier -= .3f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier -= .06f * PC.baseMaxRotationSpeed;
         PC.speedModifier -= .3f * PC.baseMaxSpeed;
     }
 
@@ -179,7 +180,7 @@ public class BugAdaptations : MonoBehaviour
     //gain strength lose turn speed
     public void bigHeadNoNeck()
     {
-        PC.rotationSpeedModifier -= .2f * PC.baseMaxRotationSpeed;
+        PC.rotationSpeedModifier -= .05f * PC.baseMaxRotationSpeed;
         PC.strengthModifier += .2f * PC.baseStrength;
     }
 
