@@ -373,12 +373,13 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Called (by this script) when ACTION/ABILITY button is pressed
 
+        if (bugDead) return;
+
         StartCoroutine(BugDash.Nyoom()); //Activate bug dash
 
         //checking to see if your bug has an active ability componenet
         BugAdaptations ABA = gameObject.GetComponent<BugAdaptations>();
-        if (ABA != null)
-            gameObject.GetComponent<BugAdaptations>().UseBugAbility();// Use any bug abilites, abilites are tracked in the Active big ability class
+        if (ABA != null) gameObject.GetComponent<BugAdaptations>().UseBugAbility();// Use any bug abilites, abilites are tracked in the Active big ability class
 
     }
     private void ButtonUp()
