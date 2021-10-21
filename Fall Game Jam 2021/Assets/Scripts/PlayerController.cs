@@ -291,6 +291,7 @@ public class PlayerController : MonoBehaviour, IControllable
         GetComponent<Rigidbody>().isKinematic = false;  //Activate ragbug rigidBody
         GetComponent<CapsuleCollider>().enabled = true; //Activate ragbug collider
         GetComponent<Rigidbody>().AddForce(bugDeathTumbleVector); //Make bug tumble
+        GetComponent<AudioSource>().Play(0); //play audio source on death
 
         //Begin Adaptation and Respawn Process:
         DeathHandler.deathHandler.BugDiedProcedure(this); //Indicate that this bug has died
@@ -375,7 +376,8 @@ public class PlayerController : MonoBehaviour, IControllable
 
         if (bugDead) return;
 
-        StartCoroutine(BugDash.Nyoom()); //Activate bug dash
+        if(!BugDash.isCooldown)
+            StartCoroutine(BugDash.Nyoom()); //Activate bug dash
 
         //checking to see if your bug has an active ability componenet
         BugAdaptations ABA = gameObject.GetComponent<BugAdaptations>();

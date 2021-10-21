@@ -492,6 +492,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stump: {fileID: 2092972353}
   Ui: {fileID: 687347272}
+  UiTitle: {fileID: 0}
+  MainMenuButtons: {fileID: 0}
+  UiBackButton: {fileID: 0}
+  cameraSettingsPosition: {fileID: 0}
 --- !u!81 &164814956
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3183,7 +3187,7 @@ PrefabInstance:
     - target: {fileID: 4729458721947188336, guid: e75c85e14a61bc4419155ba896061b84, type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 7157270469075395377, guid: 67d0e3e02d644af458913336c6773d5c, type: 3}
+      objectReference: {fileID: 2502786202877449240, guid: 7932de185c823354d984ad30cd70f023, type: 3}
     - target: {fileID: 4729458721947188337, guid: e75c85e14a61bc4419155ba896061b84, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BugDash : MonoBehaviour
 {
-    public bool isDash;
+    internal bool isDash;
+    internal bool isCooldown;
+    
     public float dashTime;
+    public float dashCooldown;
     public float dashSpeed;
     public float bumpMulti;
     
@@ -14,6 +17,7 @@ public class BugDash : MonoBehaviour
     internal void Start()
     {
         playCtrl = GetComponent<PlayerController>();
+        isCooldown = false;
         isDash = false;
     }
 
@@ -22,6 +26,7 @@ public class BugDash : MonoBehaviour
         Vector3 velocity;
         float baseMaxStor;
 
+        isCooldown = true;
         isDash = true;
 
         //match movement speed cap to speed of dash and store original value
@@ -36,5 +41,8 @@ public class BugDash : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         playCtrl.baseMaxSpeed = baseMaxStor;
         isDash = false;
+        
+        yield return new WaitForSeconds(dashCooldown);
+        isCooldown = false;
     }
 }
