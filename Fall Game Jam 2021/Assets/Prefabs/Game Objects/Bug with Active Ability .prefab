@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 8642300445556422298}
   - component: {fileID: 2132136543013925584}
   - component: {fileID: 5707128415910923063}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Point Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
