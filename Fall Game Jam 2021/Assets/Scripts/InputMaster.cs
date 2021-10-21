@@ -227,6 +227,7 @@ public class InputMaster : MonoBehaviour
         //NOTE: Do this when I'm really bored and have nothing better to do than to make a contingency for something that's never gonna happen
     }
 
+
     //JOYSTICK FUCKERY:
     public void AddNewJoystick()
     {
