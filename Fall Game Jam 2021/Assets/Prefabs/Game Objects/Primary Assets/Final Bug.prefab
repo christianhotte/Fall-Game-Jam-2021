@@ -333,7 +333,7 @@ MonoBehaviour:
   dashTime: 0.05
   dashCooldown: 1
   dashSpeed: 100
-  bumpMulti: 2
+  bumpMulti: 3
   speedSound: {fileID: 8300000, guid: a60cd1ede4264c24ca2f1033ccacc0ea, type: 3}
 --- !u!54 &9160181383772631860
 Rigidbody:
