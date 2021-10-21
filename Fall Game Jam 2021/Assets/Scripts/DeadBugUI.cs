@@ -35,7 +35,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
 
         //Populate & Animate:
         GenerateSelection();
-        canvas.LookAt(Camera.current.transform); //Align canvas to camera
+        canvas.LookAt(Camera.main.transform); //Align canvas to camera
     }
 
     //SELECTION METHODS:
