@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour, IControllable
     private RaycastHit hit; //Container to store death raycasts
     private int deathZoneLayerMask = 1 << 8;  //Layermask for bugDie procedure
 
+    //BugStausEffects
+    internal int webiffied = 1;// 1 means speed is fine webbed of 0 cancels all speed out
+
     //LOOP METHODS:
     private void Awake()
     {
@@ -158,7 +161,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Apply velocity to bug position:
         Vector3 realVelocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
-        transform.Translate(realVelocity * Time.deltaTime); //Move bug by velocity (along x/y axis)
+        transform.Translate(realVelocity * Time.deltaTime* webiffied); //Move bug by velocity (along x/y axis)
 
     }
     private void RotateBug()
@@ -185,12 +188,17 @@ public class PlayerController : MonoBehaviour, IControllable
         //Function: Called when this bug's head hits any part of another bug, determines how hard it hits the thing
         //NOTE: Bumps the other bug based on bugstats
 
+      
+
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
 
         //Check validity:
         if (timeSinceLastContact < minTimeBetweenBumps) return; //Make sure bumps don't happen too close together
         if (otherBug == this) return; //Make sure bug isn't touching itself
+
+        //Deweb the bugs if necessary
+         otherBug.removeWeb();
 
         //Determine modifiers:
         float hitStrength = baseStrength + strengthModifier; //Get normal hit strength
@@ -396,6 +404,19 @@ public class PlayerController : MonoBehaviour, IControllable
         }
     }
 
+    //Status effect functions
+    
+    //when hit by webb
+    public void Webbed()
+    {
+        if (transform.Find("Webbed Effect"))
+        {
+            transform.Find("Webbed Effect").gameObject.SetActive(true);
+        }
+        webiffied = 0;
+        StartCoroutine(DeWeb());
+    }
+
     public void TouchedSludge()
     {
         maxSpeed = maxSpeed / 2;
@@ -404,6 +425,20 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         maxSpeed = maxSpeed * 2;
     }
+    public void removeWeb()
+    {
+        if(transform.Find("Webbed Effect"))
+        {
+            transform.Find("Webbed Effect").gameObject.SetActive(false);
+       }
 
+        webiffied = 1;
+    }
+    //returns webiffied back to 1 after a time giving player control back to the player
+    IEnumerator DeWeb()
+    {
+        yield return new WaitForSeconds(2.0f);
+        removeWeb();
+    }
 
 }

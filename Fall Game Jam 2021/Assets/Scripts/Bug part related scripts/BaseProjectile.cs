@@ -5,13 +5,14 @@ using UnityEngine;
 public class BaseProjectile : MonoBehaviour
 {
     Vector3 travelDirection;
-    
-    
+
+    public GameObject launchedfrom;
     float projectileSpeed;
-    public void Setup( Vector3 dir, float projspeed)
+    public void Setup( Vector3 dir, float projspeed, GameObject launcher)
     {
         travelDirection = dir;
         projectileSpeed = projspeed;
+        launchedfrom = launcher;
     }
     // Update is called once per frame
     void Update()

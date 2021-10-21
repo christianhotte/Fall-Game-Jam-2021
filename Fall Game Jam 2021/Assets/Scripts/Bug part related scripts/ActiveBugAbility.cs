@@ -96,7 +96,7 @@ public class ActiveBugAbility : MonoBehaviour
     {
         GameObject webBullet = Instantiate(webProjectile, transform.position + Vector3.forward, Quaternion.Euler(transform.rotation.x,transform.rotation.y,transform.rotation.z));
         Vector3 launchDir = (transform.position - (transform.position -Vector3.forward)).normalized;
-        webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6);
+       
     }
 
     //Note: what does a leafsheild do?

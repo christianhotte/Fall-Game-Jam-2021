@@ -69,13 +69,14 @@ public class BugAdaptations : MonoBehaviour
                 densify();
                 break;
             case 11:
-                print("Iwork");
+                
                 useAbility += sludge;
                 break;
             case 12:
                 useAbility += grow;
                 break;
             case 13:
+                print("ad");
                 useAbility += webShot;
                 break;
             case 14:
@@ -219,7 +220,7 @@ public class BugAdaptations : MonoBehaviour
         GameObject webBullet = Instantiate(webProjectile, transform.position , Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z));
         Vector3 launchDir = localForward;
         
-        webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6);
+        webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6, this.gameObject);
     }
 
 

@@ -35,7 +35,7 @@ public class Sludge : MonoBehaviour
         {
             yield return new WaitForSeconds(.05f);
             sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, sp.color.a - .015f);
-            print(sp.color.a);
+            
             if (sp.color.a <= 0)
             {
                 preDeathCheck();

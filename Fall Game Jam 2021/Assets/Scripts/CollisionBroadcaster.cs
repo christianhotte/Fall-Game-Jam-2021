@@ -75,6 +75,20 @@ public class CollisionBroadcaster : MonoBehaviour
         {
             SendMessageUpwards("TouchedSludge");
         }
+        else if (other.CompareTag("Web"))//dabug hit sludge
+        {
+           
+            if ((transform.root.gameObject.Equals(other.GetComponent<BaseProjectile>().launchedfrom)))
+            {
+                print("I hit myself!");
+            }
+            else
+            {
+                SendMessageUpwards("Webbed");
+                GameObject.Destroy(other.gameObject);
+            }
+            
+        }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -89,4 +103,5 @@ public class CollisionBroadcaster : MonoBehaviour
     {
         SendMessageUpwards("UnTouchSludge");
     }
+
 }
