@@ -205,7 +205,7 @@ MonoBehaviour:
   bugStopSnap: 0.0001
   bumpRecoilMultiplier: 0.3
   bounceBaseForce: 4
-  maxSpeed: 15
+  maxSpeed: 50
   speedAccelCurve:
     serializedVersion: 2
     m_Curve:
@@ -290,7 +290,6 @@ MonoBehaviour:
   bugDeathTumbleVector: {x: 4, y: 5, z: 1}
   lastHitTimeout: 3
   pointCountUI: {fileID: 5093678533653609814}
-  bugDead: 0
 --- !u!54 &9160181383772631860
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -336,6 +335,7 @@ MonoBehaviour:
   isDash: 0
   dashTime: 0.25
   dashSpeed: 50
+  bumpMulti: 50
 --- !u!1 &2502786203025259404
 GameObject:
   m_ObjectHideFlags: 0

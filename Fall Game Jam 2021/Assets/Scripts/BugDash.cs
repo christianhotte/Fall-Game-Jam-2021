@@ -7,6 +7,7 @@ public class BugDash : MonoBehaviour
     public bool isDash;
     public float dashTime;
     public float dashSpeed;
+    public float bumpMulti;
     
     internal PlayerController playCtrl;
 
