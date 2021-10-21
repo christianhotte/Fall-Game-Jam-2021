@@ -174,8 +174,12 @@ public class PlayerController : MonoBehaviour, IControllable
         hitDirection = Vector2.Reflect(hitDirection, Vector2.left);
         Vector2 hitForce = hitDirection * hitStrength; //Apply hitforce to direction
         
+        float dashMulti;
+        if (BugDash.isDash) dashMulti = BugDash.bumpMulti;
+        else dashMulti = 1.0f;
+
         //Add force to bugs:
-        otherBug.velocity += hitForce * otherBug.knockbackResistModifier; //Bump other bug
+        otherBug.velocity += hitForce * dashMulti * otherBug.knockbackResistModifier; //Bump other bug
         velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
 
         //Cleanup:
