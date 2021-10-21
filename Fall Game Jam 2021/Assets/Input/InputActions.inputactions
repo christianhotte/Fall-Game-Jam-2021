@@ -82,17 +82,6 @@
                 },
                 {
                     "name": "",
-                    "id": "ef0f00d6-4cef-4dd5-888d-21dddb773812",
-                    "path": "<SwitchProControllerHID>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Joystick1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -159,17 +148,6 @@
                 },
                 {
                     "name": "",
-                    "id": "113c36fd-e3e0-42f1-ae15-80767ba9fc3a",
-                    "path": "<SwitchProControllerHID>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Joystick2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
@@ -203,41 +181,8 @@
                 },
                 {
                     "name": "",
-                    "id": "b1935df1-ed33-4e19-b5ca-106b1e171200",
-                    "path": "<DualShockGamepad>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0089bd3a-7874-47dd-a6cf-e6a4579d68b8",
-                    "path": "<XInputController>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "05525fdb-8cc6-40a3-b871-f96f39b0e42e",
-                    "path": "<SwitchProControllerHID>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "af089bfd-8062-4eab-a8c3-bd587b51a5a5",
-                    "path": "<Gamepad>/leftStick/down",
+                    "id": "0dfe6bcf-8caa-4fa0-918d-947246aaef54",
+                    "path": "<DualShockGamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -280,41 +225,8 @@
                 },
                 {
                     "name": "",
-                    "id": "511dfda5-a366-40be-8da3-07dcdc5a945d",
-                    "path": "<DualShockGamepad>/rightStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "796e8e39-ca23-4406-b96f-e6e3377c95ed",
-                    "path": "<XInputController>/rightStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "71673945-662b-42fb-ad6f-55719fd2d4fc",
-                    "path": "<SwitchProControllerHID>/rightStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Ability2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "32f1c493-f20b-4f44-a2ca-7009acd04786",
-                    "path": "<Gamepad>/rightStick/down",
+                    "id": "3c6a7b47-8030-46e9-9017-1207af29a83c",
+                    "path": "<DualShockGamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",

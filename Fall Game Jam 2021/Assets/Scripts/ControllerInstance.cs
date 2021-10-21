@@ -65,10 +65,10 @@ public class ControllerInstance : MonoBehaviour
     }
     public void OnAbility1(InputAction.CallbackContext context)
     {
-        //currentButton1 = context.ReadValueAsButton();
+        currentButton1 = context.ReadValueAsButton();
     }
     public void OnAbility2(InputAction.CallbackContext context)
     {
-        //currentButton2 = context.ReadValueAsButton();
+        currentButton2 = context.ReadValueAsButton();
     }
 }
