@@ -21,18 +21,36 @@ public class BugAdaptations : MonoBehaviour
     //public static event abilityUsed OnAbilityUsed;
     abilityUsed useAbility;
 
+    //boolean index of what abilities are enabled - number in index matches abilityID 
+    public bool[] adaptOn = new bool[14];
+    internal GameObject adaptParent;
 
     private void Start()
     {
-        
-        
-       
+        //retrieves attached script PlayerController
         PC = gameObject.GetComponent<PlayerController>();
         
+        //finds child AbilityMods, which is itself a child of Body
+        adaptParent = gameObject.transform.Find("Body").gameObject;
+        adaptParent = adaptParent.transform.Find("AbilityMods").gameObject;
+
+        //disables all children of AbilityMods by default
+        for (int i = 0; i < adaptParent.transform.childCount; i++)
+        {
+            var child = adaptParent.transform.GetChild(i).gameObject;
+            if (child != null)
+                child.SetActive(false);
+        }
+       
+        //sets booleans for each adaptation to false
+        for(int i = 0; i < adaptOn.Length; i++)
+            adaptOn[i] = false;
     }
 
     public void addAbility(int abilityID)
     {
+        adaptOn[abilityID] = true;
+
         switch (abilityID)
         {
             case 0:
