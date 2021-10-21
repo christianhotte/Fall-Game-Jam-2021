@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour, IControllable
     public float baseMaxRotationSpeed; //How fast bug body lerps to direction of motion (speed is also factored in)
     public float baseSize;     //How big the bug be (scale of bug in Unity units)
     public float baseStrength; //How hard bug pushes other bugs around
-    
+    public float maxSize;      //How big bug can get
+
     [Header("BugStats:")]
     internal float speedModifier; //Additional (or subtractive) speed
     internal float accelModifier; //Additional (or subtractive) acceleration
@@ -319,7 +320,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         sizeModifier = newSize;
         float setSize = baseSize + sizeModifier;
-        if (setSize > 3) setSize = 3;//if it would grow bigger than 3 then dont grow any bigger
+        if (setSize > maxSize) setSize = maxSize;//if it would grow bigger than 3 then dont grow any bigger
         transform.localScale = new Vector3(setSize, setSize, setSize); //Set initial scale
         //NOTE: Add thing to affect bug Y position
     }

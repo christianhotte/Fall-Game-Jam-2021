@@ -205,6 +205,7 @@ MonoBehaviour:
   baseMaxRotationSpeed: 7
   baseSize: 1
   baseStrength: 8
+  maxSize: 10
   bugStopSnap: 0.0001
   bumpRecoilMultiplier: 0.543
   bounceBaseForce: 4
@@ -296,7 +297,6 @@ MonoBehaviour:
   snapBackToBaseVelSpeed: 20
   lastHitTimeout: 5
   pointCountUI: {fileID: 5093678533653609814}
-  lastBugTouched: {fileID: 0}
 --- !u!114 &6041188724882316297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +312,7 @@ MonoBehaviour:
   webProjectile: {fileID: 2785541299541183387, guid: 808543f7d8bb6db4fb807e6831832b63, type: 3}
   SludgePrefab: {fileID: 1056021162420976800, guid: 183eb9f0ca6c92d41b2edc761fedbdf1, type: 3}
   AbilityRechargeTime: 3
+  adaptOn: 0000000000000000000000000000
 --- !u!114 &-1855547072540487551
 MonoBehaviour:
   m_ObjectHideFlags: 0
