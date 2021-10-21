@@ -5,7 +5,8 @@ using UnityEngine;
 public class Sludge : MonoBehaviour
 {
     SpriteRenderer sp;
-    // Start is called before the first frame update
+    List<GameObject> objectsInPool = new List<GameObject>();
+
     void Start()
     {
         sp = GetComponent<SpriteRenderer>();
@@ -15,18 +16,20 @@ public class Sludge : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //getsludge effect applied to player if they are a player
+        objectsInPool.Add(other.gameObject);
         
 
     }
     private void OnTriggerExit(Collider other)
     {
         //remove the sludge from the player when they leave if effected by a sludge effect
+        objectsInPool.Remove(other.gameObject);
     }
 
     IEnumerator fadeAway()
     {
         //wait initial time then slowly fade away and then destroy out sludgy puddle owow
-        yield return new WaitForSeconds(500.0f);
+        yield return new WaitForSeconds(3.0f);
         int x = 500;
         while (x > 0)
         {
@@ -35,12 +38,23 @@ public class Sludge : MonoBehaviour
             print(sp.color.a);
             if (sp.color.a <= 0)
             {
+                preDeathCheck();
                 GameObject.Destroy(this.gameObject);
             }
             x--;
         }
     }
 
+    public void preDeathCheck()
+    {
+        foreach(GameObject x in objectsInPool)
+        {
+            if (x.GetComponent<CollisionBroadcaster>())
+            {
+                x.GetComponent<CollisionBroadcaster>().PuddleGone();
+            }
+        }
+    }
     
 
 }

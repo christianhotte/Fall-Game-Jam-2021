@@ -26,7 +26,7 @@ public class BugAdaptations : MonoBehaviour
     {
         
         print("goo Add");
-        
+        addAbility(13);
         PC = gameObject.GetComponent<PlayerController>();
         
     }
@@ -216,7 +216,8 @@ public class BugAdaptations : MonoBehaviour
     public void webShot()
     {
         GameObject webBullet = Instantiate(webProjectile, transform.position + Vector3.forward, Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z));
-        Vector3 launchDir = (transform.position - (transform.position - Vector3.forward)).normalized;
+        Vector3 launchDir = -1*Vector3.forward;
+        
         webBullet.GetComponent<BaseProjectile>().Setup(launchDir, 6);
     }
 

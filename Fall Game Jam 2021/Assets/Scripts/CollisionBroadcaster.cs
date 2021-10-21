@@ -83,4 +83,10 @@ public class CollisionBroadcaster : MonoBehaviour
             SendMessageUpwards("UnTouchSludge");
         }
     }
+
+    //called on this by sludge puddles when puddle kills itself to free them from slow
+    public void PuddleGone()
+    {
+        SendMessageUpwards("UnTouchSludge");
+    }
 }
