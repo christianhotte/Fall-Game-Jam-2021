@@ -26,7 +26,7 @@ public class BugAdaptations : MonoBehaviour
     {
         
         print("goo Add");
-        addAbility(11);
+        
         PC = gameObject.GetComponent<PlayerController>();
         
     }

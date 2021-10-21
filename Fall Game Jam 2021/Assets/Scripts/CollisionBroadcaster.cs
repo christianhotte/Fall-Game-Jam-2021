@@ -71,6 +71,9 @@ public class CollisionBroadcaster : MonoBehaviour
 
             }
         }
-        
+        else if (other.CompareTag("Sludge"))//dabug hit sludge
+        {
+            
+        }
     }
 }
