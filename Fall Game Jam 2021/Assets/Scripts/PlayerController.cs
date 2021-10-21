@@ -366,4 +366,15 @@ public class PlayerController : MonoBehaviour, IControllable
             if (hit.collider.CompareTag("Death")) BugDie(); //Kill bug if death zone is found
         }
     }
+
+    public void TouchSludge()
+    {
+        maxSpeed = maxSpeed / 2;
+    }
+    public void UntouchSludge()
+    {
+        maxSpeed = maxSpeed * 2;
+    }
+
+
 }

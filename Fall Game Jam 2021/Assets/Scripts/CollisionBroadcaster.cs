@@ -73,7 +73,14 @@ public class CollisionBroadcaster : MonoBehaviour
         }
         else if (other.CompareTag("Sludge"))//dabug hit sludge
         {
-            
+            SendMessageUpwards("TouchedSlyudge");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Sludge"))
+        {
+            SendMessageUpwards("UnTouchSludge");
         }
     }
 }
