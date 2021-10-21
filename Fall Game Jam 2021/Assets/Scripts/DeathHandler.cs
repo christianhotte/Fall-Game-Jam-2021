@@ -94,7 +94,7 @@ public class DeathHandler : MonoBehaviour
             if (deathInstance.timeSinceDeath >= deathUILifetime) //UI timed out, automatically pick adaptation
             {
                 //NOTE: SelectAbility marks deathInstance for deletion
-                if (idleGiveAbility) deathInstance.SelectAbility(deathInstance.abilitySelection[0]); //Default-pick first ability in list
+                if (idleGiveAbility && !deathInstance.deadBug.bugSuicide) deathInstance.SelectAbility(deathInstance.abilitySelection[0]); //Default-pick first ability in list
                 else deathInstance.EndUI();
             }
         }
