@@ -196,9 +196,9 @@ public class BugAdaptations : MonoBehaviour
     }
     public void sludge()
     {
-        print("added");
+       
 
-        Vector3 spawnposition = transform.position - (2 * transform.forward);
+        Vector3 spawnposition = transform.position - (2*transform.GetChild(0).position);
 
         GameObject.Instantiate(SludgePrefab, new Vector3(spawnposition.x, 1.2f, spawnposition.z), Quaternion.Euler(90, 0, 0));
         //instantiae sludge behind player
