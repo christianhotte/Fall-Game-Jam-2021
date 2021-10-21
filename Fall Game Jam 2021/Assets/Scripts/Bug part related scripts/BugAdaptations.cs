@@ -69,14 +69,12 @@ public class BugAdaptations : MonoBehaviour
                 densify();
                 break;
             case 11:
-                
                 useAbility += sludge;
                 break;
             case 12:
                 useAbility += grow;
                 break;
             case 13:
-                print("ad");
                 useAbility += webShot;
                 break;
             case 14:
