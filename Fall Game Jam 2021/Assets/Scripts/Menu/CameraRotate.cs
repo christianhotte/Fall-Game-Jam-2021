@@ -7,12 +7,12 @@ public class CameraRotate : MonoBehaviour
     // Ui instantly goes away and the rotation stops the second play button is pressed would love to transition into it
 
     private Vector3 CameraStartPos;
-        private Quaternion CameraStartRot;
+    private Quaternion CameraStartRot;
     public GameObject stump;
 
 
     public GameObject Ui;
-    public GameObject UiTitle,MainMenuButtons,UiBackButton;
+    public GameObject UiTitle,MainMenuButtons,UiBackButton,HowToPlay;
     
 
     public Transform cameraSettingsPosition;
@@ -94,6 +94,7 @@ public class CameraRotate : MonoBehaviour
         UiTitle.SetActive(false);
         MainMenuButtons.SetActive(false);
         UiBackButton.SetActive(true);
+        HowToPlay.SetActive(true);
     }
 
     public void backButtonPressed()
@@ -102,6 +103,7 @@ public class CameraRotate : MonoBehaviour
         UiTitle.SetActive(true);
         MainMenuButtons.SetActive(true);
         UiBackButton.SetActive(false);
+        HowToPlay.SetActive(false);
     }
 
 
