@@ -278,7 +278,7 @@ public class BugAdaptations : MonoBehaviour
         for (int i = 0; i <= NumChoices; i++)
         {
             int RandChoice = Random.Range(0, ints.Count);
-            choices.Add(RandChoice);
+            choices.Add(ints[RandChoice]);
             ints.Remove(RandChoice);
         }
 
