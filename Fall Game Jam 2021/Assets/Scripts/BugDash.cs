@@ -15,6 +15,8 @@ public class BugDash : MonoBehaviour
     internal PlayerController playCtrl;
     public AudioClip speedSound;
 
+    public GameObject SpeedParticle;
+
     internal void Start()
     {
         playCtrl = GetComponent<PlayerController>();
@@ -47,22 +49,25 @@ public class BugDash : MonoBehaviour
         playCtrl.baseMaxSpeed = baseMaxStor;
         isDash = false;
 
-        partcileEffect();
+       
 
         yield return new WaitForSeconds(dashCooldown);
         isCooldown = false;
+        speedOff();
     }
 
     public void partcileEffect()
     {
-        if (transform.Find("SpeedLines"))
-        {
-            if(transform.Find("SpeedLines").gameObject.activeSelf)
-                transform.Find("SpeedLines").gameObject.SetActive(false);
-            else
-                transform.Find("SpeedLines").gameObject.SetActive(true);
+        
+          
+                SpeedParticle.SetActive(true);
+           
+          
 
-        }
     }
+    public void speedOff()
+    {
+        SpeedParticle.SetActive(false);
 
+    }
 }
