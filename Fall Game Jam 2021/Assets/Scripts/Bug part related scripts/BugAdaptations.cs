@@ -229,7 +229,6 @@ public class BugAdaptations : MonoBehaviour
 
     }
 
-    // webshot web effect needs to be built
     public void webShot()
     {
         Vector3 localForward = transform.GetChild(0).transform.forward * -1;
@@ -258,7 +257,7 @@ public class BugAdaptations : MonoBehaviour
 
         List<int> choices = new List<int>();
         //parse through numCHoies of times and send them back
-        for (int i = 0; i < NumChoices; i++)
+        for (int i = 0; i <= NumChoices; i++)
         {
             int RandChoice = Random.Range(0, ints.Count);
             choices.Add(RandChoice);
@@ -304,5 +303,4 @@ public class BugAdaptations : MonoBehaviour
     }
 
   
-
 }
