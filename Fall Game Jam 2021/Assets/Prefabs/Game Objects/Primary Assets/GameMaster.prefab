@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de450d33d5df48144a84c26fecb64486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 2502786202877449240, guid: 7932de185c823354d984ad30cd70f023, type: 3}
+  playerPrefab: {fileID: 2502786202877449240, guid: ee78b5eb35a9c1040b80c8a46bf4ef49, type: 3}
   players: []
   controllerSetups: []
   connectedJoysticks: []
