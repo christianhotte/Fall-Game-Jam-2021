@@ -42,7 +42,16 @@ public class DeadBugUI : MonoBehaviour, IControllable
         abilityText = canvas.GetChild(4).GetComponent<TextMeshPro>();
 
         //Populate & Animate:
-        GenerateSelection();
+        if (deadBug.bugSuicide)
+        {
+            canvas.gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.GetChild(1).gameObject.SetActive(false); //Hide no
+            GenerateSelection();
+        }
+        
         //canvas.LookAt(Camera.main.transform); //Align canvas to camera
     }
     private void Update()
@@ -99,7 +108,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
         joystickAngle = Vector2.SignedAngle(Vector2.up, modifiedInput).DeNormalizeAngle(); //Get current angle of joystick
 
         //Check for pointer:
-        if (input != Vector2.zero) //Player is pointing in a direction
+        if (input != Vector2.zero && !deadBug.bugSuicide) //Player is pointing in a direction
         {
             //Make Pointer Visible:
             pointerHolder.gameObject.SetActive(true); //Show pointer when directional input is given
