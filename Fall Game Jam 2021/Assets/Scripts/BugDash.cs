@@ -49,7 +49,7 @@ public class BugDash : MonoBehaviour
         playCtrl.baseMaxSpeed = baseMaxStor;
         isDash = false;
 
-        speedOff();
+        
 
         yield return new WaitForSeconds(dashCooldown);
         isCooldown = false;
@@ -58,7 +58,7 @@ public class BugDash : MonoBehaviour
 
     public void partcileEffect()
     {
-
+       
         SpeedParticle.GetComponent<ParticleSystem>().Play();
                 
            
