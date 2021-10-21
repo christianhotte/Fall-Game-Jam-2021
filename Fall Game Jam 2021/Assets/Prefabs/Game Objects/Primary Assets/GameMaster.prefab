@@ -120,19 +120,19 @@ MonoBehaviour:
   - name: Inflate
     sprite: {fileID: 21300000, guid: 756d114f955029644996cacbc12d9422, type: 3}
   - name: Turbolyze
-    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
+    sprite: {fileID: 21300000, guid: 28c4c193024d101418665aa220ba4be1, type: 3}
   - name: Tankify
     sprite: {fileID: 21300000, guid: c5a8ab89e29f830429cc174efc876fd8, type: 3}
   - name: Butterize
     sprite: {fileID: 21300000, guid: 12dc13c29cacd7c4a81f53a96503c484, type: 3}
   - name: Sludgerize
-    sprite: {fileID: 21300000, guid: e02feb7ac7e9ce849800f0ae05d22b57, type: 3}
+    sprite: {fileID: 21300000, guid: 5d2c1baab7d4b2f45b740bf9f216e1cb, type: 3}
   - name: Expandify
     sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
   - name: Spiderize
     sprite: {fileID: 21300000, guid: e02feb7ac7e9ce849800f0ae05d22b57, type: 3}
   - name: Antify
-    sprite: {fileID: 21300000, guid: fa40a28489c621b41acdb06770450e86, type: 3}
+    sprite: {fileID: 21300000, guid: e26942b200a1bc542ab12c3fa4f6eed7, type: 3}
   deathUILifetime: 10
   bugBodyCap: 100
   idleGiveAbility: 0
