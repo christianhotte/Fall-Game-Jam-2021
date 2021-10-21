@@ -295,11 +295,12 @@ public class BugAdaptations : MonoBehaviour
 
     IEnumerator ScaleUp()
     {
+        PC.strengthModifier += .3f * PC.baseStrength;
         for (int i = 0; i < 40; i++)
         {
 
             //increase mass here
-            PC.strengthModifier += .2f * PC.baseStrength;
+           
             yield return new WaitForSeconds(.05f);
             transform.localScale = new Vector3(transform.localScale.x + .01f, transform.localScale.y + .01f, transform.localScale.z + .01f);
         }
@@ -311,7 +312,7 @@ public class BugAdaptations : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         //reduce mass here
-        PC.strengthModifier -= .2f * PC.baseStrength;
+        PC.strengthModifier -= .3f * PC.baseStrength;
         for (int i = 0; i < 40; i++)
         {
 
