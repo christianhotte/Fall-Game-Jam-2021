@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
 
     //Memory Vars:
-    internal PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
+    public PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
     internal Vector2 velocity;       //How fast da bug is going
     private Vector2 currentJoystick; //Where the joystick was last time it changed
     private bool currentButton;      //State the button was last time it changed
@@ -271,7 +271,7 @@ public class PlayerController : MonoBehaviour, IControllable
         else //Bug was killed by another bug
         {
             lastBugTouched.pointCountValue += 1; // Give other player a point
-            lastBugTouched.pointCountUI.text = pointCountValue.ToString();
+            lastBugTouched.pointCountUI.text = lastBugTouched.pointCountValue.ToString();
         }
         lastBugTouched = null; //Clear data on last bug touched
 
@@ -388,7 +388,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private void CheckForBugDie()
     {
         //Function: Called during FixedUpdate to check if bug is die
-        
+
         deathZoneLayerMask = ~deathZoneLayerMask; //Weird layermask shit I dunno
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 5, deathZoneLayerMask))
         {
