@@ -72,7 +72,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
 
         //Add Ability to Player:
         adaptationManager.addAbility(abilityIndex); //Add ability to player
-        //Debug.Log(DeathHandler.deathHandler.abilityDataList[abilityIndex].name + " added");
+        Debug.Log(DeathHandler.deathHandler.abilityDataList[abilityIndex].name + " added");
 
         //Continue Respawn Process:
         EndUI(); //End this UI
