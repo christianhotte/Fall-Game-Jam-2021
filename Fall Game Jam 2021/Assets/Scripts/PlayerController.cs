@@ -210,10 +210,13 @@ public class PlayerController : MonoBehaviour, IControllable
         float hitMultiplier = hitStrength; //Get hit strength multiplier
         if (BugDash.isDash) hitMultiplier *= BugDash.bumpMulti; //Apply dash multiplier if applicable
         Vector2 hitForce = hitDirection * hitMultiplier; //Apply hitforce to direction
+        float hitMultiplier2 = (otherBug.baseStrength + otherBug.strengthModifier) * otherBug.speedBumpCurve.Evaluate(otherBug.GetNormalizedSpeed());
+        if (otherBug.BugDash.isDash) hitMultiplier2 *= otherBug.BugDash.bumpMulti;
+        Vector2 hitForce2 = hitDirection * hitMultiplier2;
 
         //Add force to bugs:
         otherBug.velocity += hitForce * otherBug.knockbackResistModifier; //Bump other bug
-        velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
+        velocity -= hitForce2 * knockbackResistModifier; //Bump this bug
 
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
@@ -392,7 +395,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
 
     //UTILITY FUNCTIONS:
-    private float GetNormalizedSpeed()
+    internal float GetNormalizedSpeed()
     {
         //Function: Returns speed as percentage (0-1), with 1 being the player's current maximum possible speed
 
