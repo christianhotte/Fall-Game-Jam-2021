@@ -71,6 +71,7 @@ public class DeathHandler : MonoBehaviour
         Destroy(huskController); //Destroy core playerController on bugHusk
         bugHusk.transform.position = bug.transform.position; //Position husk to match real bug
         bugHusk.transform.rotation = bug.transform.rotation; //Rotate husk to match real bug
+        bugHusk.transform.localScale = bug.transform.localScale; //Scale husk to match real bug
         husks.Add(bugHusk); //Add husk to running list
 
         //Reposition and Respawn Player Character:
