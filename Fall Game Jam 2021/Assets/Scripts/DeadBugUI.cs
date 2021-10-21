@@ -10,6 +10,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
     //Objects & Components:
     internal InputMaster.Player currentPlayer; //The player controlling this UI
     private BugAdaptations adaptationManager; //The adaptation script on this UI's associated bug
+    private Transform canvas; //The UI canvas
     private readonly System.Random rnd = new System.Random(); //Get random seed
 
     //Settings:
@@ -28,8 +29,13 @@ public class DeadBugUI : MonoBehaviour, IControllable
     //SEQUENCE METHODS:
     private void Start()
     {
+        //Get Objects:
         adaptationManager = deadBug.GetComponent<BugAdaptations>();
+        canvas = transform.GetChild(0);
+
+        //Populate & Animate:
         GenerateSelection();
+        canvas.LookAt(Camera.current.transform); //Align canvas to camera
     }
 
     //SELECTION METHODS:
@@ -105,4 +111,7 @@ public class DeadBugUI : MonoBehaviour, IControllable
     {
         Destroy(gameObject); //Destroy this pawn (NOTE: Maybe add stuff if this causes problems)
     }
+
+    //ANIMATION METHODS:
+    
 }

@@ -99,5 +99,35 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  abilityDataList:
+  - name: Smallify
+    sprite: {fileID: 0}
+  - name: Biggify
+    sprite: {fileID: 0}
+  - name: Fastify
+    sprite: {fileID: 0}
+  - name: Chonkify
+    sprite: {fileID: 0}
+  - name: Bulkify
+    sprite: {fileID: 0}
+  - name: Lubricate
+    sprite: {fileID: 0}
+  - name: Harden
+    sprite: {fileID: 0}
+  - name: Inflate
+    sprite: {fileID: 0}
+  - name: Turbolyze
+    sprite: {fileID: 0}
+  - name: Tankify
+    sprite: {fileID: 0}
+  - name: Butterize
+    sprite: {fileID: 0}
+  - name: Sludgerize
+    sprite: {fileID: 0}
+  - name: Expandify
+    sprite: {fileID: 0}
+  - name: Stringinate
+    sprite: {fileID: 0}
   deathUILifetime: 5
   bugBodyCap: 100
+  idleGiveAbility: 0

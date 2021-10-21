@@ -6,10 +6,20 @@ public class DeathHandler : MonoBehaviour
 {
     //Function: Called on by bugs to get global variables relating to the death of bugs
 
+    //Enums, Classes & Structs:
+    [System.Serializable] public class AbilityData
+    {
+        //Function: Contains information about abilities
+
+        public string name;   //The display name of the ability
+        public Sprite sprite; //The display icon for the ability
+    }
+
     //Objects & Components:
     public static DeathHandler deathHandler; //Singleton deathHandler object in game (can be called from anywhere)
     public GameObject deadBugUIPrefab; //UI pawn that gets spawned where and when a bug dies
     public Transform[] spawnPoints; //Array of all spawnpoints in scene (may need to be set individually for scenes)
+    public AbilityData[] abilityDataList; //Array of names and sprites corresponding to every ability
     private readonly System.Random rnd = new System.Random(); //Get random seed
     private List<DeadBugUI> deathInstances = new List<DeadBugUI>(); //List of all DeadBugUI instances in scene
     private List<GameObject> husks = new List<GameObject>(); //List of all dead bug husks in scene
@@ -51,6 +61,9 @@ public class DeathHandler : MonoBehaviour
         InputMaster.Player player = deadBug.currentPlayer; //Get deadBug's player
         player.playerPawn = newUI; //Set player up so that it now controls UI object
         newUI.GivePlayer(player); //Set up UI so that it knows this player is controlling it
+
+        //Cleanup Player Corpse:
+        deadBug.transform.GetChild(1).gameObject.SetActive(false); //Deactivate score counter
     }
     public void RespawnAtRandomLocation(DeadBugUI deathInstance)
     {
@@ -66,6 +79,7 @@ public class DeathHandler : MonoBehaviour
         GameObject bugHusk = Instantiate(bug.gameObject); //Generate new dead bug object
         PlayerController huskController = bugHusk.GetComponent<PlayerController>(); //Get reference for husk's controller
         //Destroy(bugHusk.GetComponent<BugAdaptations>()); //Destroy adaptation component
+        Destroy(bugHusk.transform.GetChild(1).gameObject);
         Destroy(huskController.headBox); //Destroy unnecessary head collider object
         Destroy(huskController.bodyBox); //Destroy unnecessary body collider object
         Destroy(huskController); //Destroy core playerController on bugHusk
@@ -81,6 +95,7 @@ public class DeathHandler : MonoBehaviour
 
         //Finish & Cleanup:
         bug.BugResurrect(); //Resurrect bug and get back in the fight (make controllable again and reset temporary stats/vars (also implement adaptational changes maybe)
+        bug.transform.GetChild(1).gameObject.SetActive(true); //Reactivate score counter
     }
 
     //INTERNAL HANDLER METHODS:
