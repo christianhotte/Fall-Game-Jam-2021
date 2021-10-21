@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private float killVsSuicideTimer = 0; // J - timer that determines the time it takes to forget lastBugTouched to determine kill vs suicide
 
     //Memory Vars:
-    public PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
+    internal PlayerController lastBugTouched; //Stores the last bug this bug bugged (resets after given amount of time
     internal Vector2 velocity;       //How fast da bug is going
     private Vector2 currentJoystick; //Where the joystick was last time it changed
     private bool currentButton;      //State the button was last time it changed
@@ -189,8 +189,6 @@ public class PlayerController : MonoBehaviour, IControllable
         //Function: Called when this bug's head hits any part of another bug, determines how hard it hits the thing
         //NOTE: Bumps the other bug based on bugstats
 
-      
-
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
 
@@ -216,9 +214,9 @@ public class PlayerController : MonoBehaviour, IControllable
         otherBug.velocity += hitForce * otherBug.knockbackResistModifier; //Bump other bug
         velocity -= hitForce * bumpRecoilMultiplier * knockbackResistModifier; //Bump this bug
 
-
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
+        otherBug.lastBugTouched = this; //Log on other bug that this bug hit it
         if (otherBug.BugDash.isDash) //Mark that bug was dashed into
         { 
             isSlammed = true;
@@ -251,6 +249,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Cleanup:
         lastBugTouched = otherBug; //Log other bug as bug last hit
+        otherBug.lastBugTouched = this; //Log on other bug that this bug hit it
         if (otherBug.BugDash.isDash) //Mark that bug was dashed into
         { 
             isSlammed = true;
