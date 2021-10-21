@@ -293,7 +293,7 @@ MonoBehaviour:
   minTimeBetweenBumps: 0.05
   isSlammedTimeOut: 1
   snapBackToBaseVelSpeed: 20
-  lastHitTimeout: 2
+  lastHitTimeout: 5
   pointCountUI: {fileID: 5093678533653609814}
   lastBugTouched: {fileID: 0}
 --- !u!114 &6041188724882316297

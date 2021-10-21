@@ -88,14 +88,16 @@ public class DeadBugUI : MonoBehaviour, IControllable
                     float sliceEnd = (i + 1) * sliceDegrees; //Get end of slice in degrees
                     if (HotteMath.AngleIsBetween(joystickAngle, sliceStart, sliceEnd)) //Joystick has selected this choice
                     {
-                        SelectAbility(abilitySelection[i]); //Deploy selected ability
+                        if (!deadBug.bugSuicide) SelectAbility(abilitySelection[i]); //Deploy selected ability
+                        else EndUI(); //Don't allow ability to be chosen if bug died
                         return;
                     }
                 }
             }
             else //Select random ability
             {
-                SelectAbility(abilitySelection[Random.Range(0, abilitySelection.Count - 1)]);
+                if (!deadBug.bugSuicide) SelectAbility(abilitySelection[Random.Range(0, abilitySelection.Count - 1)]);
+                else EndUI();
             }
         }
     }
