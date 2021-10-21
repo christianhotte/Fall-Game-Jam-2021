@@ -308,7 +308,6 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Changes size of bug
 
-        //@KEEGAN: I just looked at this and realized how legendarily smooth brain it is so I changed it and if it breaks something and I forget why that's why this note is here
         sizeModifier = newSize;
         float setSize = baseSize + sizeModifier;
         if (setSize > 3) setSize = 3;//if it would grow bigger than 3 then dont grow any bigger
