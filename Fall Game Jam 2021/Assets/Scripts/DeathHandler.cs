@@ -18,6 +18,7 @@ public class DeathHandler : MonoBehaviour
     [Header("Settings:")]
     public float deathUILifetime; //Time (in seconds) before player respawns automatically (with auto-selected adaptation)
     public int bugBodyCap;        //The most bug bodies allowed in the scene (before old bodies start de-spawning)
+    public bool idleGiveAbility; //If checked, a random ability will be granted when dead player times out
 
     //SEQUENCE METHODS:
     private void Awake()
@@ -47,8 +48,9 @@ public class DeathHandler : MonoBehaviour
         newUI.transform.position = deadBug.transform.position; //Move UI element to position where bug has died (NOTE: may need adjustment)
 
         //Update Player Connection:
-        InputMaster.Player player = InputMaster.inputMaster.GetPlayerFromPawn(deadBug); //Get deadBug's player
+        InputMaster.Player player = deadBug.currentPlayer; //Get deadBug's player
         player.playerPawn = newUI; //Set player up so that it now controls UI object
+        newUI.GivePlayer(player); //Set up UI so that it knows this player is controlling it
     }
     public void RespawnAtRandomLocation(DeadBugUI deathInstance)
     {
@@ -56,14 +58,14 @@ public class DeathHandler : MonoBehaviour
         //Note: Leaves husk of dead bug behind for visual reasons
 
         //Establish Dependencies:
-        InputMaster.Player player = InputMaster.inputMaster.GetPlayerFromPawn(deathInstance); //Get player controlling bug
+        InputMaster.Player player = deathInstance.currentPlayer; //Get player controlling bug
         PlayerController bug = deathInstance.deadBug; //Get bug object
         player.playerPawn = bug; //Move player control back to bug
 
         //Leave empty (simplified) bug husk:
         GameObject bugHusk = Instantiate(bug.gameObject); //Generate new dead bug object
         PlayerController huskController = bugHusk.GetComponent<PlayerController>(); //Get reference for husk's controller
-        Destroy(bugHusk.GetComponent<BugAdaptations>()); //Destroy adaptation component
+        //Destroy(bugHusk.GetComponent<BugAdaptations>()); //Destroy adaptation component
         Destroy(huskController.headBox); //Destroy unnecessary head collider object
         Destroy(huskController.bodyBox); //Destroy unnecessary body collider object
         Destroy(huskController); //Destroy core playerController on bugHusk
@@ -86,11 +88,13 @@ public class DeathHandler : MonoBehaviour
         //Parse through all instances of death UIs:
         foreach (DeadBugUI deathInstance in deathInstances)
         {
+            if (deathInstance.markedForDisposal) continue; //Skip instances marked for deletion
             deathInstance.timeSinceDeath += Time.deltaTime; //Increment lifetime tracker
             if (deathInstance.timeSinceDeath >= deathUILifetime) //UI timed out, automatically pick adaptation
             {
                 //NOTE: SelectAbility marks deathInstance for deletion
-                deathInstance.SelectAbility(deathInstance.abilitySelection[0]); //Default-pick first ability in list
+                if (idleGiveAbility) deathInstance.SelectAbility(deathInstance.abilitySelection[0]); //Default-pick first ability in list
+                else deathInstance.EndUI();
             }
         }
 

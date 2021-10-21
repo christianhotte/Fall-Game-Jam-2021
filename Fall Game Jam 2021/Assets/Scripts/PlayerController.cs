@@ -9,6 +9,7 @@ using TMPro;
 public class PlayerController : MonoBehaviour, IControllable
 {
     //Objects & Components:
+    internal InputMaster.Player currentPlayer; //The player controlling this bug
     private Transform body; //The bug body (SHOULD BE NAMED "Body")
     internal Collider headBox; //This bug's head collider
     internal Collider bodyBox; //This bug's body collider
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour, IControllable
     public AnimationCurve speedBumpCurve; //Determines how speed adds power to a bug bump (power multiplier based on speed number)
     [Space()]
     public Vector3 bugDeathTumbleVector; //Vector determining force applied to bug when dying (and ragdolling)
+    public float minTimeBetweenBumps; //Prevents multiple bumps from happening too close to each other
 
     [Header("Score Stuff:")]
     public float lastHitTimeout; //Amount of time that must pass before lastBugTouched is reset
@@ -165,6 +167,9 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
+
+        //Check validity:
+        if (timeSinceLastContact < minTimeBetweenBumps) return; //Make sure bumps don't happen too close together
         if (otherBug == this) return; //Make sure bug isn't touching itself
 
         //Determine modifiers:
@@ -196,6 +201,9 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Get other bug:
         PlayerController otherBug = other.GetComponentInParent<PlayerController>();
+
+        //Check validity:
+        if (timeSinceLastContact < minTimeBetweenBumps) return; //Make sure bumps don't happen too close together
         if (otherBug == this) return; //Make sure bug isn't touching itself
 
         //Determine force:
@@ -287,6 +295,10 @@ public class PlayerController : MonoBehaviour, IControllable
 
 
     //INPUT METH:
+    public void GivePlayer(InputMaster.Player player)
+    {
+        currentPlayer = player;
+    }
     public void ReceiveJoystick(Vector2 input)
     {
         //Function: Called by input manager when sending commands from Player to IControllable pawn (this)

@@ -190,6 +190,7 @@ public class InputMaster : MonoBehaviour
 
         //Create and Place Player Character:
         newPlayer.playerPawn = Instantiate(playerPrefab).GetComponent<IControllable>();
+        newPlayer.playerPawn.GivePlayer(newPlayer); //Give player to pawn
         //NOTE: Add something that places character in spawn location
 
     }
