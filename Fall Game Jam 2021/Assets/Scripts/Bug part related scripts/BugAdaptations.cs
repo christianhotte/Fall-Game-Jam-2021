@@ -72,6 +72,7 @@ public class BugAdaptations : MonoBehaviour
                 BulkUp();
                 break;
             case 5:
+                adaptParent.transform.GetChild(0).gameObject.SetActive(true);
                 OilUpThoseLegJoints();
                 break;
             case 6:
@@ -90,12 +91,15 @@ public class BugAdaptations : MonoBehaviour
                 densify();
                 break;
             case 11:
+                adaptParent.transform.GetChild(1).gameObject.SetActive(true);
                 useAbility += sludge;
                 break;
             case 12:
+                adaptParent.transform.GetChild(3).gameObject.SetActive(true);
                 useAbility += grow;
                 break;
             case 13:
+                adaptParent.transform.GetChild(2).gameObject.SetActive(true);
                 useAbility += webShot;
                 break;
             case 14:
