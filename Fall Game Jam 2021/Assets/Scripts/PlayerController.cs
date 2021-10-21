@@ -73,8 +73,9 @@ public class PlayerController : MonoBehaviour, IControllable
     //BugStausEffects
     internal int webiffied = 1;// 1 means speed is fine webbed of 0 cancels all speed out
 
-    //BugBumpSound
+    //Alice's BugBump and BugDie Sound Stuff!
     public GameObject bumpSound;
+    public AudioClip deathSound;
 
     //LOOP METHODS:
     private void Awake()
@@ -272,7 +273,7 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
-
+        
         //Mark Dead:
         bugDead = true;                 //Indicate that bug is dead
         currentJoystick = Vector2.zero; //Cancel potential phantom inputs
@@ -293,6 +294,9 @@ public class PlayerController : MonoBehaviour, IControllable
             bugSuicide = false;
         }
         lastBugTouched = null; //Clear data on last bug touched
+
+        //set sound played to death sound
+        GetComponent<AudioSource>().clip = deathSound;
 
         //Make Bug Look Dead:
         headBox.gameObject.SetActive(false); //Deactivate inter-bug collision

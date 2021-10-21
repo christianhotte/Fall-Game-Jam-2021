@@ -13,6 +13,7 @@ public class BugDash : MonoBehaviour
     public float bumpMulti;
     
     internal PlayerController playCtrl;
+    public AudioClip speedSound;
 
     internal void Start()
     {
@@ -35,8 +36,10 @@ public class BugDash : MonoBehaviour
 
         velocity = (dashSpeed * transform.forward);
         velocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
-        
+
+        GetComponent<AudioSource>().clip = speedSound;
         transform.Translate(velocity * Time.deltaTime); //Move bug by velocity (along x/y axis)
+        GetComponent<AudioSource>().Play(0);
 
         yield return new WaitForSeconds(dashTime);
         playCtrl.baseMaxSpeed = baseMaxStor;
