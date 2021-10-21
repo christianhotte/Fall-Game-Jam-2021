@@ -403,7 +403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7157270469075395375
 Transform:
   m_ObjectHideFlags: 0
@@ -530,7 +530,6 @@ MonoBehaviour:
   snapBackToBaseVelSpeed: 20
   lastHitTimeout: 5
   pointCountUI: {fileID: 529301578064530047}
-  lastBugTouched: {fileID: 0}
 --- !u!114 &1314638205958957856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,6 +545,7 @@ MonoBehaviour:
   webProjectile: {fileID: 2785541299541183387, guid: 808543f7d8bb6db4fb807e6831832b63, type: 3}
   SludgePrefab: {fileID: 1056021162420976800, guid: 183eb9f0ca6c92d41b2edc761fedbdf1, type: 3}
   AbilityRechargeTime: 3
+  adaptOn: 0000000000000000000000000000
 --- !u!114 &2870992657261717416
 MonoBehaviour:
   m_ObjectHideFlags: 0
