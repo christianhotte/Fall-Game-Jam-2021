@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class BugDie : MonoBehaviour
 {
-    public GameObject HeadBox, BodyBox;
+    /*public GameObject HeadBox, BodyBox;
     void Start()
     {
         
@@ -47,5 +47,5 @@ public class BugDie : MonoBehaviour
     {
         GetComponent<PlayerController>().BugDie();
     }
-
+    */
 }
