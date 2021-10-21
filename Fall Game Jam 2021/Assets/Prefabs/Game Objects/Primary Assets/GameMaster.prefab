@@ -101,33 +101,33 @@ MonoBehaviour:
   - {fileID: 0}
   abilityDataList:
   - name: Smallify
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: fa40a28489c621b41acdb06770450e86, type: 3}
   - name: Biggify
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
   - name: Fastify
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: e02feb7ac7e9ce849800f0ae05d22b57, type: 3}
   - name: Chonkify
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
   - name: Bulkify
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
   - name: Lubricate
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: fa40a28489c621b41acdb06770450e86, type: 3}
   - name: Harden
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 1977247ec1ef38646bef76ced0e2a229, type: 3}
   - name: Inflate
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
   - name: Turbolyze
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
   - name: Tankify
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 1977247ec1ef38646bef76ced0e2a229, type: 3}
   - name: Butterize
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: 1977247ec1ef38646bef76ced0e2a229, type: 3}
   - name: Sludgerize
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: e02feb7ac7e9ce849800f0ae05d22b57, type: 3}
   - name: Expandify
-    sprite: {fileID: 0}
-  - name: Stringinate
-    sprite: {fileID: 0}
-  deathUILifetime: 5
+    sprite: {fileID: 21300000, guid: 76364d7d5ada6a045b54b44cab75b5f3, type: 3}
+  - name: Spiderize
+    sprite: {fileID: 21300000, guid: e02feb7ac7e9ce849800f0ae05d22b57, type: 3}
+  deathUILifetime: 10
   bugBodyCap: 100
   idleGiveAbility: 0

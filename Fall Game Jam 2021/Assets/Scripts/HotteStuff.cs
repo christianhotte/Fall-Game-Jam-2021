@@ -267,7 +267,7 @@ public static class HotteMath //--<<<|More Math|>>>-----------------------------
         return dist <= circle.radius; //Return whether or not given point is within one radius of given circle
     }
     //Angles:
-    public static float NormalizeAngle(float a)
+    public static float NormalizeAngle(this float a)
     {
         //USE: Returns given angle within range of -180f to 180f
 
@@ -275,6 +275,16 @@ public static class HotteMath //--<<<|More Math|>>>-----------------------------
         //NOTE: Unfinished and unstable
 
         if (a > 180) a -= 360;
+            return a;
+    }
+    public static float DeNormalizeAngle(this float a)
+    {
+        //USE: Returns given angle within range of 0f to 360f
+
+        //CREDIT: Created by Christian Hotte
+        //NOTE: Probably bad
+
+        if (a < 0) a += 360;
             return a;
     }
     public static bool AngleIsBetween(this float angle, float leftBound, float rightBound)
