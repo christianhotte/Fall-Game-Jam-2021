@@ -27,6 +27,8 @@ public class BugDash : MonoBehaviour
         Vector3 velocity;
         float baseMaxStor;
 
+        partcileEffect();
+
         isCooldown = true;
         isDash = true;
 
@@ -44,8 +46,23 @@ public class BugDash : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
         playCtrl.baseMaxSpeed = baseMaxStor;
         isDash = false;
-        
+
+        partcileEffect();
+
         yield return new WaitForSeconds(dashCooldown);
         isCooldown = false;
     }
+
+    public void partcileEffect()
+    {
+        if (transform.Find("SpeedLines"))
+        {
+            if(transform.Find("SpeedLines").gameObject.activeSelf)
+                transform.Find("SpeedLines").gameObject.SetActive(false);
+            else
+                transform.Find("SpeedLines").gameObject.SetActive(true);
+
+        }
+    }
+
 }
