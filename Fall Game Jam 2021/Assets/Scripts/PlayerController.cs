@@ -295,6 +295,7 @@ public class PlayerController : MonoBehaviour, IControllable
             lastBugTouched.pointCountValue += 1; // Give other player a point
             lastBugTouched.pointCountUI.text = lastBugTouched.pointCountValue.ToString();
             bugSuicide = false;
+            DeathHandler.deathHandler.UpdateLeadingPlayer(this); //See if this player is the new king
         }
         lastBugTouched = null; //Clear data on last bug touched
 
@@ -341,9 +342,10 @@ public class PlayerController : MonoBehaviour, IControllable
 
         sizeModifier = newSize;
         float setSize = baseSize + sizeModifier;
+        float setSize2 = baseSize - sizeModifier;
         if (setSize > maxSize) setSize = maxSize;//if it would grow bigger than 3 then dont grow any bigger
         transform.localScale = new Vector3(setSize, setSize, setSize); //Set initial scale
-        transform.GetChild(0).GetChild(1).localScale = new Vector3(-setSize, -setSize, -setSize); //Spepis?
+        transform.GetChild(0).GetChild(1).localScale = new Vector3(setSize2, setSize2, setSize2); //Spepis?
         //NOTE: Add thing to affect bug Y position
     }
     public void ResetBugSize()
