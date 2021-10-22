@@ -7,6 +7,7 @@ public class BugDash : MonoBehaviour
     internal bool isDash;
     internal bool isCooldown;
     
+    [Header("Dash Stats")]
     public float dashTime;
     public float dashCooldown;
     public float dashSpeed;
@@ -14,8 +15,12 @@ public class BugDash : MonoBehaviour
     public float spawnWait;
     
     internal PlayerController playCtrl;
-    public AudioClip speedSound;
+    
+    [Header("Dash Sounds")]
+    public AudioClip speedSound1;
+    public AudioClip speedSound2;
 
+    [Header("Dash Particles")]
     public GameObject SpeedParticle;
 
     internal void Start()
@@ -30,7 +35,7 @@ public class BugDash : MonoBehaviour
         Vector3 velocity;
         float baseMaxStor;
 
-        partcileEffect();
+        particleEffect();
 
         isCooldown = true;
         isDash = true;
@@ -42,7 +47,12 @@ public class BugDash : MonoBehaviour
         velocity = (dashSpeed * transform.forward);
         velocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
 
-        GetComponent<AudioSource>().clip = speedSound;
+        //Determine dash sound
+        int chance = Random.Range(1, 51); //generate a random number between 1 and 50
+        if (chance == 50) GetComponent<AudioSource>().clip = speedSound2; //play secret sound if result is 50
+        else GetComponent<AudioSource>().clip = speedSound1; //play normal sound otherwise
+        
+        GetComponent<AudioSource>().clip = speedSound1;
         transform.Translate(velocity * Time.deltaTime); //Move bug by velocity (along x/y axis)
         GetComponent<AudioSource>().Play(0);
 
@@ -57,7 +67,7 @@ public class BugDash : MonoBehaviour
       
     }
 
-    public void partcileEffect()
+    public void particleEffect()
     {
        
         SpeedParticle.GetComponent<ParticleSystem>().Play();
