@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour, IControllable
         //Apply velocity to bug position:
         Vector3 realVelocity = new Vector3(velocity.x, 0, velocity.y); //Rearrange velocity to fit in world
         transform.Translate(realVelocity * Time.deltaTime* webiffied); //Move bug by velocity (along x/y axis)
+        bugAnimr.SetFloat("walkSpeed", GetNormalizedSpeed() * 5);
 
     }
     private void RotateBug()
