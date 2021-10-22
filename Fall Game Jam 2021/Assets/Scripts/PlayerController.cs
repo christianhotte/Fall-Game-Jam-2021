@@ -304,10 +304,9 @@ public class PlayerController : MonoBehaviour, IControllable
             lastBugTouched.pointCountValue += 1; // Give other player a point
             lastBugTouched.pointCountUI.text = lastBugTouched.pointCountValue.ToString();
             bugSuicide = false;
-            DeathHandler.deathHandler.UpdateLeadingPlayer(this); //See if this player is the new king
+            DeathHandler.deathHandler.UpdateLeadingPlayer(lastBugTouched); //See if this player is the new king
         }
-        lastBugTouched = null; //Clear data on last bug touched
-
+        lastBugTouched = null;
         
         //Determine death sound
         int chance = Random.Range(1, 51); //generate a random number between 1 and 50
@@ -324,6 +323,7 @@ public class PlayerController : MonoBehaviour, IControllable
 
         //Begin Adaptation and Respawn Process:
         DeathHandler.deathHandler.BugDiedProcedure(this); //Indicate that this bug has died
+        
     }
     public void BugResurrect()
     {

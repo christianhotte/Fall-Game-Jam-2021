@@ -482,7 +482,7 @@ MonoBehaviour:
   pointCountUI: {fileID: 5093678533653609814}
   genCountUI: {fileID: 4324417459931776897}
   bumpSound: {fileID: 795848428367341511, guid: 9fd5b45bc1fc5bb489a5e24314d79567, type: 3}
-  deathSound1: {fileID: 8300000, guid: a147224040a786e4bbe67af34d354906, type: 3}
+  deathSound1: {fileID: 8300000, guid: e8d94dbcdf4c16a44b6972063385f4c6, type: 3}
   deathSound2: {fileID: 8300000, guid: 970363b4628ed30408e8dcf596288e42, type: 3}
 --- !u!114 &6041188724882316297
 MonoBehaviour:
