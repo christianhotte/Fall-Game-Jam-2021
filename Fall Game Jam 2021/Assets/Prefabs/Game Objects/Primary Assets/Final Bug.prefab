@@ -470,7 +470,7 @@ MonoBehaviour:
   pointCountUI: {fileID: 5093678533653609814}
   genCountUI: {fileID: 4324417459931776897}
   bumpSound: {fileID: 795848428367341511, guid: 9fd5b45bc1fc5bb489a5e24314d79567, type: 3}
-  deathSound: {fileID: 8300000, guid: 970363b4628ed30408e8dcf596288e42, type: 3}
+  deathSound: {fileID: 8300000, guid: e8d94dbcdf4c16a44b6972063385f4c6, type: 3}
 --- !u!114 &6041188724882316297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -504,7 +504,7 @@ MonoBehaviour:
   dashSpeed: 100
   bumpMulti: 3
   spawnWait: 0.2
-  speedSound: {fileID: 8300000, guid: a60cd1ede4264c24ca2f1033ccacc0ea, type: 3}
+  speedSound: {fileID: 8300000, guid: e8d94dbcdf4c16a44b6972063385f4c6, type: 3}
   SpeedParticle: {fileID: 1516014836627547033}
 --- !u!54 &9160181383772631860
 Rigidbody:
@@ -546,9 +546,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 970363b4628ed30408e8dcf596288e42, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e8d94dbcdf4c16a44b6972063385f4c6, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.4
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

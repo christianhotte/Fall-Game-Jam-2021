@@ -208,7 +208,7 @@ public class InputMaster : MonoBehaviour
         playersJoined++;
         newBug.name = "P" + playersJoined.ToString();
         newBug.transform.GetChild(1).GetChild(2).GetComponent<TextMeshPro>().text = newBug.name; //Set indicator
-        newBug.transform.GetChild(1).GetChild(2).GetComponent<TextMeshPro>().color = new Color(Random.Range(0, 100), Random.Range(0, 100), Random.Range(0, 100));
+        newBug.transform.GetChild(1).GetChild(2).GetComponent<TextMeshPro>().color = Random.ColorHSV();
     }
     private void DestroyPlayer(Player player)
     {
