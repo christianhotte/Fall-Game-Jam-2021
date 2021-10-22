@@ -77,8 +77,11 @@ public class PlayerController : MonoBehaviour, IControllable
     internal Animator bugAnimr;
 
     //Alice's BugBump and BugDie Sound Stuff!
+    
+    [Header("Sound Stuff")]
     public GameObject bumpSound;
-    public AudioClip deathSound;
+    public AudioClip deathSound1;
+    public AudioClip deathSound2;
 
     //LOOP METHODS:
     private void Awake()
@@ -305,8 +308,11 @@ public class PlayerController : MonoBehaviour, IControllable
         }
         lastBugTouched = null; //Clear data on last bug touched
 
-        //set sound played to death sound
-        GetComponent<AudioSource>().clip = deathSound;
+        
+        //Determine death sound
+        int chance = Random.Range(1, 51); //generate a random number between 1 and 50
+        if (chance == 50) GetComponent<AudioSource>().clip = deathSound2; //play secret death sound if result is 50
+        else GetComponent<AudioSource>().clip = deathSound1; //play normal death sound otherwise
 
         //Make Bug Look Dead:
         headBox.gameObject.SetActive(false); //Deactivate inter-bug collision
