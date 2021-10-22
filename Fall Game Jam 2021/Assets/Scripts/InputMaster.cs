@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using TMPro;
 
 public class InputMaster : MonoBehaviour
 {
@@ -116,10 +117,14 @@ public class InputMaster : MonoBehaviour
     public List<Joystick> connectedJoysticks = new List<Joystick>(); //All active joysticks in scene
     public KeyboardInstance[] keyboardSetups; //Array of special objects for connecting and disconnecting keyboard players
     private PlayerInputManager inputManager; //The input manager component on the GameMaster gameObject
+    private readonly System.Random rnd = new System.Random(); //Get random seed
 
     //Settings:
     [Header("Settings:")]
     public float idleKickTime;
+
+    //Status Vars:
+    private int playersJoined;
 
     //LOOP METHODS:
     private void Awake()
@@ -198,8 +203,12 @@ public class InputMaster : MonoBehaviour
         newPlayer.playerPawn.GivePlayer(newPlayer); //Give player to pawn
         Transform spawnPoint = DeathHandler.deathHandler.spawnPoints[Random.Range(0, DeathHandler.deathHandler.spawnPoints.Length - 1)]; //Get random location within spawnpoints
         newBug.transform.position = spawnPoint.position;
-        //newBug.transform.GetChild(0).rotation = spawnPoint.rotation;
 
+        //Add Player Tag:
+        playersJoined++;
+        newBug.name = "P" + playersJoined.ToString();
+        newBug.transform.GetChild(1).GetChild(2).GetComponent<TextMeshPro>().text = newBug.name; //Set indicator
+        newBug.transform.GetChild(1).GetChild(2).GetComponent<TextMeshPro>().color = new Color(Random.Range(0, 100), Random.Range(0, 100), Random.Range(0, 100));
     }
     private void DestroyPlayer(Player player)
     {
