@@ -30,6 +30,9 @@ public class DeathHandler : MonoBehaviour
     public int bugBodyCap;        //The most bug bodies allowed in the scene (before old bodies start de-spawning)
     public bool idleGiveAbility; //If checked, a random ability will be granted when dead player times out
 
+    //Memory Vars:
+    private PlayerController leadingPlayer; //Player with the most points right now
+
     //SEQUENCE METHODS:
     private void Awake()
     {
@@ -137,6 +140,22 @@ public class DeathHandler : MonoBehaviour
             GameObject husk = husks[0]; //Get oldest husk from list
             husks.RemoveAt(0); //Remove husk from list
             Destroy(husk); //Destroy removed husk
+        }
+    }
+    public void UpdateLeadingPlayer(PlayerController challenger)
+    {
+        //Function: Checks if player is leading and updates crown status if so
+
+        if (leadingPlayer == null) //Elect first crowned player
+        {
+            leadingPlayer = challenger;
+        }
+        if (challenger.pointCountValue > leadingPlayer.pointCountValue) //New king
+        {
+
+
+            //Cleanup:
+            leadingPlayer = challenger;
         }
     }
 }

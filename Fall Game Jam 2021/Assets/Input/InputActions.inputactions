@@ -82,6 +82,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9ec15935-854e-46a9-8adf-334fe09bdfe0",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Joystick1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -183,6 +194,17 @@
                     "name": "",
                     "id": "0dfe6bcf-8caa-4fa0-918d-947246aaef54",
                     "path": "<DualShockGamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Ability1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "47331b16-fa39-48e9-b3c7-b73a53ca421d",
+                    "path": "<Joystick>/trigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
