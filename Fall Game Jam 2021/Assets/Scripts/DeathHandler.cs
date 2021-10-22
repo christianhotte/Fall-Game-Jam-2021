@@ -148,14 +148,18 @@ public class DeathHandler : MonoBehaviour
 
         if (leadingPlayer == null) //Elect first crowned player
         {
+            challenger.transform.GetChild(0).GetChild(4).GetChild(0).gameObject.SetActive(true);
             leadingPlayer = challenger;
+            return;
         }
         if (challenger.pointCountValue > leadingPlayer.pointCountValue) //New king
         {
-
+            challenger.transform.GetChild(0).GetChild(4).GetChild(0).gameObject.SetActive(true);
+            leadingPlayer.transform.GetChild(0).GetChild(4).GetChild(0).gameObject.SetActive(false);
 
             //Cleanup:
             leadingPlayer = challenger;
+            return;
         }
     }
 }
