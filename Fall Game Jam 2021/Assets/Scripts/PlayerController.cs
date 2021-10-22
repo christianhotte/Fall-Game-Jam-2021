@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour, IControllable
     private float timeSinceLastContact; //Time (in seconds) since bug last touched another bug
     internal bool isSlammed; //Indicates that bug has recently been bumped
     private float timeSinceSlammed; //Time since bug has been slammed
+    private float timeAlive;
 
     //BugDie Stuff:
     internal bool bugDead = false; //Indicates that bug is currently inactive
@@ -108,6 +109,7 @@ public class PlayerController : MonoBehaviour, IControllable
                 
         }
         if (!bugDead) timeSinceLastContact += Time.deltaTime;
+        if (!bugDead) timeAlive += Time.deltaTime;
         if (isSlammed)
         {
             timeSinceSlammed += Time.deltaTime;
@@ -273,8 +275,9 @@ public class PlayerController : MonoBehaviour, IControllable
     {
         //Function: Called when the bug die
         //function is called from the bug Die class that needs to be on an object, requires a plane tagged "Death" just below stump level
-        
+
         //Mark Dead:
+        timeAlive = 0;
         bugDead = true;                 //Indicate that bug is dead
         currentJoystick = Vector2.zero; //Cancel potential phantom inputs
         currentButton = false;          //Cancel potential phantom inputs
@@ -340,6 +343,7 @@ public class PlayerController : MonoBehaviour, IControllable
         float setSize = baseSize + sizeModifier;
         if (setSize > maxSize) setSize = maxSize;//if it would grow bigger than 3 then dont grow any bigger
         transform.localScale = new Vector3(setSize, setSize, setSize); //Set initial scale
+        transform.GetChild(0).GetChild(1).localScale = new Vector3(-setSize, -setSize, -setSize); //Spepis?
         //NOTE: Add thing to affect bug Y position
     }
     public void ResetBugSize()
@@ -374,6 +378,7 @@ public class PlayerController : MonoBehaviour, IControllable
         //Check Validity:
         if (bugDead) return; //DEATH LOCKOUT: Dead bugs make no moves
         if (BugDash.isDash) return; //DASH LOCKOUT: Bug cannot make action while dashing (Alice)
+        if (timeAlive < BugDash.spawnWait) return; //SPAWN LOCKOUT
 
         //Compare Button State:
         if (pressed != currentButton)

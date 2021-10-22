@@ -11,6 +11,7 @@ public class BugDash : MonoBehaviour
     public float dashCooldown;
     public float dashSpeed;
     public float bumpMulti;
+    public float spawnWait;
     
     internal PlayerController playCtrl;
     public AudioClip speedSound;
