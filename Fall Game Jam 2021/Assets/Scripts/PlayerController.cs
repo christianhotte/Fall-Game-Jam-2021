@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour, IControllable
     //BugStausEffects
     internal int webiffied = 1;// 1 means speed is fine webbed of 0 cancels all speed out
 
+    internal Animator bugAnimr;
+
     //Alice's BugBump and BugDie Sound Stuff!
     public GameObject bumpSound;
     public AudioClip deathSound;
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour, IControllable
         body = transform.Find("Body"); //Get body
         headBox = body.GetChild(0).GetComponent<Collider>();
         bodyBox = body.GetChild(1).GetComponent<Collider>();
+        bugAnimr = transform.GetChild(0).GetChild(3).GetComponent<Animator>();
         BugDash = GetComponent<BugDash>();
         genCountUI.text = genValue.ToString();
 
@@ -138,11 +141,13 @@ public class PlayerController : MonoBehaviour, IControllable
         {
             targetVelocity = currentJoystick * (baseMaxSpeed + speedModifier); //Get target velocity for bug
             accelFactor = (baseAccel + accelModifier) * speedAccelCurve.Evaluate(GetNormalizedSpeed()); //Apply acceleration curve to accel speed
+            bugAnimr.SetBool("isWalking", true);
         }
         else //No joystick input
         {
             targetVelocity = Vector2.zero;
             accelFactor = baseDrag;
+            bugAnimr.SetBool("isWalking", false);
         }
         velocity = Vector2.Lerp(velocity, targetVelocity, accelFactor * Time.deltaTime);
 
