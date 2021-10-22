@@ -1137,6 +1137,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1880392202310085641, guid: 867b0ef722b934ceda6749e3e8a004ec, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 08d05b23acadf4c3481ecd894321e435, type: 2}
     - target: {fileID: 919132149155446097, guid: 867b0ef722b934ceda6749e3e8a004ec, type: 3}
       propertyPath: m_Name
       value: BuggyButt
@@ -1215,6 +1219,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4623350647054462731, guid: 338867e666ebf4801a44c2c972cae577, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dea3625fd4daa45faa38cd25634150bc, type: 2}
     - target: {fileID: 919132149155446097, guid: 338867e666ebf4801a44c2c972cae577, type: 3}
       propertyPath: m_Name
       value: BuggySpider
@@ -1512,6 +1520,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5327370939038710651, guid: f0cfd3d0ebd064ffaa6ae84e99dbfba9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 669b8bbbba78448d7be30a96156570d5, type: 2}
     - target: {fileID: 919132149155446097, guid: f0cfd3d0ebd064ffaa6ae84e99dbfba9, type: 3}
       propertyPath: m_Name
       value: HerculesBeetleAddon
@@ -1590,6 +1602,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2577492510622556581, guid: ca4f43403315d457abf3e45ca4b4926a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e9a35df5c55464d24aa29a4fb0d49af0, type: 2}
     - target: {fileID: 919132149155446097, guid: ca4f43403315d457abf3e45ca4b4926a, type: 3}
       propertyPath: m_Name
       value: BeetleProboscis
