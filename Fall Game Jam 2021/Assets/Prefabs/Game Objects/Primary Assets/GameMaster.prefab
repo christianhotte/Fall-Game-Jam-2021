@@ -55,28 +55,28 @@ MonoBehaviour:
     - a
     - s
     - d
-    - e
+    - x
     isActive: 0
   - buttons:
     - t
     - f
     - g
     - h
-    - y
+    - b
     isActive: 0
   - buttons:
     - i
     - j
     - k
     - l
-    - o
+    - ','
     isActive: 0
   - buttons:
     - up
     - left
     - down
     - right
-    - 0
+    - right shift
     isActive: 0
   idleKickTime: 120
 --- !u!114 &-9011522722553627350
